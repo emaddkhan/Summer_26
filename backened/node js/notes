@@ -4,3 +4,32 @@ BACKEND is used to make dynameic
 
 what do we need?
 node js, mongodb,mongoose,express js
+
+
+npm=>node package manager
+
+npm ko hum node ka playstore ya appstore bhi bol skte hain jahan hume bohot sari bani banai cheazain ya features 
+milti hain jo package khilatia hain
+
+
+express is frame work for node js
+
+express k use case =>routing
+routing=>
+https://www.fb.com is a base url and /profile is a route
+
+---middleware
+middleware aik aesa func hai jo kisi bhi route se pehle chalta hai jiska matlab apka route chalne d=se pehle agr aap ka
+ koi kaam krana chate ho toh middleware ko chalaya ja skta hai
+ jese route chalne se pehle print kro consloe pr route chala
+ route chalne se pehle hit counter pr route hit counter ki value brhaooo
+
+ ~~iska matlab route chalne se pehle jo chalega woh hai middleware
+ **sirf aik masla hai agr hamara middleware chl gya toh hamamri request jam ho jati hai or route n=tk nhi ja pati
+   toh hame us req ko push krne k liye next() chalan prhta hai k ap agle route pr jao
+
+   ##middkeware ka syntax kuch yioo hai
+   app.use((req,res,next)=>{
+    console.log("i am middleware");
+    next();
+   })
