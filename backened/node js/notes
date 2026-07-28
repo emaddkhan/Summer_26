@@ -14,6 +14,9 @@ milti hain jo package khilatia hain
 
 express is frame work for node js
 
+express js manages everything frome reciving and sending hte mesgages
+
+
 express k use case =>routing
 routing=>
 https://www.fb.com is a base url and /profile is a route
