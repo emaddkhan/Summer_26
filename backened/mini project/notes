@@ -1,8 +1,9 @@
 initialize a project with npm
 express install
-
-dyanamic routing
-gow to get data from frontend at backend route
 setting up  parser for form
 setting up ejs for ejs pages
+   installed ejs from npm
+   setup ejs as view engine
 setting up public files
+dyanamic routing
+gow to get data from frontend at backend route
