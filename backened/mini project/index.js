@@ -13,8 +13,15 @@ app.get('/',(req,res)=>{
     res.render('index',{files:files});
     });
 });
+app.get("/files/:filename",(req,res)=>{
+    fs.readFile(`./files/${req.params.filename}`,"utf-8",(err,data)=>{
+        res.render("details",{title:req.params.filename,filedata:data});
+    })
+});
 app.post("/create",(req,res)=>{
-    console.log(req.body);
+    fs.writeFile(`./files/${req.body.title.split(" ").join("")}.txt`,req.body.details,(err)=>{
+        res.redirect('/');
+    })
 })
 
 app.listen(port);
