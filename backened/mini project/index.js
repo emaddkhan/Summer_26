@@ -23,5 +23,13 @@ app.post("/create",(req,res)=>{
         res.redirect('/');
     })
 })
+app.post("/edit",(req,res)=>{
+    fs.rename(`./files/${req.body.previous}`,`./files/${req.body.new.split(" ").join("")}.txt`,(err)=>{
+        res.redirect('/');
+    }  ) 
+})
+app.get("/edit/:filename",(req,res)=>{
+    res.render("edit",{previousName:req.params.filename});
+})
 
 app.listen(port);
