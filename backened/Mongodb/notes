@@ -1,0 +1,18 @@
+data storage:
+aisa kuch jahan hum saare users ki info store kr skte hain
+
+TYPES OF DBS
+SQL | NOSQL
+NoSQL  object ko follow krta hai ynani data objects em rkhta hai
+NOSQL - mongoDB actuall database hai jo noSQL theory ko follow krta hai
+
+
+DataBase => Collections=> Document
+
+CODE
+--------------------------------------------------------------------------------------------
+CODE                                DATABASE
+--------------------------------------------------------------------------------------------
+mongoose.connect        =>          database create
+model create            =>          collection create
+CREATE                    =>          document create
