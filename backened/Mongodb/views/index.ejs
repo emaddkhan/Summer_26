@@ -8,16 +8,34 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
+    
     <div class="w-full h-screen bg-zinc-800 p-10">
         <h1 class="text-white text-2xl font-bold">Create User</h1>
         <hr class="w-1/4 bg-zinc-600 my-2"/>
-        <form action="" class="flex flex-col  gap-2">
-            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white  " placeholder="Name"/>
-            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white  " placeholder="Email"/>
-            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white " placeholder="Image Url"/>
+        <form action="/create" method="post" class="flex flex-col  gap-2">
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="name" placeholder="Name"/>
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="username" placeholder="Username"/>
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="email" placeholder="Email"/>
 
-            <button type="submit" class="w-1/4 px-4 py-2 bg-white text-zinc-800 cursor-pointer text-white rounded-md">Submit</button>
+            <input type="submit" class="w-1/4 px-4 py-2 bg-white text-zinc-800 cursor-pointer text-white rounded-md" value="submit">
         </form>
+        <div class="mt-5 gap-4 flex-wrap flex w-full py-3">
+            <% if (users.length > 0) { %>
+        <% users.forEach(user => { %>
+            <div class="py-3 px-5 bg-zinc-500 shrink-0 w-1/5 rounded-md">
+                <h1 class="text-white font-semibold text-3xl capitalize"><%= user.name %></h1>
+                <h4 class="text-white font-semibold text-xl capitalize"><%= user.username %></h4>
+                <p class="text-white">Email: <span class="font-normal"><%= user.email %></span></p>
+                <div class="w-full mt-2 flex justify-between">
+                    <a class="px-3  cursor-pointer py-1 bg-blue-700 text-white rounded-md">Edit</a>
+                    <a href="/delete:<%= user._id %>" class="px-3  cursor-pointer  py-1 bg-red-700 text-white rounded-md">Delete</a>
+                </div>
+            </div>
+        <% }); %>
+    <% } %>
+            
+            
+        </div>
     </div>
 </body>
 </html>
