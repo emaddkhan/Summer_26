@@ -1,0 +1,16 @@
+authentication authorization
+user ko profile dene se pehele pta krna hota hai user hai kon ====> authentication
+
+authorized to perfoam some tasks which are only allowed to be executed by the admin
+
+server bhool jata hai k app kon hooo ,toh kiu ki server bhool jata hai k app kon ho to har baar server ap se poochta hai k appp kon ho?
+
+
+sabse pehle humein kuch cheezain seekhni hain
+1) cookie kese set krte hain
+2)bcrypt kese use krte hain for pass encryption and decryption
+3)jwt kia hai? or jwt me data kese store krein or bahar nikalein?
+
+
+passsword
+$2b$10$28dzfCvMwuOmmGiLoo4Vpu/Q3eJ8rl/KawlWPwYr16LjlExvj6TOK
