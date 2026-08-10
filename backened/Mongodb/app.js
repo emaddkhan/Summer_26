@@ -19,11 +19,26 @@ app.post("/create", async(req, res) => {
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
+        image:req.body.image,   
     })
     res.redirect('/')
 })
-app.get('/delete:id',async(req,res)=>{
-    const deletedUser=await User.find(req.params.id)
+app.get('/delete/:id',async(req,res)=>{
+    const deletedUser=await User.findByIdAndDelete(req.params.id)
     res.redirect('/')
 })
+app.get("/edit/:id",async(req,res)=>{
+    const user=await User.findById(req.params.id)
+    res.render('edit',{user});
+})
+app.post("/update/:id", async(req,res)=>{
+    const updatedUser=await User.findByIdAndUpdate(req.params.id,{
+        name:req.body.newName,
+        username:req.body.newUsername,
+        email:req.body.newEmail,
+        image:req.body.newImage
+    })
+    res.redirect('/')
+})
+
 app.listen(port)

@@ -8,8 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <div class="w-full h-screen bg-zinc-800 p-10">
-        
+    <div class="w-full h-screen flex justify-center items-center bg-zinc-800 p-10">
+        <form action="/create" method="post" class="flex flex-col  gap-2">
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="name" placeholder="Name"/>
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="username" placeholder="Username"/>
+            <input class="w-1/4 px-4 py-2 bg-zinc-600 rounded-md text-white focus:outline-none" name="email" placeholder="Email"/>
+
+            <input type="submit" class="w-1/4 px-4 py-2 bg-white text-zinc-800 cursor-pointer text-white rounded-md" value="submit">
+        </form>
     </div>
 </body>
 </html>
