@@ -44,8 +44,13 @@ app.post("/login",async(req,res)=>{
     let user=await userModel.findOne({email:req.body.email})
     if(!user)return res.send("something went wrong")
     bcrypt.compare(req.body.password,user.password,(err,result)=>{
-       if(result) return res.send("you are loggged in"); 
-       else return res.send("you cant logged in")
+       if(result) {
+        let token=jwt.sign({email:user.email},"kdnsjdaw");
+        res.cookie("token",token);
+        res.send("you are loggged in")
+        
+    }
+       else return res.send("something went wrong")
     })
 })
 app.get("/logout",(req,res)=>{
