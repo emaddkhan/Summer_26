@@ -1,0 +1,89 @@
+const express = require("express");
+const path =require("path")
+const cookieParser=require("cookie-parser")
+const bcrypt=require("bcrypt")
+const jwt=require("jsonwebtoken")
+const userModel =require("./models/userModel")
+const postModel=require("./models/postModel");
+
+const app=express();
+const port=3000;
+
+app.set("view engine","ejs");
+app.use(express.static(path.join(__dirname,"public")));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser())
+
+//login route
+app.get("/",(req,res)=>{
+    res.render("index")
+})
+//register route
+app.get("/register",(req,res)=>{
+    res.render("register")
+})
+app.get("/logout",(req,res)=>{
+    res.cookie("token","")
+    res.redirect("/")
+})
+app.get("/profile",isLoggedIn,(req,res)=>{
+    res.render("profile")
+})
+
+
+//registring user
+app.post("/register",async(req,res)=>{
+    let {username,name,age,email,password}=req.body;
+    console.log(req.body)
+    const user=await userModel.findOne({email});
+    if(user) return res.status(500).send("user is already registered");
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(password,salt,async(err,hash)=>{
+            let userCreated=await userModel.create({
+                username,
+                name,
+                age,
+                email,
+                password:hash,
+            })
+            let token=jwt.sign({email:userCreated.email,userId:userCreated._id},"secretKey");
+            res.cookie("token",token)
+            res.send(userCreated)
+
+        })
+    })
+})
+
+// signing user
+app.post("/login",async(req,res)=>{
+    let {email,password}=req.body;
+    let user=await userModel.findOne({email});
+    if(!user) return res.status(404).send("something went wrong");
+    bcrypt.compare(password,user.password,(err,result)=>{
+        if(result){
+            let token=jwt.sign({email:user.email,userId:user._id},"secretKey");
+            res.cookie("token",token)
+            res.redirect("/profile")
+        }else{
+            res.redirect("/login")
+        }
+    })
+})
+
+//middleware
+
+function isLoggedIn(req,res,next){
+    if(!req.cookies.token){
+       return res.redirect("/");
+    }else{
+        let data=jwt.verify(req.cookies.token,"secretKey")
+        req.user=data;
+        next();
+    }
+
+}
+
+
+
+app.listen(port);
