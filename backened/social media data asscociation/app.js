@@ -27,8 +27,9 @@ app.get("/logout",(req,res)=>{
     res.cookie("token","")
     res.redirect("/")
 })
-app.get("/profile",isLoggedIn,(req,res)=>{
-    res.render("profile")
+app.get("/profile",isLoggedIn,async(req,res)=>{
+    let user=await userModel.findOne({email:req.user.email}).populate("posts")
+    res.render("profile",{user})
 })
 
 
@@ -71,8 +72,23 @@ app.post("/login",async(req,res)=>{
     })
 })
 
-//middleware
+//creating post
 
+app.post("/post",isLoggedIn,async(req,res)=>{
+    
+    let post=await postModel.create({
+        user:req.user.userId,
+        content:req.body.content,
+    })
+    let user =await userModel.findById(req.user.userId);
+    user.posts.push(post._id)
+    await user.save();
+    res.send(post)
+   
+})
+
+
+//middleware
 function isLoggedIn(req,res,next){
     if(!req.cookies.token){
        return res.redirect("/");
