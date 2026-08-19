@@ -33,8 +33,8 @@
         </p>
 
         <div class="btns flex gap-4 mt-2">
-            <a href="" class="text-blue-500">Like</a>
-            <a href="" class="text-zinc-500">Edit</a>
+            <a href="/like/<%=post._id%>" class="text-blue-500 "><span class="text-white"><%=post.likes.length%></span> <%=post.likes.indexOf(user._id)===-1?"Likes":"Unlike"%></a>
+            <a href="/edit/<%=post._id%>" class="text-zinc-500">Edit</a>
         </div>
     </div>
 

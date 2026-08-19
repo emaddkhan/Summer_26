@@ -23,14 +23,32 @@ app.get("/login",(req,res)=>{
 })
 app.get("/profile",isLoggedIn,async(req,res)=>{
   let user =await userModel.findOne({email:req.user.email}).populate("posts")
-  
   res.render("profile",{user})
-
+})
+app.get("/like/:postid",isLoggedIn,async(req,res)=>{
+  let post =await postModel.findOne({_id:req.params.postid}).populate("user")
+  if(post.likes.indexOf(req.user.userId)===-1){
+  post.likes.push(req.user.userId);
+  }
+  else{
+    post.likes.splice(post.likes.indexOf(post.likes.userId),1)
+  }
+  await post.save();
+  res.redirect("/profile")
+})
+app.get("/edit/:id",async(req,res)=>{
+  let post =await postModel.findOne({_id:req.params.id}).populate("user")
+  res.render("edit",{post})
+})
+app.post("/update/:id",async(req,res)=>{
+  let post =await postModel.findOneAndUpdate({_id:req.params.id},{content:req.body.content})
+  res.redirect("/profile")
 })
 app.get("/logout",(req,res)=>{
   res.cookie("token","");
   res.redirect("/login");
 })
+
 app.post("/register",async(req,res)=>{
     let {username,name,age,email,password}=req.body;
     let user =await userModel.findOne({email})
