@@ -44,6 +44,17 @@ app.get("/like/:id",isLoggedIn,async(req,res)=>{
     res.redirect("/profile")
 })
 
+app.get("/feed/like/:id",isLoggedIn,async(req,res)=>{
+    let post =await postModel.findById(req.params.id).populate("user")
+    if(post.likes.indexOf(req.user.userId)===-1){
+        post.likes.push(req.user.userId )
+    }else{
+        post.likes.splice(post.likes.indexOf(req.user.userId),1)
+    }
+    await post.save();
+    res.redirect("/feed")
+})
+
 // post editing
 app.get("/edit/:id",isLoggedIn,async(req,res)=>{
     let post=await postModel.findById(req.params.id);
@@ -57,11 +68,42 @@ app.post("/post/:id",isLoggedIn,async(req,res)=>{
 
 
 //feed
-app.get("/feed",async(req,res)=>{
-    let posts= await postModel.find().populate("user")
-    res.render("feed",{posts})
+app.get("/feed", isLoggedIn, async (req, res) => {
+    const posts = await postModel
+        .find()
+        .populate("user");
+
+    const user = await userModel.findById(req.user.userId);
+    
+
+    res.render("feed", { posts, user });
+});
+
+//feed other user profile visiting
+app.get("/profile/:id",isLoggedIn,async(req,res)=>{
+    let user = await userModel.findById(req.params.id).populate("posts")
+    let currentUser=await userModel.findById(req.user.userId)
+    console.log(user)
+    res.render("postProfile",{user,currentUser})
 })
 
+//following profile
+
+app.get("/follow/:id",isLoggedIn,async(req,res)=>{
+    let user=await userModel.findById(req.params.id)
+    let currentUser=await userModel.findById(req.user.userId)
+    console.log(currentUser)
+    if(user.followers.indexOf(req.user.userId)){
+        user.followers.push(req.user.userId)
+        currentUser.following.push(user._id)
+    }else{
+        user.followers.splice(user.followers.indexOf(req.user.userId),1)
+        currentUser.following.splice(currentUser.following.indexOf(user._id),1)
+    }
+    await user.save();
+    await currentUser.save()
+    res.redirect(req.get("Referer") || "/feed");
+})
 
 
 //registring user
@@ -81,7 +123,7 @@ app.post("/register",async(req,res)=>{
             })
             let token=jwt.sign({email:userCreated.email,userId:userCreated._id},"secretKey");
             res.cookie("token",token)
-            res.send(userCreated)
+            res.redirect("/")
 
         })
     })
@@ -114,7 +156,7 @@ app.post("/post",isLoggedIn,async(req,res)=>{
     let user =await userModel.findById(req.user.userId);
     user.posts.push(post._id)
     await user.save();
-    res.send(post)
+    res.redirect("/profile")
    
 })
 
