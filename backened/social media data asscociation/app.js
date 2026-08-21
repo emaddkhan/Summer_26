@@ -55,6 +55,19 @@ app.get("/feed/like/:id",isLoggedIn,async(req,res)=>{
     res.redirect("/feed")
 })
 
+//user profile functionality
+
+app.get("/profile/user/like/:id",isLoggedIn,async(req,res)=>{
+    let post =await postModel.findById(req.params.id).populate("user")
+    if(post.likes.indexOf(req.user.userId)===-1){
+        post.likes.push(req.user.userId )
+    }else{
+        post.likes.splice(post.likes.indexOf(req.user.userId),1)
+    }
+    await post.save();
+      res.redirect(req.get("Referer") || "/feed");
+})
+
 // post editing
 app.get("/edit/:id",isLoggedIn,async(req,res)=>{
     let post=await postModel.findById(req.params.id);
@@ -84,7 +97,12 @@ app.get("/profile/:id",isLoggedIn,async(req,res)=>{
     let user = await userModel.findById(req.params.id).populate("posts")
     let currentUser=await userModel.findById(req.user.userId)
     console.log(user)
-    res.render("postProfile",{user,currentUser})
+    if(req.params.id===req.user.userId){
+        res.redirect("/profile")
+    }else{
+        res.render("postProfile",{user,currentUser})
+    }
+    
 })
 
 //following profile
@@ -92,19 +110,45 @@ app.get("/profile/:id",isLoggedIn,async(req,res)=>{
 app.get("/follow/:id",isLoggedIn,async(req,res)=>{
     let user=await userModel.findById(req.params.id)
     let currentUser=await userModel.findById(req.user.userId)
-    console.log(currentUser)
-    if(user.followers.indexOf(req.user.userId)){
-        user.followers.push(req.user.userId)
+    const isFollowing=user.followers.some(
+        id=>id.toString()===req.user.userId.toString()
+    )
+    if(!isFollowing){
+        user.followers.push(currentUser._id)
         currentUser.following.push(user._id)
     }else{
-        user.followers.splice(user.followers.indexOf(req.user.userId),1)
+        user.followers.splice(user.followers.indexOf(currentUser._id),1)
         currentUser.following.splice(currentUser.following.indexOf(user._id),1)
     }
     await user.save();
     await currentUser.save()
     res.redirect(req.get("Referer") || "/feed");
 })
+//showing followers
 
+app.get("/profile/followers/:id",async(req,res)=>{
+    let user =await userModel.findById(req.params.id).populate("followers");
+    res.render("followers",{user});
+})
+//showing following users
+app.get("/profile/following/:id",isLoggedIn,async(req,res)=>{
+    let user =await userModel.findById(req.params.id).populate("following");
+    let currentUser=await userModel.findById(req.user.userId)
+    
+    res.render("following",{user,currentUser});
+})
+//removing user from following list
+
+app.get("/following/unfollow/:id",isLoggedIn,async(req,res)=>{
+    let user=await userModel.findById(req.params.id);
+    let profileUser=await userModel.findById(req.user.userId).populate("following");
+    console.log(profileUser.following)
+    profileUser.following.splice(profileUser.following.indexOf(user._id),1)
+    user.followers.splice(user.followers.indexOf(profileUser._id),1)
+    await user.save()
+    await profileUser.save()
+    res.redirect(req.get("Referer") || "/feed");
+})
 
 //registring user
 app.post("/register",async(req,res)=>{
@@ -123,7 +167,7 @@ app.post("/register",async(req,res)=>{
             })
             let token=jwt.sign({email:userCreated.email,userId:userCreated._id},"secretKey");
             res.cookie("token",token)
-            res.redirect("/")
+            res.redirect("/profile")
 
         })
     })
@@ -133,14 +177,14 @@ app.post("/register",async(req,res)=>{
 app.post("/login",async(req,res)=>{
     let {email,password}=req.body;
     let user=await userModel.findOne({email});
-    if(!user) return res.status(404).send("something went wrong");
+    if(!user) return res.status(404).redirect("/");
     bcrypt.compare(password,user.password,(err,result)=>{
         if(result){
             let token=jwt.sign({email:user.email,userId:user._id},"secretKey");
             res.cookie("token",token)
             res.redirect("/profile")
         }else{
-            res.redirect("/login")
+            res.redirect("/")
         }
     })
 })
