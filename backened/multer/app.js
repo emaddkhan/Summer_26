@@ -5,9 +5,8 @@ const userModel=require("./models/userModel")
 const bcrypt=require("bcrypt")
 const jwt =require("jsonwebtoken");
 const postModel = require("./models/postModel");
-const multer = require("multer");
-const crypto =require("crypto");
-const { bytes } = require("stream/consumers");
+const upload=require("./configs/multer");
+const { log } = require("console");
 
 const app=express();
 
@@ -21,40 +20,31 @@ app.use(express.static(path.join(__dirname,"public")))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/tmp/my-uploads')
-  },
-  filename: function (req, file, cb) {
-    // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    crypto.randomBytes(12,(err,bytes)=>{
-      const fn=bytes.toString("hex")+path.extname(file.originalname)
-    })
-    cb(null, fn)
-  }
-})
-
-const upload = multer({ storage: storage })
-   
 
 
 app.get("/",(req,res)=>{
     res.render("index");
 })
 
-app.get("/test",(req,res)=>{
-  res.render("test")
-})
+
 app.get("/login",(req,res)=>{
   res.render("login")
 })
-app.post("/upload",upload.single('image'),(req,res)=>{
-  console.log(req.file)
-})
+
 app.get("/profile",isLoggedIn,async(req,res)=>{
   let user =await userModel.findOne({email:req.user.email}).populate("posts")
   res.render("profile",{user})
 })
+app.get("/profile/upload",(req,res)=>{
+  res.render("profileuploads")
+})
+app.post("/upload",upload.single("image"),isLoggedIn,async(req,res)=>{
+  let user= await userModel.findOne({email:req.user.email})
+  user.profilepic=req.file.filename;
+  await user.save();
+  res.redirect("/profile")
+})
+
 app.get("/like/:postid",isLoggedIn,async(req,res)=>{
   let post =await postModel.findOne({_id:req.params.postid}).populate("user")
   if(post.likes.indexOf(req.user.userId)===-1){
