@@ -7,6 +7,8 @@ const usersRouter=require("./routes/usersRouter")
 const productsRouter=require("./routes/productsRouter")
 const indexRouter = require("./routes/index");
 
+require("dotenv").config()
+
 const app=express();
 const port=3000;
 
