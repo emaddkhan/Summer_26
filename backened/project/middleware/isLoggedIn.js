@@ -1,20 +1,22 @@
 const jwt=require("jsonwebtoken")
 const userModel = require("../models/userModel")
-module.exports.isLoggedIn=await(req,res,next)=>{
+module.exports.isLoggedIn=async(req,res,next)=>{
     if(!req.cookies.token){
-        req.flash("error, you need to loggedin first")
+        req.flash("error", "you need to loggedin first")
         return res.redirect("/")
     }
     try{
         let decoded=jwt.verify(req.cookies.token,process.env.JWT_KEY)
+        console.log(decoded)
         let user =await userModel
         .findOne({email:decoded.email})
         .select("-password")
         req.user=user
+        
         next();
     }
     catch(err){
-        req.flash("error,something went wrong")
+        req.flash("error","something went wrong")
         res.redirect("/")
     }
 }

@@ -18,8 +18,8 @@ module.exports.registerUser=async (req, res) => {
             password: hash,
           });
           let token= generateToken(createdUser)
-          res.cookie("tokne", token);
-          res.send(createdUser);
+          res.cookie("token", token);
+          res.redirect("/shop")
 
         }
       });
@@ -33,12 +33,12 @@ module.exports.loginUser=async(req,res)=>{
     try{
         let{email,password}=req.body;
     let user = await userModel.findOne({email})
-    if(!user) return ses.status(401).send("pls register first")
+    if(!user) return res.status(401).send("pls register first")
     bcrypt.compare(password,user.password,(err,result)=>{
        if(result){
         let token=generateToken(user)
        res.cookie("token",token)
-       res.send("loggedin succesfully")
+       res.redirect("/shop")
        }else{
         res.status(401).send("incorrect email or password")
        }

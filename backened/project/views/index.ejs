@@ -14,24 +14,27 @@
                 Create your account
             </h4>
 
-            <form autocomplete="off">
+            <form autocomplete="off" action="/users/register" method="post">
 
                 <input
                     class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
                     type="text"
                     placeholder="Full Name"
+                    name="fullname"
                 >
 
                 <input
                     class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
                     type="email"
                     placeholder="Email"
+                    name="email"
                 >
 
                 <input
                     class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
                     type="password"
                     placeholder="Password"
+                    name="password"
                 >
 
                 <input
@@ -54,18 +57,20 @@
                 Login your account
             </h4>
 
-            <form autocomplete="off">
+            <form autocomplete="off" action="/users/login" method="post">
 
                 <input
                     class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
                     type="email"
                     placeholder="Email"
+                    name="email"
                 >
 
                 <input
                     class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
                     type="password"
                     placeholder="Password"
+                    name="password"
                 >
 
                 <input
