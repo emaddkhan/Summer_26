@@ -20,8 +20,8 @@ if(process.env.NODE_ENV==="development"){
        res.status(201 ).send(createdOwner)
     })
 }
-router.get("/",(req,res)=>{
-    res.send("heyyy")
+router.get("/admin",(req,res)=>{
+    res.render("createproducts")
 })
 
 

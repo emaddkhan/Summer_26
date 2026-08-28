@@ -7,7 +7,7 @@ const usersRouter=require("./routes/usersRouter")
 const productsRouter=require("./routes/productsRouter")
 const indexRouter = require("./routes/index");
 const expressSession=require("express-session")
-const flash=require("flash")
+const flash=require("connect-flash")
 
 require("dotenv").config()
 

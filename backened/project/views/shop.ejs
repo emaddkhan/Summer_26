@@ -1,5 +1,24 @@
 <%- include('./partials/header') %>
+<% if(success && success.length > 0) { %>
 
+  <div
+    id="flash-message"
+    class="absolute top-5 left-1/2 -translate-x-1/2 p-3 rounded-md bg-green-500 text-white"
+  >
+    <span><%= success[0] %></span>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const flashMessage = document.getElementById("flash-message");
+
+      if (flashMessage) {
+        flashMessage.remove();
+      }
+    }, 3000);
+  </script>
+
+<% } %>
 <div class="w-full h-screen flex items-start px-20 py-20">
 
     <div class="w-[25%] flex h-screen flex-col items-start">
