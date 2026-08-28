@@ -1,5 +1,24 @@
 <%- include('./partials/header') %>
+<% if(success && success.length > 0) { %>
 
+  <div
+    id="flash-message"
+    class="absolute top-5 left-1/2 -translate-x-1/2 p-3 rounded-md bg-green-500 text-white"
+  >
+    <span><%= success[0] %></span>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      const flashMessage = document.getElementById("flash-message");
+
+      if (flashMessage) {
+        flashMessage.remove();
+      }
+    }, 3000);
+  </script>
+
+<% } %>
 <div class="min-h-screen flex flex-col">
 
     <div class="container px-10 py-20 flex flex-grow">
@@ -17,7 +36,7 @@
 
             <form
                 autocomplete="off"
-                action="/owners/products/create"
+                action="/products/create"
                 method="post"
                 enctype="multipart/form-data"
             >
@@ -78,21 +97,21 @@
                     <div class="grid grid-cols-2 gap-4">
 
                         <input
-                            name="bgcolor"
+                            name="bgColor"
                             type="text"
                             placeholder="Background Color"
                             class="border p-2 rounded w-full"
                         >
 
                         <input
-                            name="panelcolor"
+                            name="panelColor"
                             type="text"
                             placeholder="Panel Color"
                             class="border p-2 rounded w-full"
                         >
 
                         <input
-                            name="textcolor"
+                            name="textColor"
                             type="text"
                             placeholder="Text Color"
                             class="border p-2 rounded w-full"
