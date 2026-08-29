@@ -1,46 +1,422 @@
 <%- include('./partials/header') %>
-    <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
-        <div class="w-[30%] rounded-md overflow-hidden">
-            <div class="w-full h-80 bg-yellow-500"></div>
-            <div class="w-full flex justify-between px-5 py-4">
-                <h3 class="text-2xl">Clinge Bag</h3>
-                <div class="flex items-center gap-2">
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
-                    <div class="px-2 py-1 rounded-md bg-white text-black">01</div>
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
+
+<div class="min-h-screen bg-zinc-50 px-6 md:px-12 lg:px-20 py-24">
+
+```
+<!-- PAGE HEADER -->
+<div class="max-w-6xl mx-auto mb-8">
+
+    <p class="text-sm text-zinc-500 mb-1">
+        Shopping Bag
+    </p>
+
+    <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">
+        Your Cart
+    </h1>
+
+</div>
+
+
+<% if (cart && cart.length > 0) { %>
+
+    <%
+        let totalMRP = 0;
+        let totalDiscount = 0;
+        let totalItems = 0;
+
+        cart.forEach((item) => {
+
+            const price = Number(item.product.price || 0);
+            const discount = Number(item.product.discount || 0);
+            const quantity = Number(item.quantity || 1);
+
+            totalMRP += price * quantity;
+            totalDiscount += (price - discount) * quantity;
+            totalItems += quantity;
+
+        });
+
+        const platformFee = 20;
+        const shippingFee = 0;
+        const totalAmount = totalMRP - totalDiscount + platformFee + shippingFee;
+    %>
+
+
+    <!-- CART -->
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8">
+
+
+        <!-- LEFT : CART ITEMS -->
+        <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
+
+            <!-- CARD HEADER -->
+            <div class="px-5 py-4 border-b border-zinc-100 flex justify-between items-center">
+
+                <div>
+
+                    <h2 class="text-base font-semibold">
+                        Cart Items
+                    </h2>
+
+                    <p class="text-xs text-zinc-500 mt-1">
+                        <%= totalItems %>
+                        <%= totalItems === 1 ? 'item' : 'items' %>
+                        in your cart
+                    </p>
+
                 </div>
+
+                <span class="text-xs text-zinc-400">
+                    #SC001
+                </span>
+
             </div>
-            <div class="flex items-center justify-between px-5 py-3">
-                <h4 class="text-lg">Net Total</h4>
-                <h2 class="text-lg">₹ 1200</h2>
-            </div>
+
+
+            <!-- CART LOOP -->
+            <% cart.forEach((item) => { %>
+
+                <%
+                    const product = item.product;
+                    const quantity = Number(item.quantity || 1);
+
+                    const price = Number(product.price || 0);
+                    const discount = Number(product.discount || 0);
+
+                    const netTotal = discount * quantity;
+                %>
+
+
+                <!-- PRODUCT -->
+                <div class="p-5 border-b border-zinc-100 last:border-b-0">
+
+                    <div class="flex gap-4">
+
+
+                        <!-- PRODUCT IMAGE -->
+                        <div
+                            class="w-28 h-32 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0"
+                            style="background-color: <%= product.bgColor || '#f4f4f5' %>;"
+                        >
+
+                            <% if (product.image) { %>
+
+                                <img
+                                    class="h-28 w-auto object-contain"
+                                    src="data:<%= product.imageType || 'image/jpeg' %>;base64,<%= product.image.toString('base64') %>"
+                                    alt="<%= product.name %>"
+                                >
+
+                            <% } else { %>
+
+                                <div class="text-xs text-zinc-400">
+                                    No Image
+                                </div>
+
+                            <% } %>
+
+                        </div>
+
+
+                        <!-- PRODUCT DETAILS -->
+                        <div class="flex-1 flex flex-col justify-between min-w-0">
+
+
+                            <!-- TOP DETAILS -->
+                            <div>
+
+                                <div class="flex justify-between items-start gap-2">
+
+                                    <div class="min-w-0">
+
+                                        <p class="text-[10px] uppercase tracking-wider text-zinc-400 mb-1">
+                                            Premium Collection
+                                        </p>
+
+                                        <h3 class="text-lg font-semibold truncate">
+                                            <%= product.name %>
+                                        </h3>
+
+                                    </div>
+
+
+                                    <!-- DELETE -->
+                                    <a
+                                        href="/cart/remove/<%= product._id %>"
+                                        class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500 hover:bg-red-50 hover:text-red-500 transition flex-shrink-0"
+                                    >
+                                        <i class="ri-delete-bin-6-line text-sm"></i>
+                                    </a>
+
+                                </div>
+
+
+                                <!-- PRICE -->
+                                <div class="flex items-center gap-2 mt-3">
+
+                                    <span class="text-lg font-semibold">
+                                        ₹ <%= discount %>
+                                    </span>
+
+                                    <% if (price > discount) { %>
+
+                                        <span class="text-xs text-zinc-400 line-through">
+                                            ₹ <%= price %>
+                                        </span>
+
+                                        <span class="text-[10px] font-medium bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                                            SALE
+                                        </span>
+
+                                    <% } %>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- QUANTITY + NET TOTAL -->
+                            <div class="flex items-center justify-between mt-4">
+
+
+                                <!-- QUANTITY -->
+                                <div>
+
+                                    <p class="text-[10px] text-zinc-400 mb-1">
+                                        Quantity
+                                    </p>
+
+                                    <div class="flex items-center border border-zinc-200 rounded-full overflow-hidden">
+
+                                        <!-- DECREASE -->
+                                        <a
+                                            href="/cart/decrease/<%= product._id %>"
+                                            class="w-7 h-7 flex items-center justify-center hover:bg-zinc-100 transition"
+                                        >
+                                            <i class="ri-subtract-line text-xs"></i>
+                                        </a>
+
+
+                                        <!-- CURRENT QUANTITY -->
+                                        <span class="w-8 text-center text-xs font-medium">
+                                            <%= quantity %>
+                                        </span>
+
+
+                                        <!-- INCREASE -->
+                                        <a
+                                            href="/cart/<%= product._id %>"
+                                            class="w-7 h-7 flex items-center justify-center hover:bg-zinc-100 transition"
+                                        >
+                                            <i class="ri-add-line text-xs"></i>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- NET TOTAL -->
+                                <div class="text-right">
+
+                                    <p class="text-[10px] text-zinc-400">
+                                        Net Total
+                                    </p>
+
+                                    <p class="text-base font-semibold mt-1">
+                                        ₹ <%= netTotal %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
         </div>
-        <div class="w-[70%]">
-            <h3 class="text-xl">Price Breakdown</h3>
-            <div class="px-10 mt-5">
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Total MRP</h4>
-                    <h4>₹ 1920</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Discount on MRP</h4>
-                    <h4>₹ 0</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Platform Fee</h4>
-                    <h4>₹ 20</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Shipping Fee</h4>
-                    <h4>FREE</h4>
-                </div>
+
+
+
+        <!-- RIGHT : PRICE BREAKDOWN -->
+        <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm h-fit">
+
+
+            <!-- HEADER -->
+            <div class="px-6 py-5 border-b border-zinc-100">
+
+                <h2 class="text-lg font-semibold">
+                    Price Breakdown
+                </h2>
+
+                <p class="text-sm text-zinc-500 mt-1">
+                    Review your order before checkout
+                </p>
+
             </div>
-            <div class="w-full h-[1px] bg-black mt-10"></div>
-            <div class="flex mt-5">
-                <h3 class="w-1/3 text-xl">Total Amount</h3>
-                <h3 class="font-semibold text-xl text-green-600">₹ 1940</h3>
+
+
+            <!-- PRICE DETAILS -->
+            <div class="p-6">
+
+                <div class="space-y-5">
+
+
+                    <!-- TOTAL MRP -->
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-zinc-500">
+                            Total MRP
+                        </span>
+
+                        <span class="font-medium">
+                            ₹ <%= totalMRP %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- DISCOUNT -->
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-zinc-500">
+                            Discount on MRP
+                        </span>
+
+                        <span class="font-medium text-green-600">
+                            - ₹ <%= totalDiscount %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- PLATFORM FEE -->
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-zinc-500">
+                            Platform Fee
+                        </span>
+
+                        <span class="font-medium">
+                            ₹ <%= platformFee %>
+                        </span>
+
+                    </div>
+
+
+                    <!-- SHIPPING -->
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-zinc-500">
+                            Shipping Fee
+                        </span>
+
+                        <span class="font-semibold text-green-600">
+                            FREE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DIVIDER -->
+                <div class="border-t border-dashed border-zinc-300 my-6">
+                </div>
+
+
+                <!-- TOTAL -->
+                <div class="flex items-end justify-between">
+
+                    <div>
+
+                        <p class="text-sm text-zinc-500">
+                            Total Amount
+                        </p>
+
+                        <h3 class="text-3xl font-bold mt-1">
+                            ₹ <%= totalAmount %>
+                        </h3>
+
+                    </div>
+
+                    <span class="text-xs bg-green-50 text-green-600 px-3 py-1.5 rounded-full">
+                        Best Price
+                    </span>
+
+                </div>
+
+
+                <!-- CHECKOUT -->
+                <button
+                    class="w-full mt-7 py-4 bg-black text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-zinc-800 active:scale-[0.98] transition"
+                >
+                    Proceed to Checkout
+
+                    <i class="ri-arrow-right-line"></i>
+
+                </button>
+
+
+                <!-- SECURE CHECKOUT -->
+                <div class="flex items-center justify-center gap-2 text-xs text-zinc-400 mt-5">
+
+                    <i class="ri-lock-line"></i>
+
+                    Secure & encrypted checkout
+
+                </div>
+
             </div>
-            <form action=""></form>
+
         </div>
+
     </div>
-    <%- include('./partials/footer') %>
+
+
+<% } else { %>
+
+
+    <!-- EMPTY CART -->
+    <div class="max-w-6xl mx-auto">
+
+        <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm py-20 text-center">
+
+            <div class="w-16 h-16 mx-auto rounded-full bg-zinc-100 flex items-center justify-center">
+
+                <i class="ri-shopping-bag-3-line text-2xl text-zinc-500"></i>
+
+            </div>
+
+            <h2 class="text-xl font-semibold mt-5">
+                Your cart is empty
+            </h2>
+
+            <p class="text-sm text-zinc-500 mt-2">
+                Looks like you haven't added anything to your cart yet.
+            </p>
+
+            <a
+                href="/shop"
+                class="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-black text-white rounded-xl text-sm font-medium hover:bg-zinc-800 transition"
+            >
+                Continue Shopping
+                <i class="ri-arrow-right-line"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+
+<% } %>
+```
+
+</div>
+
+<%- include('./partials/footer') %>
