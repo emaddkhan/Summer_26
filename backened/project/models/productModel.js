@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 
 const productSchema=mongoose.Schema({
     image:Buffer,
+    imageType:String,
     name:String,
     price:Number,
     discount:{

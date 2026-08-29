@@ -5,6 +5,7 @@ module.exports.createProduct=async(req, res) => {
     let { name, price, discount, bgColor, panelColor, textColor } = req.body;
   let product = await productModel.create({
     image: req.file.buffer,
+    imageType:req.file.mimeType,
     name,
     price,
     discount,
