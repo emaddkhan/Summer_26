@@ -1,3 +1,55 @@
 const mongoose =require("mongoose")
 
-mongoose.connect("mongodb//127.0.0.1:")
+const userSchema=mongoose.Schema({
+    profilePic:{
+        type:Buffer,
+        require:true
+    },
+    picType:{
+        type:String,
+    },
+    fullname:{
+        type:String,
+        required:true,
+        trim:true,
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true,
+        trim:true
+    },
+    password:{
+        type:String,
+        required:true,
+    },
+    address:{
+        type:String,
+        required:true,
+    },
+    phone:{
+        type:String,
+        required:true,
+    },
+    leaves:{
+        totalLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+        }],
+        approvedLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+        }],
+        rejectedLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+        }]
+    },
+    role:{
+        enum:["employee","hr","admin"],
+        default:"employee",
+        type:String,
+    }
+})
+
+module.exports=mongoose.model("user",userSchema)
