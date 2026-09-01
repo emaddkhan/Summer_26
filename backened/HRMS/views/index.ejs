@@ -61,7 +61,37 @@
       <div
         class="h-screen flex justify-center items-center w-1/2 bg-[#FBF8FF]"
       >
-      <div class="w-1/2"></div>
+      <div class="w-1/2 flex-col justify-center flex gap-2">
+        <h3 class="text-2xl font-bold">Sign in to your account</h3>
+        <p class="text-sm font-semibold text-[#47464A]">
+          Enter your credentials to access the management portal
+        </p>
+        <form action="/login" method="POST" class="flex flex-col gap-1 mt-4">
+          <label class="font-semibold text-sm " for="email">Email address</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="name@company.com"
+            class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black-500"
+          />
+          <label class="font-semibold text-sm mt-4 " for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black-500"
+          />
+          <button
+            type="submit"
+            class="bg-black cursor-pointer text-white p-2 mt-6 rounded-lg hover:bg-[#1C1B1D] transition duration-200"
+          >
+            Sign In
+          </button>
+        </form>
+        <p class="text-sm text-center font-semibold text-[#47464A] mt-2">
+          Don't have an account? <a href="/register" class="text-black underline">Request Access</a>
+        </p>
+      </div>
     </div>
     </div>
   </body>
