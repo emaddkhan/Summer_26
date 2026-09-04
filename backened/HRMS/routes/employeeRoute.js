@@ -1,9 +1,10 @@
-const express=require("express")
+const express=require("express");
+const isLoggedIn = require("../middleware/isLoggedIn");
 const router=express.Router();
 
 
-router.get("/",(req,res)=>{
-    res.send("hey its emp")
+router.get("/",isLoggedIn,(req,res)=>{
+    res.render("empDashboard")
 })
 
 module.exports=router;

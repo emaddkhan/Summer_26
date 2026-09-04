@@ -1,12 +1,13 @@
 const mongoose =require("mongoose")
 
 const userSchema=mongoose.Schema({
-    profilePic:{
+    profileImage:{
         type:Buffer,
-        require:true
+        required:true
     },
-    picType:{
+    imageType:{
         type:String,
+        required:true
     },
     fullname:{
         type:String,
