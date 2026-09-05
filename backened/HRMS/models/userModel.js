@@ -51,6 +51,7 @@ const userSchema=mongoose.Schema({
         default:"employee",
         type:String,
     }
+},{timestamps:true
 })
 
 module.exports=mongoose.model("user",userSchema)

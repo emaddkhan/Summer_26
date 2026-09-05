@@ -104,13 +104,9 @@ const loginUser = async (req, res) => {
     const admin = await adminModel.findOne({ email });
 
     if (admin) {
-      console.log("ADMIN FOUND");
-      console.log("EMAIL:", admin.email);
-      console.log("PASSWORD FROM DB:", admin.password);
 
       const isMatch = await bcrypt.compare(password, admin.password);
 
-      console.log("PASSWORD MATCH:", isMatch);
 
       if (!isMatch) {
         return res.status(400).json({
@@ -125,9 +121,6 @@ const loginUser = async (req, res) => {
       return res.redirect("/admin");
     }
 
-    // =========================
-    // CHECK USER
-    // =========================
 
     const user = await userModel.findOne({ email });
 
@@ -148,10 +141,6 @@ const loginUser = async (req, res) => {
     const token = genreteToken(user);
 
     res.cookie("token", token);
-
-    // =========================
-    // ROLE
-    // =========================
 
     if (user.role === "hr") {
       return res.redirect("/hr");

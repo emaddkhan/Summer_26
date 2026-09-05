@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>MINI HRMS - Leave Requests</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e3e1ec",
+                        "tertiary-fixed": "#ebe0df",
+                        "secondary": "#0058be",
+                        "on-secondary-container": "#fefcff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-variant": "#e3e1ec",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeedf7",
+                        "primary-fixed-dim": "#c8c6c8",
+                        "on-tertiary-fixed-variant": "#4c4545",
+                        "primary-container": "#1c1b1d",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-primary": "#c8c6c8",
+                        "surface-dim": "#dad9e3",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1f1a1a",
+                        "background": "#fbf8ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#1f1a1a",
+                        "tertiary": "#000000",
+                        "outline": "#78767b",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "on-secondary-fixed": "#001a42",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#1c1b1d",
+                        "on-surface-variant": "#47464a",
+                        "on-tertiary-container": "#8a8282",
+                        "on-surface": "#1a1b22",
+                        "on-primary-fixed-variant": "#474649",
+                        "tertiary-fixed-dim": "#cec4c4",
+                        "inverse-surface": "#2f3038",
+                        "inverse-on-surface": "#f1effa",
+                        "surface": "#fbf8ff",
+                        "outline-variant": "#c8c5ca",
+                        "surface-tint": "#5f5e60",
+                        "surface-container-low": "#f4f2fd",
+                        "primary-fixed": "#e5e1e4",
+                        "on-primary-container": "#858386"
+                    },
+
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+
+                    spacing: {
+                        "stack-md": "1rem",
+                        "margin-page": "2rem",
+                        "container-max": "1440px",
+                        "stack-sm": "0.5rem",
+                        "gutter": "1.5rem",
+                        "stack-lg": "2rem"
+                    },
+
+                    fontFamily: {
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+
+                    fontSize: {
+                        "label-sm": [
+                            "11px",
+                            {
+                                lineHeight: "14px",
+                                fontWeight: "600"
+                            }
+                        ],
+
+                        "headline-lg": [
+                            "24px",
+                            {
+                                lineHeight: "32px",
+                                letterSpacing: "-0.01em",
+                                fontWeight: "600"
+                            }
+                        ],
+
+                        "headline-md": [
+                            "18px",
+                            {
+                                lineHeight: "28px",
+                                fontWeight: "600"
+                            }
+                        ],
+
+                        "body-lg": [
+                            "16px",
+                            {
+                                lineHeight: "24px",
+                                fontWeight: "400"
+                            }
+                        ],
+
+                        "label-md": [
+                            "12px",
+                            {
+                                lineHeight: "16px",
+                                letterSpacing: "0.01em",
+                                fontWeight: "500"
+                            }
+                        ],
+
+                        "headline-xl": [
+                            "36px",
+                            {
+                                lineHeight: "44px",
+                                letterSpacing: "-0.02em",
+                                fontWeight: "600"
+                            }
+                        ],
+
+                        "body-md": [
+                            "14px",
+                            {
+                                lineHeight: "20px",
+                                fontWeight: "400"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface antialiased min-h-screen font-body-md">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="fixed left-0 top-0 h-screen w-60 bg-surface border-r border-outline-variant flex flex-col p-stack-md transition-all duration-200 ease-in-out z-20">
+
+    <!-- Header -->
+    <div class="mb-stack-lg flex items-center gap-3">
+
+        <div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md">
+            <span class="material-symbols-outlined"
+                  style="font-variation-settings: 'FILL' 1;">
+                widgets
+            </span>
+        </div>
+
+        <div>
+            <h1 class="text-headline-md font-headline-md font-black text-primary">
+                MINI HRMS
+            </h1>
+
+            <p class="text-label-sm font-label-sm text-on-surface-variant">
+                Management Portal
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <nav class="flex-1 space-y-1">
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/admin">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                dashboard
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/admin/employees">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                group
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Employees
+            </span>
+
+        </a>
+
+
+        <!-- Active -->
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-primary font-semibold"
+           href="/admin/leave-requests">
+
+            <span class="material-symbols-outlined text-primary text-xl"
+                  style="font-variation-settings: 'FILL' 1;">
+                fact_check
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Leave Requests
+            </span>
+
+        </a>
+
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/admin/users">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                admin_panel_settings
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Users
+            </span>
+
+        </a>
+
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/admin/profile">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                person
+            </span>
+
+            <span class="text-label-md font-label-md">
+                My Profile
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- Footer -->
+
+    <div class="mt-auto space-y-1 pt-stack-md border-t border-outline-variant/30">
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/admin/settings">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                settings
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Settings
+            </span>
+
+        </a>
+
+
+        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest transition-colors group"
+           href="/logout">
+
+            <span class="material-symbols-outlined group-hover:text-primary transition-colors text-xl">
+                logout
+            </span>
+
+            <span class="text-label-md font-label-md">
+                Logout
+            </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div class="ml-60 flex flex-col min-h-screen">
+
+
+    <!-- TOP BAR -->
+
+    <header class="bg-surface-bright border-b border-outline-variant flex justify-between items-center h-16 px-gutter sticky top-0 z-10">
+
+        <!-- Search -->
+
+        <div class="flex-1 max-w-md">
+
+            <div class="relative flex items-center focus-within:ring-2 focus-within:ring-outline-variant rounded-lg transition-shadow">
+
+                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">
+                    search
+                </span>
+
+                <input
+                    class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md focus:outline-none focus:border-primary placeholder:text-on-surface-variant/60"
+                    placeholder="Search requests..."
+                    type="text"
+                    id="searchInput"
+                />
+
+            </div>
+
+        </div>
+
+
+        <!-- Actions -->
+
+        <div class="flex items-center gap-4">
+
+            <button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative group rounded-full hover:bg-surface-container-lowest">
+
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+
+                <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface-bright">
+                </span>
+
+            </button>
+
+
+            <div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer">
+
+                <img
+                    alt="User avatar"
+                    class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIrYqYM_BbCT6keMHHPsbJTB9IP-NM3bBy7kPK0Xi8Q9eNtEZ2buIxCN2K_e-QUrMQAmGshC6KPP7lwl3L3lz47u-fEPcvNq6rmQZ-F_sGvrz7SR8FowGEfWJYeg8KPoCpFyTD1jLPcmNJnxywrkWf8Icblk4IGSzu69l-xQlZSlG9AypioNdS5jCu3sYPRJZ_3oJ0ytzheqYLIJnY6cFpvlUMbzBFS_88CbASQ0ywbOuQSg1lFYqR"
+                />
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- PAGE -->
+
+    <main class="flex-1 p-gutter max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+
+            <div>
+
+                <h2 class="text-headline-xl font-headline-xl text-primary tracking-tight">
+                    Leave Requests
+                </h2>
+
+                <p class="text-body-md font-body-md text-on-surface-variant mt-1">
+                    Manage and review employee time off.
+                </p>
+
+            </div>
+
+
+            <button
+                class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors flex items-center gap-2 w-fit"
+                onclick="window.location.href='/admin/leave/create'"
+            >
+
+                <span class="material-symbols-outlined text-[18px]">
+                    add
+                </span>
+
+                New Request
+
+            </button>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+
+            <!-- TABS -->
+
+            <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
+
+                <button
+                    class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap"
+                    onclick="filterStatus('all')"
+                >
+                    All Requests
+                </button>
+
+
+                <button
+                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('pending')"
+                >
+
+                    Pending
+
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        12
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('approved')"
+                >
+                    Approved
+                </button>
+
+
+                <button
+                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('rejected')"
+                >
+                    Rejected
+                </button>
+
+            </div>
+
+
+            <!-- DEPARTMENT FILTER -->
+
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+
+                <div class="relative hidden sm:block">
+
+                    <select
+                        class="appearance-none bg-surface-bright border border-outline-variant rounded-lg pl-3 pr-8 py-1.5 text-label-md font-label-md text-on-surface focus:outline-none focus:border-primary"
+                    >
+
+                        <option>All Departments</option>
+                        <option>Engineering</option>
+                        <option>Design</option>
+                        <option>Marketing</option>
+
+                    </select>
+
+                    <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[16px]">
+                        expand_more
+                    </span>
+
+                </div>
+
+
+                <button class="p-1.5 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors hidden sm:flex">
+
+                    <span class="material-symbols-outlined text-[18px]">
+                        filter_list
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full text-left border-collapse min-w-[800px]">
+
+                    <thead>
+
+                        <tr class="bg-surface-bright border-b border-outline-variant">
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Employee
+                            </th>
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Type
+                            </th>
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Dates
+                            </th>
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Reason
+                            </th>
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Status
+                            </th>
+
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody class="divide-y divide-outline-variant/50">
+
+
+                        <!-- ================= ROW 1 ================= -->
+
+                        <tr class="bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]">
+
+                            <td class="py-3 px-4">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+
+                                        <img
+                                            alt="Sarah Jenkins"
+                                            class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDjBS7FEm8Tx-VPsr_GGP7Axr2stba0eRAQfTeRdpyOs0FIvWtnA8bMRvxDNkIFug66Nif-N4c0uncQth1JDNvLeRxMg72L08SmVtXFRfjjjzRl_iUnR8jBuEhP8rHYqE8r5yci8VZu2EP9n_HaezxDhVblVsZlJDcU05WKLRXFLbH0W38zIRhtdb_ek_9srHqSTGD8iX_5goheD96tHzy09z5iTVBzpJYCkq3tJV5HCXSKYsTQoui"
+                                        />
+
+                                    </div>
+
+                                    <div>
+
+                                        <p class="font-label-md text-label-md text-primary font-medium">
+                                            Sarah Jenkins
+                                        </p>
+
+                                        <p class="text-[11px] text-on-surface-variant">
+                                            Senior Engineer
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center gap-1 text-body-md font-body-md">
+
+                                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">
+                                        flight_takeoff
+                                    </span>
+
+                                    Annual Leave
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <p class="text-body-md font-body-md text-on-surface">
+                                    Oct 12 - Oct 18, 2023
+                                </p>
+
+                                <p class="text-[11px] text-on-surface-variant">
+                                    5 days
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 max-w-[200px]">
+
+                                <p
+                                    class="text-body-md font-body-md text-on-surface-variant truncate"
+                                    title="Family vacation to the mountains for the autumn colors. Will be completely offline."
+                                >
+                                    Family vacation to the mountains for...
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#fffbeb] text-[#92400e] text-[11px] font-semibold border border-[#fef3c7]">
+
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#d97706] mr-1.5"></span>
+
+                                    Pending
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 text-right">
+
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                                    <button
+                                        class="p-1 text-on-surface-variant hover:text-primary transition-colors"
+                                        title="View Details"
+                                    >
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            visibility
+                                        </span>
+                                    </button>
+
+
+                                    <button
+                                        class="p-1 hover:bg-success/10 rounded transition-colors text-[#059669]"
+                                        title="Approve"
+                                    >
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            check_circle
+                                        </span>
+                                    </button>
+
+
+                                    <button
+                                        class="p-1 hover:bg-error/10 rounded transition-colors text-[#dc2626]"
+                                        title="Reject"
+                                    >
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            cancel
+                                        </span>
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ================= ROW 2 ================= -->
+
+                        <tr class="hover:bg-surface-bright transition-colors group">
+
+                            <td class="py-3 px-4">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+
+                                        <img
+                                            alt="Marcus Chen"
+                                            class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQv_CDHUkoU43m0rKM0zXM_nlfWb1cEoQpiwziDydRMy29dSRQeIc_A8x1hscTsfWsX8ObTigHFqvrsu8hSv345vEAljfK2ZlXFEqMJeOWFkrkbZ2dwO9qWoGpc7A1fmXYdVZsrYS-qYeUHXCP9GTKvJ3w-uARUv9jDBK9uM5fyx5XrZVwFY5Y4A5agiTRrM8K5Kq52JIiKK44oMkidSom27uINoNIRTK5oYWM7G6pJtT3Ln9ijhEW"
+                                        />
+
+                                    </div>
+
+                                    <div>
+
+                                        <p class="font-label-md text-label-md text-primary font-medium">
+                                            Marcus Chen
+                                        </p>
+
+                                        <p class="text-[11px] text-on-surface-variant">
+                                            Product Designer
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center gap-1 text-body-md font-body-md">
+
+                                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">
+                                        sick
+                                    </span>
+
+                                    Sick Leave
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <p class="text-body-md font-body-md text-on-surface">
+                                    Sep 28 - Sep 29, 2023
+                                </p>
+
+                                <p class="text-[11px] text-on-surface-variant">
+                                    2 days
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 max-w-[200px]">
+
+                                <p class="text-body-md font-body-md text-on-surface-variant truncate">
+                                    Feeling under the weather, resting at home.
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#ecfdf5] text-[#065f46] text-[11px] font-semibold border border-[#d1fae5]">
+
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] mr-1.5"></span>
+
+                                    Approved
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 text-right">
+
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                                    <button
+                                        class="p-1 text-on-surface-variant hover:text-primary transition-colors"
+                                        title="View Details"
+                                    >
+
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            visibility
+                                        </span>
+
+                                    </button>
+
+                                    <span class="w-[52px]"></span>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ================= ROW 3 ================= -->
+
+                        <tr class="hover:bg-surface-bright transition-colors group">
+
+                            <td class="py-3 px-4">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-8 h-8 rounded-full overflow-hidden bg-primary text-on-primary flex items-center justify-center font-label-md">
+
+                                        AP
+
+                                    </div>
+
+                                    <div>
+
+                                        <p class="font-label-md text-label-md text-primary font-medium">
+                                            Aisha Patel
+                                        </p>
+
+                                        <p class="text-[11px] text-on-surface-variant">
+                                            Marketing Lead
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center gap-1 text-body-md font-body-md">
+
+                                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">
+                                        flight_takeoff
+                                    </span>
+
+                                    Annual Leave
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <p class="text-body-md font-body-md text-on-surface">
+                                    Nov 01 - Nov 15, 2023
+                                </p>
+
+                                <p class="text-[11px] text-on-surface-variant">
+                                    10 days
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 max-w-[200px]">
+
+                                <p class="text-body-md font-body-md text-on-surface-variant truncate">
+                                    Long planned trip to Europe.
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#fef2f2] text-[#991b1b] text-[11px] font-semibold border border-[#fee2e2]">
+
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#ef4444] mr-1.5"></span>
+
+                                    Rejected
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 text-right">
+
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                                    <button
+                                        class="p-1 text-on-surface-variant hover:text-primary transition-colors"
+                                        title="View Details"
+                                    >
+
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            visibility
+                                        </span>
+
+                                    </button>
+
+                                    <span class="w-[52px]"></span>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ================= ROW 4 ================= -->
+
+                        <tr class="bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]">
+
+                            <td class="py-3 px-4">
+
+                                <div class="flex items-center gap-3">
+
+                                    <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+
+                                        <img
+                                            alt="Robert Vance"
+                                            class="w-full h-full object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlT2mf5feJfcUyk9MA0C_NNFPpDjZ85bvkrBjZIarDSMB7ymCDPs3NWNDYU75j3zK0g3fMeRzvprIuJJ-CVVQKe9DwCiedBOFPUkzMX5F5JQ24PuRs78tdVyNLOcygoZ8EBRQ4_NQrP3KdlqgYGhjCF4nw7X-PerlZMa_YLrzLpcSEnl0TK2mFGEtHEtbuxwncvbeozrCbK-gXxTUpzxXYLpOmoF_QaenURXT2BEZ863Jq51pBvbfW"
+                                        />
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <p class="font-label-md text-label-md text-primary font-medium">
+                                            Robert Vance
+                                        </p>
+
+                                        <p class="text-[11px] text-on-surface-variant">
+                                            Sales Director
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center gap-1 text-body-md font-body-md">
+
+                                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">
+                                        home_work
+                                    </span>
+
+                                    Remote Work
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <p class="text-body-md font-body-md text-on-surface">
+                                    Oct 05, 2023
+                                </p>
+
+                                <p class="text-[11px] text-on-surface-variant">
+                                    1 day
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 max-w-[200px]">
+
+                                <p class="text-body-md font-body-md text-on-surface-variant truncate">
+                                    Waiting for home appliance repair delivery.
+                                </p>
+
+                            </td>
+
+
+                            <td class="py-3 px-4">
+
+                                <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#fffbeb] text-[#92400e] text-[11px] font-semibold border border-[#fef3c7]">
+
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#d97706] mr-1.5"></span>
+
+                                    Pending
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="py-3 px-4 text-right">
+
+                                <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                                    <button
+                                        class="p-1 text-on-surface-variant hover:text-primary transition-colors"
+                                        title="View Details"
+                                    >
+
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            visibility
+                                        </span>
+
+                                    </button>
+
+
+                                    <button
+                                        class="p-1 hover:bg-success/10 rounded transition-colors text-[#059669]"
+                                        title="Approve"
+                                    >
+
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            check_circle
+                                        </span>
+
+                                    </button>
+
+
+                                    <button
+                                        class="p-1 hover:bg-error/10 rounded transition-colors text-[#dc2626]"
+                                        title="Reject"
+                                    >
+
+                                        <span class="material-symbols-outlined text-[20px]">
+                                            cancel
+                                        </span>
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- PAGINATION -->
+
+            <div class="border-t border-outline-variant px-4 py-3 flex items-center justify-between bg-surface-bright">
+
+                <p class="text-label-md font-label-md text-on-surface-variant">
+                    Showing 1 to 4 of 24 entries
+                </p>
+
+
+                <div class="flex gap-1">
+
+                    <button
+                        class="p-1.5 rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container disabled:opacity-50"
+                        disabled
+                    >
+
+                        <span class="material-symbols-outlined text-[18px]">
+                            chevron_left
+                        </span>
+
+                    </button>
+
+
+                    <button class="w-7 h-7 rounded border border-primary bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center">
+                        1
+                    </button>
+
+
+                    <button class="w-7 h-7 rounded border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center">
+                        2
+                    </button>
+
+
+                    <button class="w-7 h-7 rounded border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center">
+                        3
+                    </button>
+
+
+                    <button class="p-1.5 rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container">
+
+                        <span class="material-symbols-outlined text-[18px]">
+                            chevron_right
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    function filterStatus(status) {
+
+        console.log("Selected status:", status);
+
+        // Yahan baad mein API/database filtering laga sakte ho.
+
+    }
+
+
+    // Search
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("keyup", function () {
+
+        const searchValue = this.value.toLowerCase();
+
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+
+            const text = row.innerText.toLowerCase();
+
+            if (text.includes(searchValue)) {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
