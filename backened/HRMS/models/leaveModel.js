@@ -3,7 +3,7 @@ const mongoose =require("mongoose")
 const leaveSchema=({
     leaveType:{
         type:String,
-        enum:["casual","sick","annual"],
+        enum:["casual","sick","annual","unpaid"],
         required:true,
     },
     startDate:{

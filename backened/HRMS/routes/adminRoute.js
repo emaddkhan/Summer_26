@@ -52,4 +52,17 @@ router.get("/user/:id", isLoggedIn, async(req, res) => {
   let user=await userModel.findById(req.params.id);
   res.render("adminUserDetails", { user });
 })
+
+//deletion emp
+router.get("/users/delete/:id", isLoggedIn, async(req, res) => {
+  let user=await userModel.findById(req.params.id);
+  if(!user){
+    res.status(404).send("User not found");
+  }
+  await userModel.findByIdAndDelete(req.params.id);
+  res.redirect("/admin");
+})
+
+
+
 module.exports = router;

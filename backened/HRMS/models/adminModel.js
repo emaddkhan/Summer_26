@@ -35,6 +35,10 @@ const adminSchema=mongoose.Schema({
         role:{
             type:String,
             default:"admin"
-        }
+        },
+        leaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Leave"
+        }]
 })
 module.exports=mongoose.model("admin",adminSchema)

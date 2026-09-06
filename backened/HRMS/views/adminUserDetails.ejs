@@ -1,560 +1,355 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<title>User Details - MINI HRMS</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
 
-  <style>
-    @layer base {
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
-      body {
-        overscroll-behavior: none;
-      }
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
 
-      main > :first-child {
-        margin-top: 0 !important;
-      }
-
-      main > :last-child {
-        margin-bottom: 0 !important;
-      }
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  </style>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
+    theme: {
         extend: {
-          colors: {
-            "on-primary": "#ffffff",
-            "secondary": "#0058be",
-            "inverse-surface": "#2f3038",
-            "on-secondary": "#ffffff",
-            "error": "#ba1a1a",
-            "background": "#fbf8ff",
-            "on-primary-fixed-variant": "#474649",
-            "on-error": "#ffffff",
-            "on-secondary-container": "#fefcff",
-            "tertiary-fixed-dim": "#cec4c4",
-            "on-tertiary-fixed-variant": "#4c4545",
-            "on-tertiary": "#ffffff",
-            "surface-container-lowest": "#ffffff",
-            "secondary-fixed": "#d8e2ff",
-            "error-container": "#ffdad6",
-            "surface-tint": "#5f5e60",
-            "on-primary-fixed": "#1c1b1d",
-            "surface-container-high": "#e8e7f1",
-            "inverse-primary": "#c8c6c8",
-            "surface-container-low": "#f4f2fd",
-            "on-error-container": "#93000a",
-            "tertiary": "#000000",
-            "surface-container": "#eeedf7",
-            "on-tertiary-fixed": "#1f1a1a",
-            "primary-container": "#1c1b1d",
-            "tertiary-container": "#1f1a1a",
-            "outline": "#78767b",
-            "primary": "#000000",
-            "primary-fixed-dim": "#c8c6c8",
-            "surface-variant": "#e3e1ec",
-            "secondary-container": "#2170e4",
-            "surface-bright": "#fbf8ff",
-            "on-secondary-fixed": "#001a42",
-            "inverse-on-surface": "#f1effa",
-            "on-secondary-fixed-variant": "#004395",
-            "surface": "#fbf8ff",
-            "secondary-fixed-dim": "#adc6ff",
-            "on-background": "#1a1b22",
-            "on-primary-container": "#858386",
-            "primary-fixed": "#e5e1e4",
-            "on-surface": "#1a1b22",
-            "on-surface-variant": "#47464a",
-            "on-tertiary-container": "#8a8282",
-            "outline-variant": "#c8c5ca",
-            "surface-container-highest": "#e3e1ec",
-            "tertiary-fixed": "#ebe0df",
-            "surface-dim": "#dad9e3"
-          },
 
-          borderRadius: {
-            DEFAULT: "0.25rem",
-            lg: "0.5rem",
-            xl: "0.75rem",
-            full: "9999px"
-          },
+            colors: {
+                "surface-bright": "#fbf8ff",
+                "surface-container-lowest": "#ffffff",
+                "secondary-fixed-dim": "#adc6ff",
+                "on-tertiary": "#ffffff",
+                "surface-container-highest": "#e3e1ec",
+                "tertiary-fixed": "#ebe0df",
+                "secondary": "#0058be",
+                "on-secondary-container": "#fefcff",
+                "on-secondary-fixed-variant": "#004395",
+                "secondary-container": "#2170e4",
+                "secondary-fixed": "#d8e2ff",
+                "surface-variant": "#e3e1ec",
+                "primary": "#000000",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "surface-container": "#eeedf7",
+                "primary-fixed-dim": "#c8c6c8",
+                "on-tertiary-fixed-variant": "#4c4545",
+                "primary-container": "#1c1b1d",
+                "surface-container-high": "#e8e7f1",
+                "inverse-primary": "#c8c6c8",
+                "surface-dim": "#dad9e3",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#1f1a1a",
+                "background": "#fbf8ff",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed": "#1f1a1a",
+                "tertiary": "#000000",
+                "outline": "#78767b",
+                "on-primary": "#ffffff",
+                "on-background": "#1a1b22",
+                "on-secondary-fixed": "#001a42",
+                "on-error": "#ffffff",
+                "on-primary-fixed": "#1c1b1d",
+                "on-surface-variant": "#47464a",
+                "on-tertiary-container": "#8a8282",
+                "on-surface": "#1a1b22",
+                "on-primary-fixed-variant": "#474649",
+                "tertiary-fixed-dim": "#cec4c4",
+                "inverse-surface": "#2f3038",
+                "inverse-on-surface": "#f1effa",
+                "surface": "#fbf8ff",
+                "outline-variant": "#c8c5ca",
+                "surface-tint": "#5f5e60",
+                "surface-container-low": "#f4f2fd",
+                "primary-fixed": "#e5e1e4",
+                "on-primary-container": "#858386"
+            },
 
-          spacing: {
-            "stack-md": "1rem",
-            "gutter": "1.5rem",
-            "stack-lg": "2rem",
-            "stack-sm": "0.5rem",
-            "container-max": "1440px",
-            "margin-page": "2rem"
-          },
+            borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                full: "9999px"
+            },
 
-          fontFamily: {
-            "label-sm": ["Geist"],
-            "body-lg": ["Geist"],
-            "headline-lg": ["Geist"],
-            "label-md": ["Geist"],
-            "headline-md": ["Geist"],
-            "body-md": ["Geist"],
-            "headline-xl": ["Geist"]
-          },
+            spacing: {
+                "stack-md": "1rem",
+                "margin-page": "2rem",
+                "container-max": "1440px",
+                "stack-sm": "0.5rem",
+                "gutter": "1.5rem",
+                "stack-lg": "2rem"
+            },
 
-          fontSize: {
-            "label-sm": [
-              "11px",
-              {
-                lineHeight: "14px",
-                fontWeight: "600"
-              }
-            ],
+            fontFamily: {
+                "label-sm": ["Geist"],
+                "headline-lg": ["Geist"],
+                "headline-md": ["Geist"],
+                "body-lg": ["Geist"],
+                "label-md": ["Geist"],
+                "headline-xl": ["Geist"],
+                "body-md": ["Geist"]
+            },
 
-            "body-lg": [
-              "16px",
-              {
-                lineHeight: "24px",
-                fontWeight: "400"
-              }
-            ],
+            fontSize: {
+                "label-sm": [
+                    "11px",
+                    {
+                        lineHeight: "14px",
+                        fontWeight: "600"
+                    }
+                ],
 
-            "headline-lg": [
-              "24px",
-              {
-                lineHeight: "32px",
-                letterSpacing: "-0.01em",
-                fontWeight: "600"
-              }
-            ],
+                "headline-lg": [
+                    "24px",
+                    {
+                        lineHeight: "32px",
+                        letterSpacing: "-0.01em",
+                        fontWeight: "600"
+                    }
+                ],
 
-            "label-md": [
-              "12px",
-              {
-                lineHeight: "16px",
-                letterSpacing: "0.01em",
-                fontWeight: "500"
-              }
-            ],
+                "headline-md": [
+                    "18px",
+                    {
+                        lineHeight: "28px",
+                        fontWeight: "600"
+                    }
+                ],
 
-            "headline-md": [
-              "18px",
-              {
-                lineHeight: "28px",
-                fontWeight: "600"
-              }
-            ],
+                "body-lg": [
+                    "16px",
+                    {
+                        lineHeight: "24px",
+                        fontWeight: "400"
+                    }
+                ],
 
-            "body-md": [
-              "14px",
-              {
-                lineHeight: "20px",
-                fontWeight: "400"
-              }
-            ],
+                "label-md": [
+                    "12px",
+                    {
+                        lineHeight: "16px",
+                        letterSpacing: "0.01em",
+                        fontWeight: "500"
+                    }
+                ],
 
-            "headline-xl": [
-              "36px",
-              {
-                lineHeight: "44px",
-                letterSpacing: "-0.02em",
-                fontWeight: "600"
-              }
-            ]
-          }
+                "headline-xl": [
+                    "36px",
+                    {
+                        lineHeight: "44px",
+                        letterSpacing: "-0.02em",
+                        fontWeight: "600"
+                    }
+                ],
+
+                "body-md": [
+                    "14px",
+                    {
+                        lineHeight: "20px",
+                        fontWeight: "400"
+                    }
+                ]
+            }
         }
-      }
-    };
-  </script>
+    }
+}
+</script>
+
+<style>
+body {
+    font-family: 'Geist', sans-serif;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+</style>
+
 </head>
 
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex">
 
-<body class="bg-surface font-body-md text-body-md text-on-surface">
+<%- include('partials/sidebar') %>
 
+<!-- Main Content Wrapper -->
 
-  <!-- SIDEBAR -->
+<div class="flex-1 ml-60 flex flex-col h-screen overflow-hidden">
 
-  <aside
-    class="fixed left-0 top-0 h-full w-60 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between py-stack-md"
-  >
+<!-- TopAppBar -->
 
-    <div class="flex flex-col">
+<header class="flex justify-between items-center h-16 px-gutter bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-10">
 
-      <div class="px-gutter h-14 flex items-center gap-stack-sm">
+    <div class="flex items-center gap-4">
 
-        <div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
+        <div class="relative focus-within:ring-2 focus-within:ring-outline-variant rounded-full transition-all duration-200 ease-in-out">
 
-          <span class="material-symbols-outlined text-on-primary text-[18px]">
-            corporate_fare
-          </span>
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                search
+            </span>
 
-        </div>
-
-        <div class="flex flex-col">
-
-          <span class="font-headline-md text-headline-md leading-none text-on-surface">
-            MINI HRMS
-          </span>
-
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-            Admin Workspace
-          </span>
+            <input
+                class="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md font-body-md text-on-surface placeholder-outline focus:outline-none w-64"
+                placeholder="Search..."
+                type="text"
+            />
 
         </div>
-
-      </div>
-
-
-      <div class="px-gutter mt-stack-md mb-stack-sm">
-
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-          Platform
-        </span>
-
-      </div>
-
-
-      <nav
-        class="flex flex-col gap-1 px-3"
-        data-active-classes="bg-surface-container text-on-surface font-headline-md"
-      >
-
-        <a
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
-          data-path="dashboard"
-          href="#"
-        >
-
-          <span class="material-symbols-outlined text-[20px]">
-            dashboard
-          </span>
-
-          <span class="font-body-md text-body-md">
-            Dashboard
-          </span>
-
-        </a>
-
-
-        <a
-          aria-current="page"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors bg-surface-container text-on-surface font-headline-md"
-          data-path="users"
-          href="#"
-        >
-
-          <span class="material-symbols-outlined text-[20px]">
-            group
-          </span>
-
-          <span class="font-body-md text-body-md">
-            Users
-          </span>
-
-        </a>
-
-
-        <a
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
-          data-path="my-profile"
-          href="#"
-        >
-
-          <span class="material-symbols-outlined text-[20px]">
-            badge
-          </span>
-
-          <span class="font-body-md text-body-md">
-            My Profile
-          </span>
-
-        </a>
-
-
-        <a
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
-          data-path="settings"
-          href="#"
-        >
-
-          <span class="material-symbols-outlined text-[20px]">
-            settings
-          </span>
-
-          <span class="font-body-md text-body-md">
-            Settings
-          </span>
-
-        </a>
-
-      </nav>
 
     </div>
 
 
-    <div class="px-3 pt-stack-md flex flex-col gap-1">
+    <div class="flex items-center gap-4">
 
-      <a
-        class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-error-container hover:text-on-error-container transition-colors"
-        data-path="login"
-        href="#"
-      >
+        <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
 
-        <span class="material-symbols-outlined text-[20px]">
-          logout
-        </span>
-
-        <span class="font-body-md text-body-md">
-          Logout
-        </span>
-
-      </a>
-
-    </div>
-
-  </aside>
-
-
-
-  <!-- MAIN -->
-
-  <div class="pl-60 min-h-screen flex flex-col">
-
-
-    <!-- HEADER -->
-
-    <header
-      class="fixed top-0 left-60 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-gutter flex items-center justify-between"
-    >
-
-      <div class="flex items-center w-80">
-
-        <div
-          class="flex items-center w-full px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant gap-2"
-        >
-
-          <span class="material-symbols-outlined text-[18px]">
-            search
-          </span>
-
-          <input
-            class="w-full bg-transparent border-none outline-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant"
-            placeholder="Search employees, teams, records..."
-            type="text"
-          />
-
-        </div>
-
-      </div>
-
-
-      <div class="flex items-center gap-stack-md">
-
-        <button
-          class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors relative"
-          type="button"
-        >
-
-          <span class="material-symbols-outlined text-[20px]">
-            notifications
-          </span>
-
-          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span>
+            <span class="material-symbols-outlined">
+                notifications
+            </span>
 
         </button>
 
+        <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
 
-        <div class="flex items-center gap-stack-sm pl-2">
-
-          <div class="flex flex-col items-end">
-
-            <span class="font-label-md text-label-md text-on-surface leading-tight">
-              Admin User
-            </span>
-
-            <span class="font-label-sm text-label-sm text-on-surface-variant">
-              HR Operations
-            </span>
-
-          </div>
-
-
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-
-            <span class="material-symbols-outlined text-on-primary text-[18px]">
-              person
-            </span>
-
-          </div>
+            <img
+                alt="User avatar"
+                class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBKG226xoBqBxQ6uXdC8HDb6OZzq0Ml8Q0iiTPD4v7Hkc5MDC7oAxlU5tp5QS1h-hEZURRE98FmZ9m1PybhFzqiWETWl9XnSM4Ui0HnkwySwDCT9vPT0RKtqVOcfZwatqUP5HrpTqVLWYKrFm47otp2nem8iWOzR-XV3YU33FaQnrSk1BJntt3lVVBjIs_xoNjBaL79xvE0PaLGL0iMmKpdt155ZehysHWbd9iP_lz_uh4UpK9fOsm"
+            />
 
         </div>
 
-      </div>
+    </div>
 
-    </header>
-
-
-
-    <!-- CONTENT -->
-
-    <main class="w-full pt-16 bg-surface flex-1">
-
-      <div class="flex flex-col w-full">
-
-        <div
-          class="w-full max-w-[1440px] mx-auto px-margin-page py-stack-lg flex flex-col gap-stack-lg"
-        >
+</header>
 
 
-          <!-- BREADCRUMB -->
+<!-- Main Scrollable Content -->
 
-          <div class="flex items-center justify-between">
+<main class="flex-1 overflow-y-auto p-margin-page">
+
+    <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
+
+        <!-- BREADCRUMB -->
+
+        <div class="flex items-center justify-between">
 
             <a
-              class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors"
-              data-path="users"
-              href="#"
+                class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors"
+                href="/admin"
             >
 
-              <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">
-                arrow_back
-              </span>
+                <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">
+                    arrow_back
+                </span>
 
-              <span class="font-label-md text-label-md">
-                Back to Users
-              </span>
+                <span class="font-label-md text-label-md">
+                    Back to Dashboard
+                </span>
 
             </a>
 
 
             <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
 
-              <span>
-                HR Management
-              </span>
+                <span>
+                    HR Management
+                </span>
 
-              <span>/</span>
+                <span>/</span>
 
-              <span>
-                Directory
-              </span>
+                <span>
+                    Directory
+                </span>
 
-              <span>/</span>
+                <span>/</span>
 
-              <span class="text-on-surface">
-                USR-84920
-              </span>
+                <span class="text-on-surface">
+                    <%=user.fullname%>
+                </span>
 
             </div>
 
-          </div>
+        </div>
 
 
+        <!-- USER PROFILE HEADER -->
 
-          <!-- USER PROFILE HEADER -->
-
-          <div
-            class="bg-surface-container-lowest rounded-xl p-stack-lg shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-stack-md"
-          >
+        <div
+            class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-stack-md"
+        >
 
             <div class="flex items-center gap-stack-md min-w-0">
 
 
-              <!-- AVATAR -->
+                <!-- AVATAR -->
 
-              <div class="relative shrink-0">
+                <div class="relative shrink-0">
 
-                <div
-                  class="w-16 h-16 rounded-full bg-surface-container-high overflow-hidden flex items-center justify-center text-on-surface font-headline-md text-headline-md"
-                >
+                    <div
+                        class="w-16 h-16 rounded-full bg-surface-container-high overflow-hidden flex items-center justify-center text-on-surface font-headline-md text-headline-md"
+                    >
 
-                  <img
-                    class="w-full h-full object-cover"
-                    data-alt="High-resolution professional headshot of Ali Khan, a Pakistani male corporate software engineer wearing a dark tailored shirt in a minimally lit studio setting with neutral gray background and clean rim lighting."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTcB9JjoZSn8-DVGh3ditlSsFO6F0RMPu90o3EJ9NI0WRYX_4GgYGP_Mo2dRdXqrtdHb-HSSFWpsAQ8cpiizrRSMo2wMycjDfJ8Hy05MKw3d53Kps9Q1eZvKQRtirlQGjAVrCj_IZNC6U1_ZGvff2yA46r0fP3yMTI5LnXnQMRYp-8RcmFnx3hQeEqfcPjpsuF68pZq6iEp81oRILNB2DsBGTP3mKGNKcqPpTe7a_qKKq62CXx3Egk"
-                  />
+                        <img
+                            class="w-full h-full object-cover"
+                            src="data:<%=user.imageType%>;base64,<%=user.profileImage.toString('base64')%>"
+                        />
 
-                </div>
-
-
-                <span
-                  class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"
-                  title="Active Status"
-                ></span>
-
-              </div>
+                    </div>
 
 
-
-              <!-- META DETAILS -->
-
-              <div class="flex flex-col min-w-0">
-
-                <div class="flex items-center gap-2.5 flex-wrap">
-
-                  <h1
-                    class="font-headline-lg text-headline-lg text-on-surface tracking-tight truncate"
-                  >
-                  <%=user.fullname%>
-                  </h1>
-
-
-                  <!-- <span
-                    class="px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1"
-                  >
-
-                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-
-                    Full-time
-
-                  </span> -->
+                    <span
+                        class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"
+                        title="Active Status"
+                    ></span>
 
                 </div>
 
 
-                <div class="flex items-center gap-stack-sm flex-wrap mt-0.5">
 
-                  <span class="font-body-md text-body-md text-on-surface-variant">
-                    <%=user.email%>
-                  </span>
+                <!-- META DETAILS -->
 
-                  <span class="text-on-surface-variant">
-                    ·
-                  </span>
+                <div class="flex flex-col min-w-0">
 
-                  <span class="font-label-md text-label-md text-on-surface-variant">
-                    <%=user.role%>
-                  </span>
+                    <div class="flex items-center gap-2.5 flex-wrap">
 
-                  <span class="text-on-surface-variant">
-                    ·
-                  </span>
+                        <h1
+                            class="font-headline-lg text-headline-lg text-on-surface tracking-tight truncate"
+                        >
+                        <%=user.fullname%>
+                        </h1>
 
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">
-                    Joined <%=user.createdAt.toDateString()%>
-                  </span>
+                    </div>
+
+
+                    <div class="flex items-center gap-stack-sm flex-wrap mt-0.5">
+
+                        <span class="font-body-md text-body-md text-on-surface-variant">
+                            <%=user.email%>
+                        </span>
+
+                        <span class="text-on-surface-variant">
+                            ·
+                        </span>
+
+                        <span class="font-label-md text-label-md text-on-surface-variant">
+                            <%=user.role%>
+                        </span>
+
+                        <span class="text-on-surface-variant">
+                            ·
+                        </span>
+
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">
+                            Joined <%=user.createdAt.toDateString()%>
+                        </span>
+
+                    </div>
 
                 </div>
-
-              </div>
 
             </div>
 
@@ -563,89 +358,89 @@
             <!-- ACTION BUTTONS -->
 
             <div
-              class="flex items-center gap-stack-sm w-full lg:w-auto justify-end pt-stack-sm lg:pt-0"
+                class="flex items-center gap-stack-sm w-full lg:w-auto justify-end pt-stack-sm lg:pt-0"
             >
 
-              <button
-                class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors"
-                id="openChangeRoleBtn"
-                type="button"
-              >
+                <button
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors"
+                    id="openChangeRoleBtn"
+                    type="button"
+                >
 
-                <span class="material-symbols-outlined text-[18px]">
-                  admin_panel_settings
-                </span>
+                    <span class="material-symbols-outlined text-[18px]">
+                        admin_panel_settings
+                    </span>
 
-                <span>
-                  Change Role
-                </span>
+                    <span>
+                        Change Role
+                    </span>
 
-              </button>
+                </button>
 
 
-              <button
-                class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-colors"
-                id="openDeleteUserBtn"
-                type="button"
-              >
+                <button
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-colors"
+                    id="openDeleteUserBtn"
+                    type="button"
+                >
 
-                <span class="material-symbols-outlined text-[18px]">
-                  delete
-                </span>
+                    <span class="material-symbols-outlined text-[18px]">
+                        delete
+                    </span>
 
-                <span>
-                  Delete User
-                </span>
+                    <span>
+                        Delete User
+                    </span>
 
-              </button>
+                </button>
 
             </div>
 
-          </div>
+        </div>
 
 
 
-          <!-- STATISTICS -->
+        <!-- STATISTICS -->
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
 
 
             <!-- TOTAL LEAVES -->
 
             <div
-              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
+                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
             >
 
-              <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between">
 
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Total Leaves
-                </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Total Leaves
+                    </span>
 
-                <div
-                  class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-                >
+                    <div
+                        class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
+                    >
 
-                  <span class="material-symbols-outlined text-[18px]">
-                    date_range
-                  </span>
+                        <span class="material-symbols-outlined text-[18px]">
+                            date_range
+                        </span>
+
+                    </div>
 
                 </div>
 
-              </div>
 
+                <div class="mt-4 flex items-baseline justify-between">
 
-              <div class="mt-4 flex items-baseline justify-between">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                        <%=user.leaves.totalLeaves.length%>
+                    </span>
 
-                <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                    <%=user.leaves.totalLeaves.length%>
-                </span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">
+                        Allocated: 24
+                    </span>
 
-                <span class="font-label-sm text-label-sm text-on-surface-variant">
-                  Allocated: 24
-                </span>
-
-              </div>
+                </div>
 
             </div>
 
@@ -654,41 +449,41 @@
             <!-- APPROVED -->
 
             <div
-              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
+                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
             >
 
-              <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between">
 
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Approved
-                </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Approved
+                    </span>
 
-                <div
-                  class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary"
-                >
+                    <div
+                        class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary"
+                    >
 
-                  <span class="material-symbols-outlined text-[18px]">
-                    check_circle
-                  </span>
+                        <span class="material-symbols-outlined text-[18px]">
+                            check_circle
+                        </span>
+
+                    </div>
 
                 </div>
 
-              </div>
 
+                <div class="mt-4 flex items-baseline justify-between">
 
-              <div class="mt-4 flex items-baseline justify-between">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                        <%=user.leaves.approvedLeaves.length%>
+                    </span>
 
-                <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                  <%=user.leaves.approvedLeaves.length%>
-                </span>
+                    <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm"
+                    >
+                        58.3%
+                    </span>
 
-                <span
-                  class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm"
-                >
-                  58.3%
-                </span>
-
-              </div>
+                </div>
 
             </div>
 
@@ -697,42 +492,41 @@
             <!-- PENDING -->
 
             <div
-              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
+                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
             >
 
-              <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between">
 
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Pending
-                </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Pending
+                    </span>
 
-                <div
-                  class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-                >
+                    <div
+                        class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
+                    >
 
-                  <span class="material-symbols-outlined text-[18px]">
-                    pending_actions
-                  </span>
+                        <span class="material-symbols-outlined text-[18px]">
+                            pending_actions
+                        </span>
+
+                    </div>
 
                 </div>
 
-              </div>
 
+                <div class="mt-4 flex items-baseline justify-between">
 
-              <div class="mt-4 flex items-baseline justify-between">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                         <%=user.leaves.totalLeaves.length%>
+                    </span>
 
-                <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                     <%=user.leaves.totalLeaves.length%>
+                    <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
+                    >
+                        In review
+                    </span>
 
-                </span>
-
-                <span
-                  class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
-                >
-                  In review
-                </span>
-
-              </div>
+                </div>
 
             </div>
 
@@ -741,84 +535,83 @@
             <!-- REJECTED -->
 
             <div
-              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
+                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
             >
 
-              <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between">
 
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Rejected
-                </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Rejected
+                    </span>
 
-                <div
-                  class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container"
-                >
+                    <div
+                        class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container"
+                    >
 
-                  <span class="material-symbols-outlined text-[18px]">
-                    cancel
-                  </span>
+                        <span class="material-symbols-outlined text-[18px]">
+                            cancel
+                        </span>
+
+                    </div>
 
                 </div>
 
-              </div>
 
+                <div class="mt-4 flex items-baseline justify-between">
 
-              <div class="mt-4 flex items-baseline justify-between">
+                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                         <%=user.leaves.rejectedLeaves.length%>
+                    </span>
 
-                <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                     <%=user.leaves.rejectedLeaves.length%>
+                    <span
+                        class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm"
+                    >
+                        16.6%
+                    </span>
 
-                </span>
-
-                <span
-                  class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm"
-                >
-                  16.6%
-                </span>
-
-              </div>
+                </div>
 
             </div>
 
-          </div>
+        </div>
 
 
 
-          <!-- PERSONAL INFORMATION -->
+        <!-- PERSONAL INFORMATION -->
 
-          <div
-            class="bg-surface-container-lowest rounded-xl p-stack-lg shadow-sm"
-          >
+        <div
+            class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg shadow-sm"
+        >
 
             <div class="flex items-center justify-between pb-stack-md">
 
-              <div>
+                <div>
 
-                <h2 class="font-headline-md text-headline-md text-on-surface">
-                  Personal Information
-                </h2>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">
+                        Personal Information
+                    </h2>
 
-                <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
-                  Employee contact and organizational records.
-                </p>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                        Employee contact and organizational records.
+                    </p>
 
-              </div>
+                </div>
 
 
-              <button
-                class="inline-flex items-center gap-1 text-secondary hover:text-on-surface font-label-md text-label-md transition-colors"
-                type="button"
-              >
+                <button
+                    class="inline-flex items-center gap-1 text-secondary hover:text-on-surface font-label-md text-label-md transition-colors"
+                    type="button"
+                >
 
-                <span class="material-symbols-outlined text-[16px]">
-                  edit
-                </span>
+                    <span class="material-symbols-outlined text-[16px]">
+                        edit
+                    </span>
 
-                <span>
-                  Edit Details
-                </span>
+                    <span>
+                        Edit Details
+                    </span>
 
-              </button>
+                </button>
 
             </div>
 
@@ -827,172 +620,157 @@
             <!-- KEY VALUE GRID -->
 
             <div
-              class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 pt-stack-sm"
+                class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 pt-stack-sm"
             >
 
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Full Name
-                </span>
-
-                <span class="font-body-md text-body-md text-on-surface font-headline-md">
-                  <%=user.fullname%>
-                </span>
-
-              </div>
-
-
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Email
-                </span>
-
-                <span class="font-body-md text-body-md text-on-surface">
-                  <%=user.email%>
-                </span>
-
-              </div>
-
-
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Phone
-                </span>
-
-                <span class="font-body-md text-body-md text-on-surface">
-                 <%=user.phone%>
-                </span>
-
-              </div>
-
-
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Address
-                </span>
-
-                <span class="font-body-md text-body-md text-on-surface">
-                  <%=user.address%>
-                </span>
-
-              </div>
-
-
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  <%=user.role%>
-                </span>
-
-                <span
-                  class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
                 >
-                  Employee
-                </span>
 
-              </div>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Full Name
+                    </span>
 
+                    <span class="font-body-md text-body-md text-on-surface font-headline-md">
+                        <%=user.fullname%>
+                    </span>
 
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors"
-              >
-
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Joined
-                </span>
-
-                <span class="font-body-md text-body-md text-on-surface">
-                  <%=user.createdAt.toDateString()%>
-                </span>
-
-              </div>
+                </div>
 
 
-              <div
-                class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors md:col-span-2"
-              >
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
+                >
 
-                <span class="font-label-md text-label-md text-on-surface-variant">
-                  Last Updated
-                </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Email
+                    </span>
 
-                <span class="font-body-md text-body-md text-on-surface-variant">
-                  2 days ago
-                </span>
+                    <span class="font-body-md text-body-md text-on-surface">
+                        <%=user.email%>
+                    </span>
 
-              </div>
+                </div>
+
+
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
+                >
+
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Phone
+                    </span>
+
+                    <span class="font-body-md text-body-md text-on-surface">
+                        <%=user.phone%>
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
+                >
+
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Address
+                    </span>
+
+                    <span class="font-body-md text-body-md text-on-surface">
+                        <%=user.address%>
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
+                >
+
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Role
+                    </span>
+
+                    <span
+                        class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
+                    >
+                        <%=user.role%>
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
+                >
+
+                    <span class="font-label-md text-label-md text-on-surface-variant">
+                        Joined
+                    </span>
+
+                    <span class="font-body-md text-body-md text-on-surface">
+                        <%=user.createdAt.toDateString()%>
+                    </span>
+
+                </div>
 
             </div>
 
-          </div>
+        </div>
 
 
 
-          <!-- LEAVE HISTORY -->
+        <!-- LEAVE HISTORY -->
 
-          <div
-            class="bg-surface-container-lowest rounded-xl shadow-sm flex flex-col overflow-hidden"
-          >
+        <div
+            class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col overflow-hidden mb-8"
+        >
 
 
             <!-- SECTION HEADER -->
 
             <div
-              class="p-stack-lg flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm"
+                class="p-stack-lg flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm"
             >
 
-              <div>
+                <div>
 
-                <h2 class="font-headline-md text-headline-md text-on-surface">
-                  Leave History
-                </h2>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">
+                        Leave History
+                    </h2>
 
-                <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
-                  All recorded time off requests for this user.
-                </p>
-
-              </div>
-
-
-              <div class="flex items-center gap-stack-sm">
-
-                <div
-                  class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant"
-                >
-
-                  <span class="material-symbols-outlined text-[16px]">
-                    filter_list
-                  </span>
-
-                  <span class="font-label-sm text-label-sm">
-                    Filter: All Time
-                  </span>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                        All recorded time off requests for this user.
+                    </p>
 
                 </div>
 
 
-                <button
-                  class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors"
-                  type="button"
-                >
-                  Export CSV
-                </button>
+                <div class="flex items-center gap-stack-sm">
 
-              </div>
+                    <div
+                        class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant"
+                    >
+
+                        <span class="material-symbols-outlined text-[16px]">
+                            filter_list
+                        </span>
+
+                        <span class="font-label-sm text-label-sm">
+                            Filter: All Time
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors"
+                        type="button"
+                    >
+                        Export CSV
+                    </button>
+
+                </div>
 
             </div>
 
@@ -1002,841 +780,598 @@
 
             <div class="overflow-x-auto w-full">
 
-              <table class="w-full text-left">
+                <table class="w-full text-left">
 
-                <thead>
+                    <thead>
 
-                  <tr class="bg-surface-container-low">
+                        <tr class="bg-surface-container-low border-y border-outline-variant">
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      Leave Type
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Leave Type
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      Start Date
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Start Date
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      End Date
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                End Date
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      Duration
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Duration
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider min-w-[200px]">
-                      Reason
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider min-w-[200px]">
+                                Reason
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      Status
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Status
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                      Submitted Date
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Submitted Date
+                            </th>
 
-                    <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
-                      Actions
-                    </th>
+                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                                Actions
+                            </th>
 
-                  </tr>
+                        </tr>
 
-                </thead>
+                    </thead>
 
 
-                <tbody class="divide-y-0">
+                    <tbody class="divide-y divide-outline-variant/50">
 
 
-                  <!-- ROW 1 -->
+                        <!-- ROW 1 -->
 
-                  <tr class="hover:bg-surface-container-low transition-colors group">
+                        <tr class="hover:bg-surface-container-low transition-colors group">
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
 
-                      <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
 
-                      <span class="font-headline-md text-body-md">
-                        Annual Leave
-                      </span>
+                                <span class="font-headline-md text-body-md">
+                                    Annual Leave
+                                </span>
 
-                    </td>
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Sep 10, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Sep 10, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Sep 12, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Sep 12, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                      3 Days
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
+                                3 Days
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                      Family trip to northern areas
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
+                                Family trip to northern areas
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md">
+                            <td class="py-3.5 px-stack-md">
 
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
 
-                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
 
-                        Approved
+                                    Approved
 
-                      </span>
+                                </span>
 
-                    </td>
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Sep 5, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Sep 5, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md text-right">
+                            <td class="py-3.5 px-stack-md text-right">
 
-                      <button
-                        class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                        data-dates="Sep 10 - Sep 12, 2026"
-                        data-reason="Family trip to northern areas"
-                        data-status="Approved"
-                        data-title="Annual Leave"
-                        type="button"
-                      >
+                                <button
+                                    class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
+                                    data-dates="Sep 10 - Sep 12, 2026"
+                                    data-reason="Family trip to northern areas"
+                                    data-status="Approved"
+                                    data-title="Annual Leave"
+                                    type="button"
+                                >
 
-                        <span>
-                          View Details
-                        </span>
+                                    <span>
+                                        View Details
+                                    </span>
 
-                        <span class="material-symbols-outlined text-[14px]">
-                          arrow_forward
-                        </span>
+                                    <span class="material-symbols-outlined text-[14px]">
+                                        arrow_forward
+                                    </span>
 
-                      </button>
+                                </button>
 
-                    </td>
+                            </td>
 
-                  </tr>
+                        </tr>
 
 
 
-                  <!-- ROW 2 -->
+                        <!-- ROW 2 -->
 
-                  <tr class="hover:bg-surface-container-low transition-colors group">
+                        <tr class="hover:bg-surface-container-low transition-colors group">
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
 
-                      <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
 
-                      <span class="font-headline-md text-body-md">
-                        Sick Leave
-                      </span>
+                                <span class="font-headline-md text-body-md">
+                                    Sick Leave
+                                </span>
 
-                    </td>
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Aug 14, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Aug 14, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Aug 15, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Aug 15, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                      1 Day
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
+                                1 Day
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                      Viral fever and recovery
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
+                                Viral fever and recovery
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md">
+                            <td class="py-3.5 px-stack-md">
 
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
 
-                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
 
-                        Approved
+                                    Approved
 
-                      </span>
+                                </span>
 
-                    </td>
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Aug 14, 2026
-                    </td>
+                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
+                                Aug 14, 2026
+                            </td>
 
 
-                    <td class="py-3.5 px-stack-md text-right">
+                            <td class="py-3.5 px-stack-md text-right">
 
-                      <button
-                        class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                        data-dates="Aug 14 - Aug 15, 2026"
-                        data-reason="Viral fever and recovery"
-                        data-status="Approved"
-                        data-title="Sick Leave"
-                        type="button"
-                      >
+                                <button
+                                    class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
+                                    data-dates="Aug 14 - Aug 15, 2026"
+                                    data-reason="Viral fever and recovery"
+                                    data-status="Approved"
+                                    data-title="Sick Leave"
+                                    type="button"
+                                >
 
-                        <span>
-                          View Details
-                        </span>
+                                    <span>
+                                        View Details
+                                    </span>
 
-                        <span class="material-symbols-outlined text-[14px]">
-                          arrow_forward
-                        </span>
+                                    <span class="material-symbols-outlined text-[14px]">
+                                        arrow_forward
+                                    </span>
 
-                      </button>
+                                </button>
 
-                    </td>
+                            </td>
 
-                  </tr>
+                        </tr>
 
+                    </tbody>
 
-
-                  <!-- ROW 3 -->
-
-                  <tr class="hover:bg-surface-container-low transition-colors group">
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
-
-                      <span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
-
-                      <span class="font-headline-md text-body-md">
-                        Casual Leave
-                      </span>
-
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Oct 01, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Oct 03, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                      3 Days
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                      Attending sibling wedding
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md">
-
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
-
-                        <span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
-
-                        Pending
-
-                      </span>
-
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Sep 28, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md text-right">
-
-                      <button
-                        class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                        data-dates="Oct 01 - Oct 03, 2026"
-                        data-reason="Attending sibling wedding ceremony in Lahore"
-                        data-status="Pending"
-                        data-title="Casual Leave"
-                        type="button"
-                      >
-
-                        <span>
-                          View Details
-                        </span>
-
-                        <span class="material-symbols-outlined text-[14px]">
-                          arrow_forward
-                        </span>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-
-
-                  <!-- ROW 4 -->
-
-                  <tr class="hover:bg-surface-container-low transition-colors group">
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
-
-                      <span class="w-2 h-2 rounded-full bg-error"></span>
-
-                      <span class="font-headline-md text-body-md">
-                        Remote Work
-                      </span>
-
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Jul 20, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Jul 22, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                      2 Days
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                      Home internet maintenance
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md">
-
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">
-
-                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
-
-                        Rejected
-
-                      </span>
-
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                      Jul 18, 2026
-                    </td>
-
-
-                    <td class="py-3.5 px-stack-md text-right">
-
-                      <button
-                        class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                        data-dates="Jul 20 - Jul 22, 2026"
-                        data-reason="Home internet fiber maintenance"
-                        data-status="Rejected"
-                        data-title="Remote Work"
-                        type="button"
-                      >
-
-                        <span>
-                          View Details
-                        </span>
-
-                        <span class="material-symbols-outlined text-[14px]">
-                          arrow_forward
-                        </span>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
+                </table>
 
             </div>
-
-
-
-            <!-- FOOTER -->
-
-            <div
-              class="px-stack-lg py-stack-md bg-surface-container-lowest flex items-center justify-between"
-            >
-
-              <span class="font-body-md text-body-md text-on-surface-variant">
-
-                Showing
-
-                <span class="font-headline-md text-body-md text-on-surface">
-                  1 to 4
-                </span>
-
-                of
-
-                <span class="font-headline-md text-body-md text-on-surface">
-                  12
-                </span>
-
-                requests
-
-              </span>
-
-
-              <div class="flex items-center gap-1">
-
-                <button
-                  class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant opacity-50 cursor-not-allowed"
-                  disabled
-                  type="button"
-                >
-
-                  <span class="material-symbols-outlined text-[18px]">
-                    chevron_left
-                  </span>
-
-                </button>
-
-
-                <button
-                  class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface font-label-sm text-label-sm"
-                  type="button"
-                >
-                  1
-                </button>
-
-
-                <button
-                  class="w-8 h-8 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant font-label-sm text-label-sm transition-colors"
-                  type="button"
-                >
-                  2
-                </button>
-
-
-                <button
-                  class="w-8 h-8 rounded-lg hover:bg-surface-container flex items-center justify-center text-on-surface-variant font-label-sm text-label-sm transition-colors"
-                  type="button"
-                >
-                  3
-                </button>
-
-
-                <button
-                  class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"
-                  type="button"
-                >
-
-                  <span class="material-symbols-outlined text-[18px]">
-                    chevron_right
-                  </span>
-
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
 
         </div>
 
-      </div>
+    </div>
 
-    </main>
+</main>
 
-  </div>
+</div>
 
+<!-- CHANGE ROLE MODAL -->
 
-
-  <!-- CHANGE ROLE MODAL -->
-
-  <div
+<div
     class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
     id="changeRoleModal"
-  >
+>
 
     <div
-      class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
+        class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
     >
 
-      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between">
 
-        <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2">
 
-          <div
-            class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-          >
+                <div
+                    class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
+                >
 
-            <span class="material-symbols-outlined text-[18px]">
-              admin_panel_settings
-            </span>
+                    <span class="material-symbols-outlined text-[18px]">
+                        admin_panel_settings
+                    </span>
 
-          </div>
+                </div>
 
-          <h3 class="font-headline-md text-headline-md text-on-surface">
-            Change User Role
-          </h3>
+                <h3 class="font-headline-md text-headline-md text-on-surface">
+                    Change User Role
+                </h3>
+
+            </div>
+
+
+            <button
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
+                id="closeChangeRoleBtn"
+                type="button"
+            >
+
+                <span class="material-symbols-outlined text-[18px]">
+                    close
+                </span>
+
+            </button>
 
         </div>
 
 
-        <button
-          class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
-          id="closeChangeRoleBtn"
-          type="button"
-        >
+        <p class="font-body-md text-body-md text-on-surface-variant">
 
-          <span class="material-symbols-outlined text-[18px]">
-            close
-          </span>
+            Select the administrative permissions or access level for
 
-        </button>
+            <strong class="text-on-surface">
+                <%=user.fullname%>
+            </strong>.
 
-      </div>
+        </p>
 
 
-      <p class="font-body-md text-body-md text-on-surface-variant">
-
-        Select the administrative permissions or access level for
-
-        <strong class="text-on-surface">
-          Ali Khan
-        </strong>.
-
-      </p>
+        <div class="flex flex-col gap-2">
 
 
-      <div class="flex flex-col gap-2">
+            <label
+                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors"
+            >
+
+                <div class="flex flex-col">
+
+                    <span class="font-label-md text-label-md text-on-surface">
+                        Employee
+                    </span>
+
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">
+                        Standard view and personal leave requests
+                    </span>
+
+                </div>
+
+                <input
+                    <%= user.role === 'employee' ? 'checked' : '' %>
+                    class="accent-primary w-4 h-4"
+                    name="userRole"
+                    type="radio"
+                    value="employee"
+                />
+
+            </label>
 
 
-        <label
-          class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors"
-        >
+            <label
+                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
+            >
 
-          <div class="flex flex-col">
+                <div class="flex flex-col">
 
-            <span class="font-label-md text-label-md text-on-surface">
-              Employee
-            </span>
+                    <span class="font-label-md text-label-md text-on-surface">
+                        HR Manager
+                    </span>
 
-            <span class="font-label-sm text-label-sm text-on-surface-variant">
-              Standard view and personal leave requests
-            </span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">
+                        Approve squad requests and view team schedule
+                    </span>
 
-          </div>
+                </div>
 
-          <input
-            checked
-            class="accent-primary w-4 h-4"
-            name="userRole"
-            type="radio"
-            value="Employee"
-          />
+                <input
+                    <%= user.role === 'hr' ? 'checked' : '' %>
+                    class="accent-primary w-4 h-4"
+                    name="userRole"
+                    type="radio"
+                    value="hr"
+                />
 
-        </label>
-
-
-        <label
-          class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
-        >
-
-          <div class="flex flex-col">
-
-            <span class="font-label-md text-label-md text-on-surface">
-              Team Lead
-            </span>
-
-            <span class="font-label-sm text-label-sm text-on-surface-variant">
-              Approve squad requests and view team schedule
-            </span>
-
-          </div>
-
-          <input
-            class="accent-primary w-4 h-4"
-            name="userRole"
-            type="radio"
-            value="Team Lead"
-          />
-
-        </label>
+            </label>
 
 
-        <label
-          class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
-        >
+            <label
+                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
+            >
 
-          <div class="flex flex-col">
+                <div class="flex flex-col">
 
-            <span class="font-label-md text-label-md text-on-surface">
-              HR Admin
-            </span>
+                    <span class="font-label-md text-label-md text-on-surface">
+                        Admin
+                    </span>
 
-            <span class="font-label-sm text-label-sm text-on-surface-variant">
-              Full system permissions and employee management
-            </span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">
+                        Full system permissions and employee management
+                    </span>
 
-          </div>
+                </div>
 
-          <input
-            class="accent-primary w-4 h-4"
-            name="userRole"
-            type="radio"
-            value="HR Admin"
-          />
+                <input
+                    <%= user.role === 'admin' ? 'checked' : '' %>
+                    class="accent-primary w-4 h-4"
+                    name="userRole"
+                    type="radio"
+                    value="admin"
+                />
 
-        </label>
+            </label>
 
-      </div>
-
-
-      <div class="flex items-center justify-end gap-stack-sm pt-2">
-
-        <button
-          class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
-          id="cancelChangeRoleBtn"
-          type="button"
-        >
-          Cancel
-        </button>
+        </div>
 
 
-        <button
-          class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
-          id="saveRoleBtn"
-          type="button"
-        >
-          Save Changes
-        </button>
+        <div class="flex items-center justify-end gap-stack-sm pt-2">
 
-      </div>
+            <button
+                class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
+                id="cancelChangeRoleBtn"
+                type="button"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
+                id="saveRoleBtn"
+                type="button"
+            >
+                Save Changes
+            </button>
+
+        </div>
 
     </div>
 
-  </div>
+</div>
 
 
 
-  <!-- DELETE USER MODAL -->
+<!-- DELETE USER MODAL -->
 
-  <div
+<div
     class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
     id="deleteUserModal"
-  >
+>
 
     <div
-      class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
+        class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
     >
 
-      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
 
-        <div
-          class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0"
-        >
+            <div
+                class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0"
+            >
 
-          <span class="material-symbols-outlined text-[20px]">
-            warning
-          </span>
+                <span class="material-symbols-outlined text-[20px]">
+                    warning
+                </span>
+
+            </div>
+
+
+            <div class="flex flex-col">
+
+                <h3 class="font-headline-md text-headline-md text-on-surface">
+                    Delete User Profile
+                </h3>
+
+                <span class="font-label-sm text-label-sm text-error">
+                    Irreversible Action
+                </span>
+
+            </div>
 
         </div>
 
 
-        <div class="flex flex-col">
+        <p class="font-body-md text-body-md text-on-surface-variant">
 
-          <h3 class="font-headline-md text-headline-md text-on-surface">
-            Delete User Profile
-          </h3>
+            Are you sure you want to permanently remove
 
-          <span class="font-label-sm text-label-sm text-error">
-            Irreversible Action
-          </span>
+            <strong class="text-on-surface">
+                <%=user.fullname%> (<%=user.email%>)
+            </strong>?
+
+            This will delete all historic leave records, audit trails, and platform credentials.
+
+        </p>
+
+
+        <div class="flex items-center justify-end gap-stack-sm pt-2">
+
+            <button
+                class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
+                id="cancelDeleteBtn"
+                type="button"
+            >
+                Keep User
+            </button>
+
+
+            <a  
+                class="px-4 py-2 rounded-lg bg-error text-on-error font-label-md text-label-md hover:bg-error-container hover:text-on-error-container transition-colors"
+                id="confirmDeleteBtn"
+                href="/admin/users/delete/<%=user._id%>"
+            >
+                Yes, Delete Account
+            </a>
 
         </div>
-
-      </div>
-
-
-      <p class="font-body-md text-body-md text-on-surface-variant">
-
-        Are you sure you want to permanently remove
-
-        <strong class="text-on-surface">
-          Ali Khan (ali@example.com)
-        </strong>?
-
-        This will delete all historic leave records, audit trails, and platform credentials.
-
-      </p>
-
-
-      <div class="flex items-center justify-end gap-stack-sm pt-2">
-
-        <button
-          class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
-          id="cancelDeleteBtn"
-          type="button"
-        >
-          Keep User
-        </button>
-
-
-        <button
-          class="px-4 py-2 rounded-lg bg-error text-on-error font-label-md text-label-md hover:bg-error-container hover:text-on-error-container transition-colors"
-          id="confirmDeleteBtn"
-          type="button"
-        >
-          Yes, Delete Account
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</div>
 
 
 
-  <!-- LEAVE DETAIL MODAL -->
+<!-- LEAVE DETAIL MODAL -->
 
-  <div
+<div
     class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
     id="leaveDetailModal"
-  >
+>
 
     <div
-      class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
+        class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
     >
 
-      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between">
 
-        <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2">
 
-          <span class="material-symbols-outlined text-secondary">
-            event_note
-          </span>
+                <span class="material-symbols-outlined text-secondary">
+                    event_note
+                </span>
 
-          <h3
-            class="font-headline-md text-headline-md text-on-surface"
-            id="modalLeaveTitle"
-          >
-            Leave Request Details
-          </h3>
+                <h3
+                    class="font-headline-md text-headline-md text-on-surface"
+                    id="modalLeaveTitle"
+                >
+                    Leave Request Details
+                </h3>
 
-        </div>
-
-
-        <button
-          class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
-          id="closeDetailModalBtn"
-          type="button"
-        >
-
-          <span class="material-symbols-outlined text-[18px]">
-            close
-          </span>
-
-        </button>
-
-      </div>
+            </div>
 
 
-      <div class="flex flex-col gap-3 py-2">
+            <button
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
+                id="closeDetailModalBtn"
+                type="button"
+            >
 
+                <span class="material-symbols-outlined text-[18px]">
+                    close
+                </span>
 
-        <div
-          class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
-        >
-
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-            Dates
-          </span>
-
-          <span
-            class="font-label-md text-label-md text-on-surface"
-            id="modalLeaveDates"
-          >
-            Sep 10 - Sep 12, 2026
-          </span>
+            </button>
 
         </div>
 
 
-        <div
-          class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
-        >
+        <div class="flex flex-col gap-3 py-2">
 
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-            Current Status
-          </span>
 
-          <span
-            class="font-label-md text-label-md text-secondary"
-            id="modalLeaveStatus"
-          >
-            Approved
-          </span>
+            <div
+                class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
+            >
+
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
+                    Dates
+                </span>
+
+                <span
+                    class="font-label-md text-label-md text-on-surface"
+                    id="modalLeaveDates"
+                >
+                    Sep 10 - Sep 12, 2026
+                </span>
+
+            </div>
+
+
+            <div
+                class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
+            >
+
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
+                    Current Status
+                </span>
+
+                <span
+                    class="font-label-md text-label-md text-secondary"
+                    id="modalLeaveStatus"
+                >
+                    Approved
+                </span>
+
+            </div>
+
+
+            <div
+                class="flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg"
+            >
+
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
+                    Reason Stated
+                </span>
+
+                <p
+                    class="font-body-md text-body-md text-on-surface"
+                    id="modalLeaveReason"
+                >
+                    Family trip to northern areas
+                </p>
+
+            </div>
 
         </div>
 
 
-        <div
-          class="flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg"
-        >
+        <div class="flex items-center justify-end pt-2">
 
-          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-            Reason Stated
-          </span>
-
-          <p
-            class="font-body-md text-body-md text-on-surface"
-            id="modalLeaveReason"
-          >
-            Family trip to northern areas
-          </p>
+            <button
+                class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
+                id="closeDetailActionBtn"
+                type="button"
+            >
+                Close Record
+            </button>
 
         </div>
-
-      </div>
-
-
-      <div class="flex items-center justify-end pt-2">
-
-        <button
-          class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
-          id="closeDetailActionBtn"
-          type="button"
-        >
-          Close Record
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+</div>
 
 
 
-  <!-- JAVASCRIPT -->
+<!-- JAVASCRIPT -->
 
-  <script>
+<script>
 
     // Interactive Handlers for Modals
 
@@ -1867,7 +1402,7 @@
       const selected = document.querySelector('input[name="userRole"]:checked');
 
       if (selected) {
-        alert('Role updated to ' + selected.value + ' for Ali Khan.');
+        alert('Role updated to ' + selected.value + ' for <%=user.fullname%>.');
       }
 
       closeRole();
@@ -1890,7 +1425,7 @@
 
     document.getElementById('confirmDeleteBtn')?.addEventListener('click', () => {
 
-      alert('User Ali Khan has been queued for deletion.');
+      alert('User <%=user.fullname%> has been queued for deletion.');
 
       closeDelete();
 
@@ -1948,7 +1483,7 @@
       closeDetails
     );
 
-  </script>
+</script>
 
 </body>
 </html>

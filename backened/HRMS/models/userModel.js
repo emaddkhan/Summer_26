@@ -44,7 +44,11 @@ const userSchema=mongoose.Schema({
         rejectedLeaves:[{
             type:mongoose.Schema.Types.ObjectId,
             ref:"leave"
-        }]
+        }],
+        pendingLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+        }],
     },
     role:{
         enum:["employee","hr","admin"],
