@@ -1,9 +1,9 @@
 const mongoose =require("mongoose")
 
-const leaveSchema=({
+const leaveSchema=mongoose.Schema({
     leaveType:{
         type:String,
-        enum:["casual","sick","annual","unpaid"],
+        enum:["Annual Leave","Sick Leave","Casual Leave","Unpaid Leave"],
         required:true,
     },
     startDate:{
@@ -35,4 +35,5 @@ const leaveSchema=({
     }
     
 },{timestamps:true})
+
 module.exports=mongoose.model("leave",leaveSchema)

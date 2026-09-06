@@ -478,7 +478,7 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant">
-                        <% user.leaves.totalLeaves.forEach((leave) =>{%>
+                        <% leaves.forEach((leave) =>{%>
                             <tr
                         class="hover:bg-[#fbfbfb] transition-colors group h-[52px]"
                       >
@@ -489,25 +489,25 @@
                             ></div>
                             <span
                               class="text-body-md font-body-md text-primary font-medium"
-                              >Annual Leave</span
+                              ><%= leave.leaveType %></span
                             >
                           </div>
                         </td>
                         <td
                           class="py-3 px-6 text-body-md font-body-md text-on-surface-variant"
                         >
-                          Oct 12, 2023
+                          <%= leave.startDate.toLocaleDateString() %>
                         </td>
                         <td
                           class="py-3 px-6 text-body-md font-body-md text-on-surface-variant"
                         >
-                          Oct 15, 2023
+                          <%= leave.endDate.toLocaleDateString() %>
                         </td>
                         <td class="py-3 px-6 text-right">
                           <span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#ecfdf5] text-[#065f46] border border-[#d1fae5]"
                           >
-                            Approved
+                            <%= leave.status %>
                           </span>
                         </td>
                       </tr>

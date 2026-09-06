@@ -40,5 +40,5 @@ const adminSchema=mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Leave"
         }]
-})
+},{timestamps:true} )
 module.exports=mongoose.model("admin",adminSchema)
