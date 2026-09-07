@@ -1,0 +1,65 @@
+<style>
+  @keyframes slideDown {
+    from { transform: translate(-50%, -20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+  .animate-toast {
+    animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
+
+<div id="flash-toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 animate-toast pointer-events-none transition-all duration-300">
+  <% 
+    let msgSuccess = (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) ? successMessage : ((typeof success !== 'undefined' && success && success.length > 0) ? (Array.isArray(success) ? success[0] : success) : null);
+    let msgError = (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) ? errorMessage : ((typeof error !== 'undefined' && error && error.length > 0) ? (Array.isArray(error) ? error[0] : error) : null);
+  %>
+
+  <% if (msgSuccess) { %>
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-emerald-950/90 text-emerald-100 border border-emerald-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Success</h4>
+          <p class="text-sm font-medium text-emerald-100 mt-0.5"><%= msgSuccess %></p>
+        </div>
+      </div>
+      <button onclick="dismissToast()" class="text-emerald-400/70 hover:text-emerald-100 hover:bg-emerald-800/50 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  <% } %>
+
+  <% if (msgError) { %>
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-rose-950/90 text-rose-100 border border-rose-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">error</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Error</h4>
+          <p class="text-sm font-medium text-rose-100 mt-0.5"><%= msgError %></p>
+        </div>
+      </div>
+      <button onclick="dismissToast()" class="text-rose-400/70 hover:text-rose-100 hover:bg-rose-800/50 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  function dismissToast() {
+    const container = document.getElementById('flash-toast-container');
+    if (container) {
+      container.style.opacity = '0';
+      container.style.transform = 'translate(-50%, -20px)';
+      setTimeout(() => container.remove(), 300);
+    }
+  }
+
+  setTimeout(() => {
+    dismissToast();
+  }, 4500);
+</script>
