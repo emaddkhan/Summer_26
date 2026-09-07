@@ -52,10 +52,12 @@ router.get("/", isLoggedIn, async (req, res) => {
     adminLength,
     hrLength,
     successMessage,
+    errorMessage,
   });
 });
 router.get("/leaves", isLoggedIn, async (req, res) => {
   let successMessage = req.flash("success");
+  let errorMessage = req.flash("error");
   let admin = await adminModel
     .findOne({ role: "admin" })
     .populate({ path: "leaves.totalLeaves" ,populate:{path:"user",model:"user"}})
@@ -73,6 +75,7 @@ router.get("/leaves", isLoggedIn, async (req, res) => {
     rejectedLeaves,
     pendingLeaves,
     successMessage,
+    errorMessage,
   });
 });
 router.get("/user/:id", isLoggedIn, async (req, res) => {
@@ -97,6 +100,16 @@ router.get("/leave/approve/:id",isLoggedIn,async(req,res)=>{
   let leave=await leaveModel.findById(req.params.id).populate("user")
   let admin=await adminModel.findOne({role:"admin"})
   let user=await userModel.findById(leave.user._id)
+  if(!leave){
+    return req.flash("error","Leave request not found"),res.redirect("/admin/leaves")
+  }
+  if(leave.status==="approved"){
+    return req.flash("error","Leave request already approved"),res.redirect("/admin/leaves")
+  }
+  if(leave.status==="rejected"){
+    return req.flash("error","Leave request already rejected"),res.redirect("/admin/leaves")
+  }
+  
   leave.status="approved"
   leave.user.leaves.approvedLeaves.push(leave._id)
   leave.user.leaves.pendingLeaves.pull(leave._id)
@@ -114,6 +127,15 @@ router.get("/leave/reject/:id",isLoggedIn,async(req,res)=>{
   let leave=await leaveModel.findById(req.params.id).populate("user")
   let admin=await adminModel.findOne({role:"admin"})
   let user=await userModel.findById(leave.user._id)
+  if(!leave){
+    return req.flash("error","Leave request not found"),res.redirect("/admin/leaves")
+  }
+  if(leave.status==="approved"){
+    return req.flash("error","Leave request already approved"),res.redirect("/admin/leaves")
+  }
+  if(leave.status==="rejected"){
+    return req.flash("error","Leave request already rejected"),res.redirect("/admin/leaves")
+  } 
   leave.status="rejected"
   leave.user.leaves.rejectedLeaves.push(leave._id)
   leave.user.leaves.pendingLeaves.pull(leave._id)
