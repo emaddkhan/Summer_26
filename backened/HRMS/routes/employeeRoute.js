@@ -23,7 +23,8 @@ router.post("/leave/create",isLoggedIn,async(req,res)=>{
     })
     employee.leaves.totalLeaves.push(leave._id);
     employee.leaves.pendingLeaves.push(leave._id);
-    admin.leaves.push(leave._id);
+    admin.leaves.totalLeaves.push(leave._id);
+    admin.leaves.pendingLeaves.push(leave._id);
     await employee.save();
     await admin.save();
     res.redirect("/employee");

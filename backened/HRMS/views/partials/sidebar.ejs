@@ -10,9 +10,11 @@
     </p>
 </div>
 
+<% const currentActive = typeof activePage !== 'undefined' ? activePage : 'dashboard'; %>
+
 <nav class="flex-1 flex flex-col gap-1">
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold transition-all duration-200 ease-in-out" href="/admin">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'dashboard' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-all duration-200 ease-in-out" href="/admin">
         <span class="material-symbols-outlined text-[20px]">
             dashboard
         </span>
@@ -21,7 +23,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'employees' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
         <span class="material-symbols-outlined text-[20px]">
             group
         </span>
@@ -30,7 +32,7 @@
         </span>
     </a>
 
-    <a href="/admin/Leaves" class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out">
+    <a href="/admin/Leaves" class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'leaves' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out">
         <span class="material-symbols-outlined text-[20px]">
             fact_check
         </span>
@@ -39,7 +41,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'users' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
         <span class="material-symbols-outlined text-[20px]">
             admin_panel_settings
         </span>
@@ -48,7 +50,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'profile' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
         <span class="material-symbols-outlined text-[20px]">
             person
         </span>
@@ -61,7 +63,7 @@
 
 <div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant">
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'settings' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
         <span class="material-symbols-outlined text-[20px]">
             settings
         </span>

@@ -163,7 +163,7 @@
 
 <body class="bg-background text-on-surface antialiased min-h-screen font-body-md">
 
-<%- include('partials/sidebar') %>
+<%- include('partials/sidebar', { activePage: 'leaves' }) %>
 
 
 <!-- ================= MAIN CONTENT ================= -->
@@ -276,40 +276,50 @@
             <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
 
                 <button
-                    class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap"
-                    onclick="filterStatus('all')"
+                    id="tab-all"
+                    class="tab-btn px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap transition-colors"
+                    onclick="filterStatus('all', this)"
                 >
                     All Requests
-                </button>
-
-
-                <button
-                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
-                    onclick="filterStatus('pending')"
-                >
-
-                    Pending
-
                     <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
-                        12
+                        <%= leaves ? leaves.length : 0 %>
                     </span>
-
                 </button>
 
 
                 <button
-                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
-                    onclick="filterStatus('approved')"
+                    id="tab-pending"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('pending', this)"
+                >
+                    Pending
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= pendingLeaves ? pendingLeaves.length : 0 %>
+                    </span>
+                </button>
+
+
+                <button
+                    id="tab-approved"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('approved', this)"
                 >
                     Approved
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= approvedLeaves ? approvedLeaves.length : 0 %>
+                    </span>
                 </button>
 
 
                 <button
-                    class="px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
-                    onclick="filterStatus('rejected')"
+                    id="tab-rejected"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('rejected', this)"
                 >
                     Rejected
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= rejectedLeaves ? rejectedLeaves.length : 0 %>
+                    </span>
                 </button>
 
             </div>
@@ -395,10 +405,9 @@
 
                     <tbody class="divide-y divide-outline-variant/50">
 
-
                         <!-- ================= ROW 1 ================= -->
-
-                        <tr class="bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]">
+                         <% leaves.forEach(function(leave) { %>
+                            <tr class="leave-row bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]" data-status="<%= leave.status %>">
 
                             <td class="py-3 px-4">
 
@@ -407,9 +416,9 @@
                                     <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
 
                                         <img
-                                            alt="Sarah Jenkins"
+                                            alt="<%= leave.user.name %>"
                                             class="w-full h-full object-cover"
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDjBS7FEm8Tx-VPsr_GGP7Axr2stba0eRAQfTeRdpyOs0FIvWtnA8bMRvxDNkIFug66Nif-N4c0uncQth1JDNvLeRxMg72L08SmVtXFRfjjjzRl_iUnR8jBuEhP8rHYqE8r5yci8VZu2EP9n_HaezxDhVblVsZlJDcU05WKLRXFLbH0W38zIRhtdb_ek_9srHqSTGD8iX_5goheD96tHzy09z5iTVBzpJYCkq3tJV5HCXSKYsTQoui"
+                                            src="data:<%= leave.user.imageType%>;base64,<%= leave.user.profileImage.toString('base64') %>"
                                         />
 
                                     </div>
@@ -417,12 +426,12 @@
                                     <div>
 
                                         <p class="font-label-md text-label-md text-primary font-medium">
-                                            Sarah Jenkins
+                                            <%= leave.user.fullname %>
                                         </p>
 
-                                        <p class="text-[11px] text-on-surface-variant">
+                                        <!-- <p class="text-[11px] text-on-surface-variant">
                                             Senior Engineer
-                                        </p>
+                                        </p> -->
 
                                     </div>
 
@@ -439,7 +448,7 @@
                                         flight_takeoff
                                     </span>
 
-                                    Annual Leave
+                                    <%= leave.leaveType %>
 
                                 </span>
 
@@ -449,11 +458,11 @@
                             <td class="py-3 px-4">
 
                                 <p class="text-body-md font-body-md text-on-surface">
-                                    Oct 12 - Oct 18, 2023
+                                    <%= leave.startDate.toDateString() %> - <%= leave.endDate.toDateString() %>
                                 </p>
 
                                 <p class="text-[11px] text-on-surface-variant">
-                                    5 days
+                                    <%= Math.ceil((leave.endDate - leave.startDate) / (1000 * 60 * 60 * 24)) + 1 %> days
                                 </p>
 
                             </td>
@@ -463,9 +472,9 @@
 
                                 <p
                                     class="text-body-md font-body-md text-on-surface-variant truncate"
-                                    title="Family vacation to the mountains for the autumn colors. Will be completely offline."
+                                    title="<%= leave.reason %>"
                                 >
-                                    Family vacation to the mountains for...
+                                    <%= leave.reason %>
                                 </p>
 
                             </td>
@@ -477,7 +486,7 @@
 
                                     <span class="w-1.5 h-1.5 rounded-full bg-[#d97706] mr-1.5"></span>
 
-                                    Pending
+                                    <%= leave.status.charAt(0).toUpperCase() + leave.status.slice(1) %>
 
                                 </span>
 
@@ -498,35 +507,40 @@
                                     </button>
 
 
-                                    <button
+                                    <a
                                         class="p-1 hover:bg-success/10 rounded transition-colors text-[#059669]"
                                         title="Approve"
+                                        href="/admin/leave/approve/<%= leave._id %>"
                                     >
                                         <span class="material-symbols-outlined text-[20px]">
                                             check_circle
                                         </span>
-                                    </button>
+                                    </a>
 
 
-                                    <button
+                                    <a
                                         class="p-1 hover:bg-error/10 rounded transition-colors text-[#dc2626]"
                                         title="Reject"
+                                        href="/admin/leave/reject/<%= leave._id %>"
                                     >
                                         <span class="material-symbols-outlined text-[20px]">
                                             cancel
                                         </span>
-                                    </button>
+                                    </a>
 
                                 </div>
 
                             </td>
 
                         </tr>
+                         <%})%>
+
+                        
 
 
                         <!-- ================= ROW 2 ================= -->
 
-                        <tr class="hover:bg-surface-bright transition-colors group">
+                        <!-- <tr class="leave-row hover:bg-surface-bright transition-colors group" data-status="approved">
 
                             <td class="py-3 px-4">
 
@@ -630,12 +644,12 @@
 
                             </td>
 
-                        </tr>
+                        </tr> -->
 
 
                         <!-- ================= ROW 3 ================= -->
 
-                        <tr class="hover:bg-surface-bright transition-colors group">
+                        <!-- <tr class="leave-row hover:bg-surface-bright transition-colors group" data-status="rejected">
 
                             <td class="py-3 px-4">
 
@@ -735,12 +749,12 @@
 
                             </td>
 
-                        </tr>
+                        </tr> -->
 
 
                         <!-- ================= ROW 4 ================= -->
 
-                        <tr class="bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]">
+                        <!-- <tr class="leave-row bg-[#fffbeb]/30 hover:bg-[#fffbeb]/60 transition-colors group border-l-2 border-l-[#f59e0b]" data-status="pending">
 
                             <td class="py-3 px-4">
 
@@ -867,7 +881,7 @@
 
                             </td>
 
-                        </tr>
+                        </tr> -->
 
                     </tbody>
 
@@ -881,7 +895,7 @@
             <div class="border-t border-outline-variant px-4 py-3 flex items-center justify-between bg-surface-bright">
 
                 <p class="text-label-md font-label-md text-on-surface-variant">
-                    Showing 1 to 4 of 24 entries
+                    Showing <span id="visibleCountDisplay"><%= leaves ? leaves.length : 0 %></span> of <%= leaves ? leaves.length : 0 %> entries
                 </p>
 
 
@@ -901,16 +915,6 @@
 
                     <button class="w-7 h-7 rounded border border-primary bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center">
                         1
-                    </button>
-
-
-                    <button class="w-7 h-7 rounded border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center">
-                        2
-                    </button>
-
-
-                    <button class="w-7 h-7 rounded border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center">
-                        3
                     </button>
 
 
@@ -936,43 +940,63 @@
 <!-- ================= JAVASCRIPT ================= -->
 
 <script>
+    let activeFilter = 'all';
 
-    function filterStatus(status) {
+    function filterStatus(status, element) {
+        activeFilter = status;
 
-        console.log("Selected status:", status);
-
-        // Yahan baad mein API/database filtering laga sakte ho.
-
-    }
-
-
-    // Search
-    const searchInput = document.getElementById("searchInput");
-
-    searchInput.addEventListener("keyup", function () {
-
-        const searchValue = this.value.toLowerCase();
-
-        const rows = document.querySelectorAll("tbody tr");
-
-        rows.forEach(row => {
-
-            const text = row.innerText.toLowerCase();
-
-            if (text.includes(searchValue)) {
-
-                row.style.display = "";
-
-            } else {
-
-                row.style.display = "none";
-
-            }
-
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+            btn.classList.add('hover:bg-surface-container', 'hover:text-primary', 'text-on-surface-variant');
         });
 
-    });
+        if (element) {
+            element.classList.remove('hover:bg-surface-container', 'hover:text-primary', 'text-on-surface-variant');
+            element.classList.add('bg-primary-container', 'text-on-primary-container');
+        }
 
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const searchInput = document.getElementById("searchInput");
+        const searchValue = searchInput ? searchInput.value.toLowerCase() : "";
+        const rows = document.querySelectorAll("tbody tr.leave-row");
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const rowStatus = row.getAttribute("data-status");
+            const text = row.innerText.toLowerCase();
+
+            const matchesStatus = (activeFilter === "all" || rowStatus === activeFilter);
+            const matchesSearch = text.includes(searchValue);
+
+            if (matchesStatus && matchesSearch) {
+                row.style.display = "";
+                visibleCount++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        const noDataRow = document.getElementById("noDataRow");
+        if (noDataRow) {
+            noDataRow.style.display = (visibleCount === 0) ? "" : "none";
+        }
+
+        const countDisplay = document.getElementById("visibleCountDisplay");
+        if (countDisplay) {
+            countDisplay.innerText = visibleCount;
+        }
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function () {
+            applyFilters();
+        });
+    }
 </script>
 
 </body>

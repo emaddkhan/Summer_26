@@ -36,9 +36,23 @@ const adminSchema=mongoose.Schema({
             type:String,
             default:"admin"
         },
-        leaves:[{
+        leaves:{
+            totalLeaves:[{
             type:mongoose.Schema.Types.ObjectId,
-            ref:"Leave"
-        }]
+            ref:"leave"
+            }],
+            pendingLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+            }],
+            approvedLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+            }],
+            rejectedLeaves:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"leave"
+            }]
+    }
 },{timestamps:true} )
 module.exports=mongoose.model("admin",adminSchema)
