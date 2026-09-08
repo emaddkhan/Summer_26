@@ -101,7 +101,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const admin = await adminModel.findOne({ email });
-
+    
     if (admin) {
 
       const isMatch = await bcrypt.compare(password, admin.password);

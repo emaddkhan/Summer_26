@@ -15,7 +15,10 @@ if (process.env.NODE_ENV === "development") {
         role: "admin",
       });
       if (admin) {
-        return req.flash("error", "Admin already exists"), res.redirect("/admin");
+        return (
+          req.flash("error", "Admin already exists"),
+          res.redirect("/admin")
+        );
       }
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, async (err, hash) => {
@@ -44,6 +47,7 @@ router.get("/", isLoggedIn, async (req, res) => {
   let adminLength = admins.length;
   let hrLength = hrManagers.length;
   let successMessage = req.flash("success");
+  let errorMessage = req.flash("error");
   // console.log(users[0])
   res.render("adminDashboard", {
     users,
@@ -60,13 +64,25 @@ router.get("/leaves", isLoggedIn, async (req, res) => {
   let errorMessage = req.flash("error");
   let admin = await adminModel
     .findOne({ role: "admin" })
-    .populate({ path: "leaves.totalLeaves" ,populate:{path:"user",model:"user"}})
-    .populate({path:"leaves.approvedLeaves",populate:{path:"user",model:"user"}})
-    .populate({path:"leaves.rejectedLeaves",populate:{path:"user",model:"user"}})
-    .populate({path:"leaves.pendingLeaves",populate:{path:"user",model:"user"}});
+    .populate({
+      path: "leaves.totalLeaves",
+      populate: { path: "user", model: "user" },
+    })
+    .populate({
+      path: "leaves.approvedLeaves",
+      populate: { path: "user", model: "user" },
+    })
+    .populate({
+      path: "leaves.rejectedLeaves",
+      populate: { path: "user", model: "user" },
+    })
+    .populate({
+      path: "leaves.pendingLeaves",
+      populate: { path: "user", model: "user" },
+    });
   let leaves = admin.leaves.totalLeaves;
   let approvedLeaves = admin.leaves.approvedLeaves;
-  console.log(approvedLeaves)
+  console.log(approvedLeaves);
   let rejectedLeaves = admin.leaves.rejectedLeaves;
   let pendingLeaves = admin.leaves.pendingLeaves;
   res.render("adminLeaves", {
@@ -79,8 +95,31 @@ router.get("/leaves", isLoggedIn, async (req, res) => {
   });
 });
 router.get("/user/:id", isLoggedIn, async (req, res) => {
-  let user = await userModel.findById(req.params.id);
-  res.render("adminUserDetails", { user });
+  let user = await userModel
+    .findById(req.params.id)
+    .populate("leaves.totalLeaves")
+    .populate("leaves.approvedLeaves")
+    .populate("leaves.rejectedLeaves")
+    .populate("leaves.pendingLeaves");
+  if (!user) {
+    return (req.flash("error", "User not found"), res.redirect("/admin"));
+  }
+  console.log(user.leaves.totalLeaves);
+  const totalLeaves = user.leaves.totalLeaves;
+  const approvedLeaves = user.leaves.approvedLeaves;
+  const rejectedLeaves = user.leaves.rejectedLeaves;
+  const pendingLeaves = user.leaves.pendingLeaves;
+
+  let errorMessage = req.flash("error");
+  // let userLeaves = await leaveModel.find({ user: user._id });
+  res.render("adminUserDetails", {
+    errorMessage,
+    user,
+    totalLeaves,
+    approvedLeaves,
+    rejectedLeaves,
+    pendingLeaves,
+  });
 });
 
 //deletion emp
@@ -93,60 +132,77 @@ router.get("/users/delete/:id", isLoggedIn, async (req, res) => {
   res.redirect("/admin");
 });
 
-
 //approving leave
 
-router.get("/leave/approve/:id",isLoggedIn,async(req,res)=>{
-  let leave=await leaveModel.findById(req.params.id).populate("user")
-  let admin=await adminModel.findOne({role:"admin"})
-  let user=await userModel.findById(leave.user._id)
-  if(!leave){
-    return req.flash("error","Leave request not found"),res.redirect("/admin/leaves")
+router.get("/leave/approve/:id", isLoggedIn, async (req, res) => {
+  let leave = await leaveModel.findById(req.params.id).populate("user");
+  let admin = await adminModel.findOne({ role: "admin" });
+  let user = await userModel.findById(leave.user._id);
+  if (!leave) {
+    return (
+      req.flash("error", "Leave request not found"),
+      res.redirect("/admin/leaves")
+    );
   }
-  if(leave.status==="approved"){
-    return req.flash("error","Leave request already approved"),res.redirect("/admin/leaves")
+  if (leave.status === "approved") {
+    return (
+      req.flash("error", "Leave request already approved"),
+      res.redirect("/admin/leaves")
+    );
   }
-  if(leave.status==="rejected"){
-    return req.flash("error","Leave request already rejected"),res.redirect("/admin/leaves")
+  if (leave.status === "rejected") {
+    return (
+      req.flash("error", "Leave request already rejected"),
+      res.redirect("/admin/leaves")
+    );
   }
-  
-  leave.status="approved"
-  leave.user.leaves.approvedLeaves.push(leave._id)
-  leave.user.leaves.pendingLeaves.pull(leave._id)
-  user.leaves.approvedLeaves.push(leave._id)
-  user.leaves.pendingLeaves.pull(leave._id)
-  admin.leaves.approvedLeaves.push(leave._id)
-  admin.leaves.pendingLeaves.pull(leave._id)
-  await admin.save()
-  await leave.user.save()
-  await leave.save()
-  req.flash("success","Leave request approved successfully")
-  res.redirect("/admin/leaves")
-})
-router.get("/leave/reject/:id",isLoggedIn,async(req,res)=>{
-  let leave=await leaveModel.findById(req.params.id).populate("user")
-  let admin=await adminModel.findOne({role:"admin"})
-  let user=await userModel.findById(leave.user._id)
-  if(!leave){
-    return req.flash("error","Leave request not found"),res.redirect("/admin/leaves")
+
+  leave.status = "approved";
+  leave.user.leaves.approvedLeaves.push(leave._id);
+  leave.user.leaves.pendingLeaves.pull(leave._id);
+  user.leaves.approvedLeaves.push(leave._id);
+  user.leaves.pendingLeaves.pull(leave._id);
+  admin.leaves.approvedLeaves.push(leave._id);
+  admin.leaves.pendingLeaves.pull(leave._id);
+  await admin.save();
+  await leave.user.save();
+  await leave.save();
+  req.flash("success", "Leave request approved successfully");
+  res.redirect("/admin/leaves");
+});
+router.get("/leave/reject/:id", isLoggedIn, async (req, res) => {
+  let leave = await leaveModel.findById(req.params.id).populate("user");
+  let admin = await adminModel.findOne({ role: "admin" });
+  let user = await userModel.findById(leave.user._id);
+  if (!leave) {
+    return (
+      req.flash("error", "Leave request not found"),
+      res.redirect("/admin/leaves")
+    );
   }
-  if(leave.status==="approved"){
-    return req.flash("error","Leave request already approved"),res.redirect("/admin/leaves")
+  if (leave.status === "approved") {
+    return (
+      req.flash("error", "Leave request already approved"),
+      res.redirect("/admin/leaves")
+    );
   }
-  if(leave.status==="rejected"){
-    return req.flash("error","Leave request already rejected"),res.redirect("/admin/leaves")
-  } 
-  leave.status="rejected"
-  leave.user.leaves.rejectedLeaves.push(leave._id)
-  leave.user.leaves.pendingLeaves.pull(leave._id)
-  user.leaves.rejectedLeaves.push(leave._id)
-  user.leaves.pendingLeaves.pull(leave._id)
-  admin.leaves.rejectedLeaves.push(leave._id)
-  admin.leaves.pendingLeaves.pull(leave._id)
-  await admin.save()
-  await leave.user.save()
-  await leave.save()
-  req.flash("success","Leave request rejected successfully")
-  res.redirect("/admin/leaves")
-})
+  if (leave.status === "rejected") {
+    return (
+      req.flash("error", "Leave request already rejected"),
+      res.redirect("/admin/leaves")
+    );
+  }
+  leave.status = "rejected";
+  leave.user.leaves.rejectedLeaves.push(leave._id);
+  leave.user.leaves.pendingLeaves.pull(leave._id);
+  user.leaves.rejectedLeaves.push(leave._id);
+  user.leaves.pendingLeaves.pull(leave._id);
+  admin.leaves.rejectedLeaves.push(leave._id);
+  admin.leaves.pendingLeaves.pull(leave._id);
+  await admin.save();
+  await leave.user.save();
+  await leave.save();
+  req.flash("success", "Leave request rejected successfully");
+  res.redirect("/admin/leaves");
+});
 module.exports = router;
