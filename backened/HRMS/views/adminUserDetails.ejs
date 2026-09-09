@@ -1011,7 +1011,8 @@ body {
 
 <!-- CHANGE ROLE MODAL -->
 
-<div
+<form action="/admin/changeRole/<%=user._id%>" method="post">
+    <div
     class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
     id="changeRoleModal"
 >
@@ -1167,7 +1168,7 @@ body {
             <button
                 class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
                 id="saveRoleBtn"
-                type="button"
+                type="submit"
             >
                 Save Changes
             </button>
@@ -1177,6 +1178,7 @@ body {
     </div>
 
 </div>
+</form>
 
 
 

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+    <title>MINI HRMS - HR Leave Requests</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e3e1ec",
+                        "tertiary-fixed": "#ebe0df",
+                        "secondary": "#0058be",
+                        "on-secondary-container": "#fefcff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-variant": "#e3e1ec",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeedf7",
+                        "primary-fixed-dim": "#c8c6c8",
+                        "on-tertiary-fixed-variant": "#4c4545",
+                        "primary-container": "#1c1b1d",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-primary": "#c8c6c8",
+                        "surface-dim": "#dad9e3",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1f1a1a",
+                        "background": "#fbf8ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#1f1a1a",
+                        "tertiary": "#000000",
+                        "outline": "#78767b",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "on-secondary-fixed": "#001a42",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#1c1b1d",
+                        "on-surface-variant": "#47464a",
+                        "on-tertiary-container": "#8a8282",
+                        "on-surface": "#1a1b22",
+                        "on-primary-fixed-variant": "#474649",
+                        "tertiary-fixed-dim": "#cec4c4",
+                        "inverse-surface": "#2f3038",
+                        "inverse-on-surface": "#f1effa",
+                        "surface": "#fbf8ff",
+                        "outline-variant": "#c8c5ca",
+                        "surface-tint": "#5f5e60",
+                        "surface-container-low": "#f4f2fd",
+                        "primary-fixed": "#e5e1e4",
+                        "on-primary-container": "#858386"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-md": "1rem",
+                        "margin-page": "2rem",
+                        "container-max": "1440px",
+                        "stack-sm": "0.5rem",
+                        "gutter": "1.5rem",
+                        "stack-lg": "2rem"
+                    },
+                    fontFamily: {
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    fontSize: {
+                        "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+                        "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "headline-md": ["18px", { lineHeight: "28px", fontWeight: "600" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Geist', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface antialiased min-h-screen font-body-md">
+
+<%- include('partials/flashToast') %>
+<%- include('partials/hrSidebar', { activePage: 'leaves' }) %>
+
+<!-- Dynamic Data Safe Setup -->
+<%
+    let allLeaves = typeof leaves !== 'undefined' && leaves ? leaves : [];
+    let pendingList = typeof pendingLeaves !== 'undefined' && pendingLeaves ? pendingLeaves : allLeaves.filter(l => l.status === 'pending');
+    let approvedList = typeof approvedLeaves !== 'undefined' && approvedLeaves ? approvedLeaves : allLeaves.filter(l => l.status === 'approved');
+    let rejectedList = typeof rejectedLeaves !== 'undefined' && rejectedLeaves ? rejectedLeaves : allLeaves.filter(l => l.status === 'rejected');
+%>
+
+<!-- MAIN CONTENT -->
+<div class="ml-60 flex flex-col min-h-screen">
+
+    <!-- TOP BAR -->
+    <header class="bg-surface-bright border-b border-outline-variant flex justify-between items-center h-16 px-gutter sticky top-0 z-10">
+        <div class="flex-1 max-w-md">
+            <div class="relative flex items-center focus-within:ring-2 focus-within:ring-outline-variant rounded-lg transition-shadow">
+                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">
+                    search
+                </span>
+                <input
+                    class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md focus:outline-none focus:border-primary placeholder:text-on-surface-variant/60"
+                    placeholder="Search leave requests by employee or reason..."
+                    type="text"
+                    id="searchInput"
+                />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative group rounded-full hover:bg-surface-container-lowest" title="Notifications">
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+                <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface-bright">
+                </span>
+            </button>
+
+            <div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer">
+                <span class="material-symbols-outlined text-[24px] text-on-surface-variant p-1">account_circle</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE MAIN BODY -->
+    <main class="flex-1 p-gutter max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+
+        <!-- PAGE HEADER -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h2 class="text-headline-xl font-headline-xl text-primary tracking-tight">
+                    Leave Requests Management
+                </h2>
+                <p class="text-body-md font-body-md text-on-surface-variant mt-1">
+                    Manage, review, approve, and reject employee time off applications.
+                </p>
+            </div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+
+            <!-- TABS -->
+            <div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
+                <button
+                    id="tab-all"
+                    class="tab-btn px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md whitespace-nowrap transition-colors"
+                    onclick="filterStatus('all', this)"
+                >
+                    All Requests
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= allLeaves.length %>
+                    </span>
+                </button>
+
+                <button
+                    id="tab-pending"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('pending', this)"
+                >
+                    Pending
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= pendingList.length %>
+                    </span>
+                </button>
+
+                <button
+                    id="tab-approved"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('approved', this)"
+                >
+                    Approved
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= approvedList.length %>
+                    </span>
+                </button>
+
+                <button
+                    id="tab-rejected"
+                    class="tab-btn px-4 py-1.5 rounded-full hover:bg-surface-container hover:text-primary text-on-surface-variant font-label-md text-label-md transition-colors whitespace-nowrap"
+                    onclick="filterStatus('rejected', this)"
+                >
+                    Rejected
+                    <span class="ml-1 bg-surface-variant text-on-surface px-1.5 py-0.5 rounded-md text-[10px]">
+                        <%= rejectedList.length %>
+                    </span>
+                </button>
+            </div>
+
+            <!-- DEPARTMENT FILTER -->
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <div class="relative hidden sm:block">
+                    <select
+                        class="appearance-none bg-surface-bright border border-outline-variant rounded-lg pl-3 pr-8 py-1.5 text-label-md font-label-md text-on-surface focus:outline-none focus:border-primary"
+                    >
+                        <option>All Departments</option>
+                        <option>Engineering</option>
+                        <option>Human Resources</option>
+                        <option>Marketing</option>
+                        <option>Sales</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[16px]">
+                        expand_more
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="bg-surface-bright border-b border-outline-variant">
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Employee
+                            </th>
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Type
+                            </th>
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Dates
+                            </th>
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Reason
+                            </th>
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th class="py-3 px-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-outline-variant/50">
+                        <% if (allLeaves && allLeaves.length > 0) { %>
+                            <% allLeaves.forEach(function(leave) { %>
+                                <tr class="leave-row hover:bg-surface-container-low transition-colors group" data-status="<%= leave.status || 'pending' %>">
+                                    <td class="py-3 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center shrink-0">
+                                                <% if (leave.user && leave.user.profileImage && leave.user.profileImage.length > 0) { %>
+                                                    <img
+                                                        alt="<%= leave.user.fullname %>"
+                                                        class="w-full h-full object-cover"
+                                                        src="data:<%= leave.user.imageType%>;base64,<%= leave.user.profileImage.toString('base64') %>"
+                                                    />
+                                                <% } else { %>
+                                                    <span class="font-bold text-[12px] text-on-surface">
+                                                        <%= leave.user && leave.user.fullname ? leave.user.fullname.charAt(0).toUpperCase() : 'E' %>
+                                                    </span>
+                                                <% } %>
+                                            </div>
+                                            <div>
+                                                <p class="font-label-md text-label-md text-primary font-medium">
+                                                    <%= leave.user ? leave.user.fullname : (leave.userName || 'Unknown User') %>
+                                                </p>
+                                                <p class="text-[11px] text-on-surface-variant">
+                                                    <%= leave.user ? leave.user.email : '' %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="py-3 px-4">
+                                        <span class="inline-flex items-center gap-1 text-body-md font-body-md">
+                                            <span class="material-symbols-outlined text-[16px] text-on-surface-variant">
+                                                <%= leave.leaveType === 'Sick Leave' ? 'sick' : (leave.leaveType === 'Remote Work' ? 'home_work' : 'flight_takeoff') %>
+                                            </span>
+                                            <%= leave.leaveType || 'Annual Leave' %>
+                                        </span>
+                                    </td>
+
+                                    <td class="py-3 px-4">
+                                        <p class="text-body-md font-body-md text-on-surface">
+                                            <%= leave.startDate ? (new Date(leave.startDate)).toDateString() : 'N/A' %> - <%= leave.endDate ? (new Date(leave.endDate)).toDateString() : 'N/A' %>
+                                        </p>
+                                        <p class="text-[11px] text-on-surface-variant">
+                                            <% if (leave.startDate && leave.endDate) { %>
+                                                <%= Math.ceil((new Date(leave.endDate) - new Date(leave.startDate)) / (1000 * 60 * 60 * 24)) + 1 %> days
+                                            <% } else { %>
+                                                1 day
+                                            <% } %>
+                                        </p>
+                                    </td>
+
+                                    <td class="py-3 px-4 max-w-[220px]">
+                                        <p class="text-body-md font-body-md text-on-surface-variant truncate" title="<%= leave.reason %>">
+                                            <%= leave.reason || 'No reason specified' %>
+                                        </p>
+                                    </td>
+
+                                    <td class="py-3 px-4">
+                                        <% if (leave.status === 'approved') { %>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#ecfdf5] text-[#065f46] text-[11px] font-semibold border border-[#d1fae5]">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-[#10b981] mr-1.5"></span>
+                                                Approved
+                                            </span>
+                                        <% } else if (leave.status === 'rejected') { %>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#fef2f2] text-[#991b1b] text-[11px] font-semibold border border-[#fee2e2]">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-[#ef4444] mr-1.5"></span>
+                                                Rejected
+                                            </span>
+                                        <% } else { %>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-md bg-[#fffbeb] text-[#92400e] text-[11px] font-semibold border border-[#fef3c7]">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-[#d97706] mr-1.5"></span>
+                                                Pending
+                                            </span>
+                                        <% } %>
+                                    </td>
+
+                                    <td class="py-3 px-4 text-right">
+                                        <div class="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                                            <a
+                                                class="p-1 hover:bg-success/10 rounded transition-colors text-[#059669]"
+                                                title="Approve"
+                                                href="/hr/leave/approve/<%= leave._id %>"
+                                            >
+                                                <span class="material-symbols-outlined text-[20px]">
+                                                    check_circle
+                                                </span>
+                                            </a>
+
+                                            <a
+                                                class="p-1 hover:bg-error/10 rounded transition-colors text-[#dc2626]"
+                                                title="Reject"
+                                                href="/hr/leave/reject/<%= leave._id %>"
+                                            >
+                                                <span class="material-symbols-outlined text-[20px]">
+                                                    cancel
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr id="noDataRow">
+                                <td colspan="6" class="py-12 text-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-[36px] text-outline mb-2">find_in_page</span>
+                                    <p class="font-headline-md">No leave requests found</p>
+                                    <p class="text-body-md text-on-surface-variant/70 mt-1">There are no leave applications submitted at the moment.</p>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FOOTER COUNTER -->
+            <div class="border-t border-outline-variant px-4 py-3 flex items-center justify-between bg-surface-bright">
+                <p class="text-label-md font-label-md text-on-surface-variant">
+                    Showing <span id="visibleCountDisplay"><%= allLeaves.length %></span> of <%= allLeaves.length %> entries
+                </p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- JAVASCRIPT FOR FILTERS -->
+<script>
+    let activeFilter = 'all';
+
+    function filterStatus(status, element) {
+        activeFilter = status;
+
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+            btn.classList.add('hover:bg-surface-container', 'hover:text-primary', 'text-on-surface-variant');
+        });
+
+        if (element) {
+            element.classList.remove('hover:bg-surface-container', 'hover:text-primary', 'text-on-surface-variant');
+            element.classList.add('bg-primary-container', 'text-on-primary-container');
+        }
+
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const searchInput = document.getElementById("searchInput");
+        const searchValue = searchInput ? searchInput.value.toLowerCase() : "";
+        const rows = document.querySelectorAll("tbody tr.leave-row");
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const rowStatus = row.getAttribute("data-status");
+            const text = row.innerText.toLowerCase();
+
+            const matchesStatus = (activeFilter === "all" || rowStatus === activeFilter);
+            const matchesSearch = text.includes(searchValue);
+
+            if (matchesStatus && matchesSearch) {
+                row.style.display = "";
+                visibleCount++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        const countDisplay = document.getElementById("visibleCountDisplay");
+        if (countDisplay) {
+            countDisplay.innerText = visibleCount;
+        }
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function () {
+            applyFilters();
+        });
+    }
+</script>
+
+</body>
+</html>

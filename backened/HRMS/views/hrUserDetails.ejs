@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+<title>Employee Details - HR Portal - MINI HRMS</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                "surface-bright": "#fbf8ff",
+                "surface-container-lowest": "#ffffff",
+                "secondary-fixed-dim": "#adc6ff",
+                "on-tertiary": "#ffffff",
+                "surface-container-highest": "#e3e1ec",
+                "tertiary-fixed": "#ebe0df",
+                "secondary": "#0058be",
+                "on-secondary-container": "#fefcff",
+                "on-secondary-fixed-variant": "#004395",
+                "secondary-container": "#2170e4",
+                "secondary-fixed": "#d8e2ff",
+                "surface-variant": "#e3e1ec",
+                "primary": "#000000",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "surface-container": "#eeedf7",
+                "primary-fixed-dim": "#c8c6c8",
+                "on-tertiary-fixed-variant": "#4c4545",
+                "primary-container": "#1c1b1d",
+                "surface-container-high": "#e8e7f1",
+                "inverse-primary": "#c8c6c8",
+                "surface-dim": "#dad9e3",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#1f1a1a",
+                "background": "#fbf8ff",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed": "#1f1a1a",
+                "tertiary": "#000000",
+                "outline": "#78767b",
+                "on-primary": "#ffffff",
+                "on-background": "#1a1b22",
+                "on-secondary-fixed": "#001a42",
+                "on-error": "#ffffff",
+                "on-primary-fixed": "#1c1b1d",
+                "on-surface-variant": "#47464a",
+                "on-tertiary-container": "#8a8282",
+                "on-surface": "#1a1b22",
+                "on-primary-fixed-variant": "#474649",
+                "tertiary-fixed-dim": "#cec4c4",
+                "inverse-surface": "#2f3038",
+                "inverse-on-surface": "#f1effa",
+                "surface": "#fbf8ff",
+                "outline-variant": "#c8c5ca",
+                "surface-tint": "#5f5e60",
+                "surface-container-low": "#f4f2fd",
+                "primary-fixed": "#e5e1e4",
+                "on-primary-container": "#858386"
+            },
+            borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                full: "9999px"
+            },
+            spacing: {
+                "stack-md": "1rem",
+                "margin-page": "2rem",
+                "container-max": "1440px",
+                "stack-sm": "0.5rem",
+                "gutter": "1.5rem",
+                "stack-lg": "2rem"
+            },
+            fontFamily: {
+                "label-sm": ["Geist"],
+                "headline-lg": ["Geist"],
+                "headline-md": ["Geist"],
+                "body-lg": ["Geist"],
+                "label-md": ["Geist"],
+                "headline-xl": ["Geist"],
+                "body-md": ["Geist"]
+            },
+            fontSize: {
+                "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+                "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                "headline-md": ["18px", { lineHeight: "28px", fontWeight: "600" }],
+                "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+            }
+        }
+    }
+}
+</script>
+
+<style>
+body { font-family: 'Geist', sans-serif; }
+::-webkit-scrollbar { display: none; }
+</style>
+</head>
+
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex">
+
+<%- include('partials/flashToast') %>
+<%- include('partials/hrSidebar', { activePage: 'employees' }) %>
+
+<!-- Fallback User Data Setup -->
+<%
+    let targetUser = typeof user !== 'undefined' && user ? user : {
+        _id: 'sample',
+        fullname: 'Employee Profile',
+        email: 'employee@minihrms.com',
+        phone: 'N/A',
+        address: 'N/A',
+        role: 'employee',
+        createdAt: new Date(),
+        leaves: { totalLeaves: [], approvedLeaves: [], pendingLeaves: [], rejectedLeaves: [] }
+    };
+
+    let userLeaves = (targetUser.leaves && targetUser.leaves.totalLeaves) ? targetUser.leaves.totalLeaves : (typeof totalLeaves !== 'undefined' ? totalLeaves : []);
+    let userApproved = (targetUser.leaves && targetUser.leaves.approvedLeaves) ? targetUser.leaves.approvedLeaves : (typeof approvedLeaves !== 'undefined' ? approvedLeaves : []);
+    let userPending = (targetUser.leaves && targetUser.leaves.pendingLeaves) ? targetUser.leaves.pendingLeaves : (typeof pendingLeaves !== 'undefined' ? pendingLeaves : []);
+    let userRejected = (targetUser.leaves && targetUser.leaves.rejectedLeaves) ? targetUser.leaves.rejectedLeaves : (typeof rejectedLeaves !== 'undefined' ? rejectedLeaves : []);
+%>
+
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-60 flex flex-col h-screen overflow-hidden">
+
+    <!-- Top AppBar -->
+    <header class="flex justify-between items-center h-16 px-gutter bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-10">
+        <div class="flex items-center gap-4">
+            <div class="relative focus-within:ring-2 focus-within:ring-outline-variant rounded-full transition-all duration-200 ease-in-out">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                    search
+                </span>
+                <input
+                    class="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md font-body-md text-on-surface placeholder-outline focus:outline-none w-64"
+                    placeholder="Search..."
+                    type="text"
+                />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+            </button>
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high flex items-center justify-center font-bold text-primary">
+                <span class="material-symbols-outlined text-[20px]">person</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Scrollable Content -->
+    <main class="flex-1 overflow-y-auto p-margin-page">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
+
+            <!-- BREADCRUMB -->
+            <div class="flex items-center justify-between">
+                <a
+                    class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors"
+                    href="/hr/employees"
+                >
+                    <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">
+                        arrow_back
+                    </span>
+                    <span class="font-label-md text-label-md">
+                        Back to Employee Directory
+                    </span>
+                </a>
+
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                    <span>HR Portal</span>
+                    <span>/</span>
+                    <span>Employees</span>
+                    <span>/</span>
+                    <span class="text-on-surface font-semibold">
+                        <%= targetUser.fullname %>
+                    </span>
+                </div>
+            </div>
+
+            <!-- USER PROFILE HEADER -->
+            <div class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-stack-md">
+                <div class="flex items-center gap-stack-md min-w-0">
+
+                    <!-- AVATAR -->
+                    <div class="relative shrink-0">
+                        <div class="w-16 h-16 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex items-center justify-center text-on-surface font-headline-md text-headline-md font-bold">
+                            <% if (targetUser.profileImage && targetUser.profileImage.length > 0) { %>
+                                <img class="w-full h-full object-cover" src="data:<%=targetUser.imageType%>;base64,<%=targetUser.profileImage.toString('base64')%>" alt="<%=targetUser.fullname%>" />
+                            <% } else { %>
+                                <span><%= targetUser.fullname ? targetUser.fullname.charAt(0).toUpperCase() : 'E' %></span>
+                            <% } %>
+                        </div>
+                        <span class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#10b981] ring-2 ring-surface-container-lowest" title="Active"></span>
+                    </div>
+
+                    <!-- META DETAILS -->
+                    <div class="flex flex-col min-w-0">
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight truncate">
+                                <%= targetUser.fullname %>
+                            </h1>
+                        </div>
+
+                        <div class="flex items-center gap-stack-sm flex-wrap mt-0.5">
+                            <span class="font-body-md text-body-md text-on-surface-variant">
+                                <%= targetUser.email %>
+                            </span>
+                            <span class="text-on-surface-variant">·</span>
+                            <span class="font-label-md text-label-md text-on-surface-variant capitalize">
+                                <%= targetUser.role %>
+                            </span>
+                            <span class="text-on-surface-variant">·</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant">
+                                Joined <%= targetUser.createdAt ? (new Date(targetUser.createdAt)).toDateString() : 'N/A' %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="flex items-center gap-stack-sm w-full lg:w-auto justify-end pt-stack-sm lg:pt-0">
+                    <a
+                        href="/hr/leaves"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors border border-outline-variant"
+                    >
+                        <span class="material-symbols-outlined text-[18px]">fact_check</span>
+                        <span>View Leave History</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- LEAVE STATISTICS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <!-- TOTAL LEAVES -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Total Applications</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+                            <span class="material-symbols-outlined text-[18px]">date_range</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userLeaves.length %>
+                        </span>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Total Submitted</span>
+                    </div>
+                </div>
+
+                <!-- APPROVED -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Approved</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-[#059669]">
+                            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userApproved.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-[#ecfdf5] text-[#065f46] font-label-sm text-label-sm">Granted</span>
+                    </div>
+                </div>
+
+                <!-- PENDING -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Pending</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-[#d97706]">
+                            <span class="material-symbols-outlined text-[18px]">pending_actions</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userPending.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-[#fffbeb] text-[#92400e] font-label-sm text-label-sm">In Review</span>
+                    </div>
+                </div>
+
+                <!-- REJECTED -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Rejected</span>
+                        <div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+                            <span class="material-symbols-outlined text-[18px]">cancel</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userRejected.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">Declined</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg shadow-sm">
+                <div class="flex items-center justify-between pb-stack-md border-b border-outline-variant/50 mb-4">
+                    <div>
+                        <h2 class="font-headline-md text-headline-md text-on-surface">
+                            Personal & Contact Details
+                        </h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                            Employee record information.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Full Name</span>
+                        <span class="font-body-md text-body-md text-on-surface font-semibold"><%= targetUser.fullname %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Email Address</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.email %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Phone</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.phone || 'N/A' %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Address</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.address || 'N/A' %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Role</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm capitalize"><%= targetUser.role %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Joined Date</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.createdAt ? (new Date(targetUser.createdAt)).toDateString() : 'N/A' %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEAVE HISTORY TABLE -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col overflow-hidden mb-8">
+                <div class="p-stack-lg border-b border-outline-variant">
+                    <h2 class="font-headline-md text-headline-md text-on-surface">
+                        Employee Leave Records
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                        Historical list of time-off applications filed by <%= targetUser.fullname %>.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-low border-b border-outline-variant">
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Leave Type</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Start Date</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">End Date</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Reason</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/50">
+                            <% if (userLeaves && userLeaves.length > 0) { %>
+                                <% userLeaves.forEach(function(leave) { %>
+                                    <tr class="hover:bg-surface-container-low transition-colors">
+                                        <td class="py-3.5 px-stack-md font-medium text-primary text-body-md">
+                                            <%= leave.leaveType || 'Annual Leave' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md">
+                                            <%= leave.startDate ? (new Date(leave.startDate)).toDateString() : 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md">
+                                            <%= leave.endDate ? (new Date(leave.endDate)).toDateString() : 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md max-w-[250px] truncate" title="<%= leave.reason %>">
+                                            <%= leave.reason || 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md">
+                                            <% if (leave.status === 'approved') { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#ecfdf5] text-[#065f46] text-[11px] font-semibold border border-[#d1fae5]">Approved</span>
+                                            <% } else if (leave.status === 'rejected') { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#fef2f2] text-[#991b1b] text-[11px] font-semibold border border-[#fee2e2]">Rejected</span>
+                                            <% } else { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#fffbeb] text-[#92400e] text-[11px] font-semibold border border-[#fef3c7]">Pending</span>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="5" class="py-8 text-center text-on-surface-variant">
+                                        No leave records found for this employee.
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

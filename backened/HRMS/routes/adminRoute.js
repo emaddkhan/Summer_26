@@ -82,7 +82,7 @@ router.get("/leaves", isLoggedIn, async (req, res) => {
     });
   let leaves = admin.leaves.totalLeaves;
   let approvedLeaves = admin.leaves.approvedLeaves;
-  console.log(approvedLeaves);
+  // console.log(approvedLeaves);
   let rejectedLeaves = admin.leaves.rejectedLeaves;
   let pendingLeaves = admin.leaves.pendingLeaves;
   res.render("adminLeaves", {
@@ -104,13 +104,14 @@ router.get("/user/:id", isLoggedIn, async (req, res) => {
   if (!user) {
     return (req.flash("error", "User not found"), res.redirect("/admin"));
   }
-  console.log(user.leaves.totalLeaves);
+  // console.log(user.leaves.totalLeaves);
   const totalLeaves = user.leaves.totalLeaves;
   const approvedLeaves = user.leaves.approvedLeaves;
   const rejectedLeaves = user.leaves.rejectedLeaves;
   const pendingLeaves = user.leaves.pendingLeaves;
 
   let errorMessage = req.flash("error");
+  let successMessage = req.flash("success");
   // let userLeaves = await leaveModel.find({ user: user._id });
   res.render("adminUserDetails", {
     errorMessage,
@@ -119,17 +120,26 @@ router.get("/user/:id", isLoggedIn, async (req, res) => {
     approvedLeaves,
     rejectedLeaves,
     pendingLeaves,
+    successMessage
   });
 });
 
 //deletion emp
 router.get("/users/delete/:id", isLoggedIn, async (req, res) => {
-  let user = await userModel.findById(req.params.id);
-  if (!user) {
-    res.status(404).send("User not found");
+  try {
+    let user = await userModel.findById(req.params.id);
+    if (!user) {
+      req.flash("error", "User not found");
+      return res.redirect("/admin");
+    }
+    await userModel.findByIdAndDelete(req.params.id);
+    req.flash("success", `User ${user.fullname || ''} deleted successfully`);
+    res.redirect("/admin");
+  } catch (err) {
+    console.log(err.message);
+    req.flash("error", "Error deleting user");
+    res.redirect("/admin");
   }
-  await userModel.findByIdAndDelete(req.params.id);
-  res.redirect("/admin");
 });
 
 //approving leave
@@ -205,4 +215,28 @@ router.get("/leave/reject/:id", isLoggedIn, async (req, res) => {
   req.flash("success", "Leave request rejected successfully");
   res.redirect("/admin/leaves");
 });
+
+router.post("/changeRole/:id", async (req, res) => {
+  try {
+    let user = await userModel.findById(req.params.id);
+    if (!user) {
+      req.flash("error", "User not found");
+      return res.redirect("/admin");
+    }
+    let { userRole } = req.body;
+    if (user.role === userRole) {
+      req.flash("error", `User is already assigned the role of ${userRole}`);
+      return res.redirect(`/admin/user/${user._id}`);
+    }
+    user.role = userRole;
+    await user.save();
+    req.flash("success", `User role updated to ${userRole} successfully`);
+    res.redirect(`/admin/user/${user._id}`);
+  } catch (err) {
+    console.log(err.message);
+    req.flash("error", "Error changing user role");
+    res.redirect(`/admin/user/${req.params.id}`);
+  }
+});
+
 module.exports = router;

@@ -1,0 +1,77 @@
+<!-- HR SideNavBar Partial -->
+<aside class="fixed left-0 top-0 h-screen w-60 bg-surface dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline flex flex-col p-stack-md z-20">
+
+<div class="mb-8">
+    <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-on-surface">
+        MINI HRMS
+    </h1>
+    <p class="text-label-sm font-label-sm text-on-surface-variant">
+        HR Portal
+    </p>
+</div>
+
+<% const currentActive = typeof activePage !== 'undefined' ? activePage : 'dashboard'; %>
+
+<nav class="flex-1 flex flex-col gap-1">
+
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'dashboard' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-all duration-200 ease-in-out" href="/hr">
+        <span class="material-symbols-outlined text-[20px]">
+            dashboard
+        </span>
+        <span class="text-label-md font-label-md">
+            Dashboard
+        </span>
+    </a>
+
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'employees' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/hr/employees">
+        <span class="material-symbols-outlined text-[20px]">
+            group
+        </span>
+        <span class="text-label-md font-label-md">
+            Employees
+        </span>
+    </a>
+
+    <a href="/hr/leaves" class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'leaves' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out">
+        <span class="material-symbols-outlined text-[20px]">
+            fact_check
+        </span>
+        <span class="text-label-md font-label-md">
+            Leave Requests
+        </span>
+    </a>
+
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'profile' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/hr/profile">
+        <span class="material-symbols-outlined text-[20px]">
+            person
+        </span>
+        <span class="text-label-md font-label-md">
+            My Profile
+        </span>
+    </a>
+
+</nav>
+
+<div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant">
+
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'settings' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/hr/settings">
+        <span class="material-symbols-outlined text-[20px]">
+            settings
+        </span>
+        <span class="text-label-md font-label-md">
+            Settings
+        </span>
+    </a>
+
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container transition-colors transition-all duration-200 ease-in-out" href="/logout">
+        <span class="material-symbols-outlined text-[20px]">
+            logout
+        </span>
+        <span class="text-label-md font-label-md">
+            Logout
+        </span>
+    </a>
+
+</div>
+
+</aside>

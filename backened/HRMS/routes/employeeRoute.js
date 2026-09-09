@@ -7,6 +7,7 @@ const adminModel = require("../models/adminModel");
 
 router.get("/",isLoggedIn,async(req,res)=>{
     let users = req.user;
+    // console.log(req.user)
     let successMessage = req.flash("success");
     let employee=await userModel.findById(users.id).populate("leaves.totalLeaves").populate("leaves.approvedLeaves").populate("leaves.rejectedLeaves").populate("leaves.pendingLeaves");
     res.render("empDashboard", { successMessage,user:employee, leaves:employee.leaves.totalLeaves, approvedLeaves:employee.leaves.approvedLeaves, rejectedLeaves:employee.leaves.rejectedLeaves, pendingLeaves:employee.leaves.pendingLeaves });
