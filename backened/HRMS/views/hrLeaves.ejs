@@ -106,9 +106,47 @@
     </style>
 </head>
 
-<body class="bg-background text-on-surface antialiased min-h-screen font-body-md">
+<!-- SUCCESS & ERROR FLASH TOAST POPUPS -->
+<% if (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) { %>
+  <div id="flash-toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-emerald-950/90 text-emerald-100 border border-emerald-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Success</h4>
+          <p class="text-sm font-medium text-emerald-100 mt-0.5"><%= Array.isArray(successMessage) ? successMessage[0] : successMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-container').remove()" class="text-emerald-400/70 hover:text-emerald-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-container')?.remove(); }, 4500);</script>
+<% } %>
 
-<%- include('partials/flashToast') %>
+<% if (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) { %>
+  <div id="flash-toast-err-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-rose-950/90 text-rose-100 border border-rose-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">error</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Error</h4>
+          <p class="text-sm font-medium text-rose-100 mt-0.5"><%= Array.isArray(errorMessage) ? errorMessage[0] : errorMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-err-container').remove()" class="text-rose-400/70 hover:text-rose-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-err-container')?.remove(); }, 4500);</script>
+<% } %>
+
 <%- include('partials/hrSidebar', { activePage: 'leaves' }) %>
 
 <!-- Dynamic Data Safe Setup -->
@@ -266,8 +304,8 @@
                     </thead>
 
                     <tbody class="divide-y divide-outline-variant/50">
-                        <% if (allLeaves && allLeaves.length > 0) { %>
-                            <% allLeaves.forEach(function(leave) { %>
+                        <% if (leaves && leaves.length > 0) { %>
+                            <% leaves.forEach(function(leave) { %>
                                 <tr class="leave-row hover:bg-surface-container-low transition-colors group" data-status="<%= leave.status || 'pending' %>">
                                     <td class="py-3 px-4">
                                         <div class="flex items-center gap-3">
@@ -344,6 +382,14 @@
 
                                     <td class="py-3 px-4 text-right">
                                         <div class="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1 hover:bg-surface-container-high rounded transition-colors text-on-surface-variant"
+                                                title="View Details"
+                                                onclick="openLeaveModal('<%= leave._id %>', '<%= leave.user ? leave.user.fullname.replace(/'/g, "\\'") : (leave.userName ? leave.userName.replace(/'/g, "\\'") : "Employee") %>', '<%= leave.user ? leave.user.email : "" %>', '<%= leave.leaveType || "Annual Leave" %>', '<%= leave.status || "pending" %>', '<%= leave.startDate ? (new Date(leave.startDate)).toDateString() : "N/A" %> - <%= leave.endDate ? (new Date(leave.endDate)).toDateString() : "N/A" %>', `<%= leave.reason ? leave.reason.replace(/`/g, '\\`') : 'No reason specified' %>`)"
+                                            >
+                                                <span class="material-symbols-outlined text-[20px]">visibility</span>
+                                            </button>
+
                                             <a
                                                 class="p-1 hover:bg-success/10 rounded transition-colors text-[#059669]"
                                                 title="Approve"
@@ -390,9 +436,112 @@
     </main>
 </div>
 
-<!-- JAVASCRIPT FOR FILTERS -->
+<!-- LEAVE DETAILS MODAL POPUP -->
+<div id="leaveModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+    <div id="modalBox" class="bg-surface-bright border border-outline-variant rounded-2xl max-w-lg w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 relative mx-4">
+        <!-- Close Button -->
+        <button onclick="closeLeaveModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1.5 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/60">
+            <div class="w-10 h-10 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">event_note</span>
+            </div>
+            <div>
+                <h3 class="text-headline-md font-bold text-primary">Leave Application Details</h3>
+                <p class="text-label-sm text-on-surface-variant">Review request details and actions</p>
+            </div>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="space-y-3.5">
+            <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-outline-variant/40">
+                <div class="w-10 h-10 rounded-full bg-surface-container-high font-bold text-primary flex items-center justify-center shrink-0 border border-outline-variant">
+                    <span id="modalUserInitial">E</span>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-primary text-body-md" id="modalUserName">Employee Name</h4>
+                    <p class="text-label-sm text-on-surface-variant" id="modalUserEmail">employee@minihrms.com</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/40">
+                    <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">Leave Type</span>
+                    <span class="font-semibold text-primary text-body-md" id="modalLeaveType">Annual Leave</span>
+                </div>
+                <div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/40">
+                    <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">Status</span>
+                    <span class="font-semibold text-body-md capitalize" id="modalStatus">Pending</span>
+                </div>
+            </div>
+
+            <div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/40">
+                <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">Duration / Dates</span>
+                <span class="font-medium text-primary text-body-md" id="modalDates">N/A</span>
+            </div>
+
+            <div class="p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/40">
+                <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block mb-1">Reason</span>
+                <p class="text-body-md text-on-surface-variant" id="modalReason">No reason specified</p>
+            </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-outline-variant/60">
+            <button onclick="closeLeaveModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md transition-colors">
+                Close
+            </button>
+            <a id="modalApproveBtn" href="#" class="px-4 py-2 rounded-lg bg-[#059669] hover:bg-[#047857] text-white font-label-md transition-colors flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                Approve
+            </a>
+            <a id="modalRejectBtn" href="#" class="px-4 py-2 rounded-lg bg-[#dc2626] hover:bg-[#b91c1c] text-white font-label-md transition-colors flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">cancel</span>
+                Reject
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPT FOR FILTERS & MODAL POPUP -->
 <script>
     let activeFilter = 'all';
+
+    function openLeaveModal(id, name, email, type, status, dates, reason) {
+        document.getElementById('modalUserName').innerText = name || 'Employee';
+        document.getElementById('modalUserInitial').innerText = name ? name.charAt(0).toUpperCase() : 'E';
+        document.getElementById('modalUserEmail').innerText = email || '';
+        document.getElementById('modalLeaveType').innerText = type || 'Leave';
+        document.getElementById('modalStatus').innerText = status || 'pending';
+        document.getElementById('modalDates').innerText = dates || 'N/A';
+        document.getElementById('modalReason').innerText = reason || 'No reason specified';
+
+        document.getElementById('modalApproveBtn').href = `/hr/leave/approve/${id}`;
+        document.getElementById('modalRejectBtn').href = `/hr/leave/reject/${id}`;
+
+        const modal = document.getElementById('leaveModal');
+        const box = document.getElementById('modalBox');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeLeaveModal() {
+        const modal = document.getElementById('leaveModal');
+        const box = document.getElementById('modalBox');
+        modal.classList.add('opacity-0');
+        box.classList.remove('scale-100');
+        box.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
 
     function filterStatus(status, element) {
         activeFilter = status;

@@ -10,8 +10,8 @@
 
 <div id="flash-toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 animate-toast pointer-events-none transition-all duration-300">
   <% 
-    let msgSuccess = (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) ? successMessage : ((typeof success !== 'undefined' && success && success.length > 0) ? (Array.isArray(success) ? success[0] : success) : null);
-    let msgError = (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) ? errorMessage : ((typeof error !== 'undefined' && error && error.length > 0) ? (Array.isArray(error) ? error[0] : error) : null);
+    let msgSuccess = (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) ? (Array.isArray(successMessage) ? successMessage[0] : successMessage) : ((typeof success !== 'undefined' && success && success.length > 0) ? (Array.isArray(success) ? success[0] : success) : ((typeof success_msg !== 'undefined' && success_msg && success_msg.length > 0) ? (Array.isArray(success_msg) ? success_msg[0] : success_msg) : null));
+    let msgError = (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) ? (Array.isArray(errorMessage) ? errorMessage[0] : errorMessage) : ((typeof error !== 'undefined' && error && error.length > 0) ? (Array.isArray(error) ? error[0] : error) : ((typeof error_msg !== 'undefined' && error_msg && error_msg.length > 0) ? (Array.isArray(error_msg) ? error_msg[0] : error_msg) : null));
   %>
 
   <% if (msgSuccess) { %>
