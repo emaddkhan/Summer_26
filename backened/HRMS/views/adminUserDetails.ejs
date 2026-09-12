@@ -7,18 +7,14 @@
 <title>User Details - MINI HRMS</title>
 
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
-
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
 <script id="tailwind-config">
 tailwind.config = {
     darkMode: "class",
-
     theme: {
         extend: {
-
             colors: {
                 "surface-bright": "#fbf8ff",
                 "surface-container-lowest": "#ffffff",
@@ -68,14 +64,12 @@ tailwind.config = {
                 "primary-fixed": "#e5e1e4",
                 "on-primary-container": "#858386"
             },
-
             borderRadius: {
                 DEFAULT: "0.25rem",
                 lg: "0.5rem",
                 xl: "0.75rem",
                 full: "9999px"
             },
-
             spacing: {
                 "stack-md": "1rem",
                 "margin-page": "2rem",
@@ -84,7 +78,6 @@ tailwind.config = {
                 "gutter": "1.5rem",
                 "stack-lg": "2rem"
             },
-
             fontFamily: {
                 "label-sm": ["Geist"],
                 "headline-lg": ["Geist"],
@@ -94,66 +87,14 @@ tailwind.config = {
                 "headline-xl": ["Geist"],
                 "body-md": ["Geist"]
             },
-
             fontSize: {
-                "label-sm": [
-                    "11px",
-                    {
-                        lineHeight: "14px",
-                        fontWeight: "600"
-                    }
-                ],
-
-                "headline-lg": [
-                    "24px",
-                    {
-                        lineHeight: "32px",
-                        letterSpacing: "-0.01em",
-                        fontWeight: "600"
-                    }
-                ],
-
-                "headline-md": [
-                    "18px",
-                    {
-                        lineHeight: "28px",
-                        fontWeight: "600"
-                    }
-                ],
-
-                "body-lg": [
-                    "16px",
-                    {
-                        lineHeight: "24px",
-                        fontWeight: "400"
-                    }
-                ],
-
-                "label-md": [
-                    "12px",
-                    {
-                        lineHeight: "16px",
-                        letterSpacing: "0.01em",
-                        fontWeight: "500"
-                    }
-                ],
-
-                "headline-xl": [
-                    "36px",
-                    {
-                        lineHeight: "44px",
-                        letterSpacing: "-0.02em",
-                        fontWeight: "600"
-                    }
-                ],
-
-                "body-md": [
-                    "14px",
-                    {
-                        lineHeight: "20px",
-                        fontWeight: "400"
-                    }
-                ]
+                "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+                "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                "headline-md": ["18px", { lineHeight: "28px", fontWeight: "600" }],
+                "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
             }
         }
     }
@@ -161,1341 +102,517 @@ tailwind.config = {
 </script>
 
 <style>
-body {
-    font-family: 'Geist', sans-serif;
-}
-::-webkit-scrollbar {
-    display: none;
-}
+body { font-family: 'Geist', sans-serif; }
+::-webkit-scrollbar { display: none; }
 </style>
-
 </head>
 
 <body class="bg-surface text-on-surface h-screen overflow-hidden flex">
 
-<%- include('partials/flashToast') %>
+<!-- SUCCESS & ERROR FLASH TOAST POPUPS -->
+<% if (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) { %>
+  <div id="flash-toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-emerald-950/90 text-emerald-100 border border-emerald-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Success</h4>
+          <p class="text-sm font-medium text-emerald-100 mt-0.5"><%= Array.isArray(successMessage) ? successMessage[0] : successMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-container').remove()" class="text-emerald-400/70 hover:text-emerald-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-container')?.remove(); }, 4500);</script>
+<% } %>
 
+<% if (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) { %>
+  <div id="flash-toast-err-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-rose-950/90 text-rose-100 border border-rose-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">error</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Error</h4>
+          <p class="text-sm font-medium text-rose-100 mt-0.5"><%= Array.isArray(errorMessage) ? errorMessage[0] : errorMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-err-container').remove()" class="text-rose-400/70 hover:text-rose-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-err-container')?.remove(); }, 4500);</script>
+<% } %>
+
+<!-- INCLUDE ADMIN SIDEBAR -->
 <%- include('partials/sidebar', { activePage: 'users' }) %>
 
-<!-- Main Content Wrapper -->
+<!-- Fallback User Data Setup -->
+<%
+    let targetUser = typeof user !== 'undefined' && user ? user : {
+        _id: 'sample',
+        fullname: 'User Details',
+        email: 'user@minihrms.com',
+        phone: 'N/A',
+        address: 'N/A',
+        role: 'employee',
+        createdAt: new Date(),
+        leaves: { totalLeaves: [], approvedLeaves: [], pendingLeaves: [], rejectedLeaves: [] }
+    };
 
+    let userLeaves = (targetUser.leaves && targetUser.leaves.totalLeaves) ? targetUser.leaves.totalLeaves : (typeof totalLeaves !== 'undefined' ? totalLeaves : []);
+    let userApproved = (targetUser.leaves && targetUser.leaves.approvedLeaves) ? targetUser.leaves.approvedLeaves : (typeof approvedLeaves !== 'undefined' ? approvedLeaves : []);
+    let userPending = (targetUser.leaves && targetUser.leaves.pendingLeaves) ? targetUser.leaves.pendingLeaves : (typeof pendingLeaves !== 'undefined' ? pendingLeaves : []);
+    let userRejected = (targetUser.leaves && targetUser.leaves.rejectedLeaves) ? targetUser.leaves.rejectedLeaves : (typeof rejectedLeaves !== 'undefined' ? rejectedLeaves : []);
+%>
+
+<!-- Main Content Wrapper -->
 <div class="flex-1 ml-60 flex flex-col h-screen overflow-hidden">
 
-<!-- TopAppBar -->
-
-<header class="flex justify-between items-center h-16 px-gutter bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-10">
-
-    <div class="flex items-center gap-4">
-
-        <div class="relative focus-within:ring-2 focus-within:ring-outline-variant rounded-full transition-all duration-200 ease-in-out">
-
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
-                search
-            </span>
-
-            <input
-                class="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md font-body-md text-on-surface placeholder-outline focus:outline-none w-64"
-                placeholder="Search..."
-                type="text"
-            />
-
-        </div>
-
-    </div>
-
-
-    <div class="flex items-center gap-4">
-
-        <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
-
-            <span class="material-symbols-outlined">
-                notifications
-            </span>
-
-        </button>
-
-        <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-
-            <img
-                alt="User avatar"
-                class="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBKG226xoBqBxQ6uXdC8HDb6OZzq0Ml8Q0iiTPD4v7Hkc5MDC7oAxlU5tp5QS1h-hEZURRE98FmZ9m1PybhFzqiWETWl9XnSM4Ui0HnkwySwDCT9vPT0RKtqVOcfZwatqUP5HrpTqVLWYKrFm47otp2nem8iWOzR-XV3YU33FaQnrSk1BJntt3lVVBjIs_xoNjBaL79xvE0PaLGL0iMmKpdt155ZehysHWbd9iP_lz_uh4UpK9fOsm"
-            />
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- Main Scrollable Content -->
-
-<main class="flex-1 overflow-y-auto p-margin-page">
-
-    <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
-
-        <!-- BREADCRUMB -->
-
-        <div class="flex items-center justify-between">
-
-            <a
-                class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors"
-                href="/admin"
-            >
-
-                <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">
-                    arrow_back
+    <!-- Top AppBar -->
+    <header class="flex justify-between items-center h-16 px-gutter bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-10">
+        <div class="flex items-center gap-4">
+            <div class="relative focus-within:ring-2 focus-within:ring-outline-variant rounded-full transition-all duration-200 ease-in-out">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                    search
                 </span>
-
-                <span class="font-label-md text-label-md">
-                    Back to Dashboard
-                </span>
-
-            </a>
-
-
-            <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
-
-                <span>
-                    HR Management
-                </span>
-
-                <span>/</span>
-
-                <span>
-                    Directory
-                </span>
-
-                <span>/</span>
-
-                <span class="text-on-surface">
-                    <%=user.fullname%>
-                </span>
-
+                <input
+                    class="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md font-body-md text-on-surface placeholder-outline focus:outline-none w-64"
+                    placeholder="Search..."
+                    type="text"
+                />
             </div>
-
         </div>
 
-
-        <!-- USER PROFILE HEADER -->
-
-        <div
-            class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-stack-md"
-        >
-
-            <div class="flex items-center gap-stack-md min-w-0">
-
-
-                <!-- AVATAR -->
-
-                <div class="relative shrink-0">
-
-                    <div
-                        class="w-16 h-16 rounded-full bg-surface-container-high overflow-hidden flex items-center justify-center text-on-surface font-headline-md text-headline-md"
-                    >
-
-                        <img
-                            class="w-full h-full object-cover"
-                            src="data:<%=user.imageType%>;base64,<%=user.profileImage.toString('base64')%>"
-                        />
-
-                    </div>
-
-
-                    <span
-                        class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"
-                        title="Active Status"
-                    ></span>
-
-                </div>
-
-
-
-                <!-- META DETAILS -->
-
-                <div class="flex flex-col min-w-0">
-
-                    <div class="flex items-center gap-2.5 flex-wrap">
-
-                        <h1
-                            class="font-headline-lg text-headline-lg text-on-surface tracking-tight truncate"
-                        >
-                        <%=user.fullname%>
-                        </h1>
-
-                    </div>
-
-
-                    <div class="flex items-center gap-stack-sm flex-wrap mt-0.5">
-
-                        <span class="font-body-md text-body-md text-on-surface-variant">
-                            <%=user.email%>
-                        </span>
-
-                        <span class="text-on-surface-variant">
-                            ·
-                        </span>
-
-                        <span class="font-label-md text-label-md text-on-surface-variant">
-                            <%=user.role%>
-                        </span>
-
-                        <span class="text-on-surface-variant">
-                            ·
-                        </span>
-
-                        <span class="font-label-sm text-label-sm text-on-surface-variant">
-                            Joined <%=user.createdAt.toDateString()%>
-                        </span>
-
-                    </div>
-
-                </div>
-
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+            </button>
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high flex items-center justify-center font-bold text-primary">
+                <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
             </div>
-
-
-
-            <!-- ACTION BUTTONS -->
-
-            <div
-                class="flex items-center gap-stack-sm w-full lg:w-auto justify-end pt-stack-sm lg:pt-0"
-            >
-
-                <button
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors"
-                    id="openChangeRoleBtn"
-                    type="button"
-                >
-
-                    <span class="material-symbols-outlined text-[18px]">
-                        admin_panel_settings
-                    </span>
-
-                    <span>
-                        Change Role
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-colors"
-                    id="openDeleteUserBtn"
-                    type="button"
-                >
-
-                    <span class="material-symbols-outlined text-[18px]">
-                        delete
-                    </span>
-
-                    <span>
-                        Delete User
-                    </span>
-
-                </button>
-
-            </div>
-
         </div>
+    </header>
 
+    <!-- Main Scrollable Content -->
+    <main class="flex-1 overflow-y-auto p-margin-page">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
 
-
-        <!-- STATISTICS -->
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-
-
-            <!-- TOTAL LEAVES -->
-
-            <div
-                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
-            >
-
-                <div class="flex items-center justify-between">
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Total Leaves
+            <!-- BREADCRUMB -->
+            <div class="flex items-center justify-between">
+                <a
+                    class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors"
+                    href="/admin"
+                >
+                    <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">
+                        arrow_back
                     </span>
+                    <span class="font-label-md text-label-md">
+                        Back to Dashboard
+                    </span>
+                </a>
 
-                    <div
-                        class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-                    >
+                <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                    <span>Admin Portal</span>
+                    <span>/</span>
+                    <span>User Management</span>
+                    <span>/</span>
+                    <span class="text-on-surface font-semibold">
+                        <%= targetUser.fullname %>
+                    </span>
+                </div>
+            </div>
 
-                        <span class="material-symbols-outlined text-[18px]">
-                            date_range
-                        </span>
+            <!-- USER PROFILE HEADER -->
+            <div class="bg-surface-container-lowest rounded-xl p-stack-lg border border-outline-variant shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-stack-md">
+                <div class="flex items-center gap-stack-md min-w-0">
 
+                    <!-- AVATAR -->
+                    <div class="relative shrink-0">
+                        <div class="w-16 h-16 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex items-center justify-center text-on-surface font-headline-md text-headline-md font-bold">
+                            <% if (targetUser.profileImage && targetUser.profileImage.length > 0) { %>
+                                <img class="w-full h-full object-cover" src="data:<%=targetUser.imageType%>;base64,<%=targetUser.profileImage.toString('base64')%>" alt="<%=targetUser.fullname%>" />
+                            <% } else { %>
+                                <span><%= targetUser.fullname ? targetUser.fullname.charAt(0).toUpperCase() : 'U' %></span>
+                            <% } %>
+                        </div>
+                        <span class="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-[#10b981] ring-2 ring-surface-container-lowest" title="Active"></span>
                     </div>
 
-                </div>
+                    <!-- META DETAILS -->
+                    <div class="flex flex-col min-w-0">
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight truncate">
+                                <%= targetUser.fullname %>
+                            </h1>
+                            <% if(targetUser.role === "admin") { %>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-primary text-on-primary">Admin</span>
+                            <% } else if(targetUser.role === "employee") { %>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-secondary text-on-secondary">Employee</span>
+                            <% } else if(targetUser.role === "hr") { %>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-tertiary text-on-tertiary">HR Manager</span>
+                            <% } %>
+                        </div>
 
-
-                <div class="mt-4 flex items-baseline justify-between">
-
-                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                        <%=user.leaves.totalLeaves.length%>
-                    </span>
-
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">
-                        Allocated: 24
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- APPROVED -->
-
-            <div
-                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
-            >
-
-                <div class="flex items-center justify-between">
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Approved
-                    </span>
-
-                    <div
-                        class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary"
-                    >
-
-                        <span class="material-symbols-outlined text-[18px]">
-                            check_circle
-                        </span>
-
+                        <div class="flex items-center gap-stack-sm flex-wrap mt-0.5">
+                            <span class="font-body-md text-body-md text-on-surface-variant">
+                                <%= targetUser.email %>
+                            </span>
+                            <span class="text-on-surface-variant">·</span>
+                            <span class="font-label-md text-label-md text-on-surface-variant capitalize">
+                                <%= targetUser.role %>
+                            </span>
+                            <span class="text-on-surface-variant">·</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant">
+                                Joined <%= targetUser.createdAt ? (new Date(targetUser.createdAt)).toDateString() : 'N/A' %>
+                            </span>
+                        </div>
                     </div>
-
                 </div>
 
-
-                <div class="mt-4 flex items-baseline justify-between">
-
-                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                        <%=user.leaves.approvedLeaves.length%>
-                    </span>
-
-                    <span
-                        class="px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm"
-                    >
-                        58.3%
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- PENDING -->
-
-            <div
-                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
-            >
-
-                <div class="flex items-center justify-between">
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Pending
-                    </span>
-
-                    <div
-                        class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-                    >
-
-                        <span class="material-symbols-outlined text-[18px]">
-                            pending_actions
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="mt-4 flex items-baseline justify-between">
-
-                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                         <%=user.leaves.totalLeaves.length%>
-                    </span>
-
-                    <span
-                        class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
-                    >
-                        In review
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- REJECTED -->
-
-            <div
-                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between"
-            >
-
-                <div class="flex items-center justify-between">
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Rejected
-                    </span>
-
-                    <div
-                        class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container"
-                    >
-
-                        <span class="material-symbols-outlined text-[18px]">
-                            cancel
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="mt-4 flex items-baseline justify-between">
-
-                    <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
-                         <%=user.leaves.rejectedLeaves.length%>
-                    </span>
-
-                    <span
-                        class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm"
-                    >
-                        16.6%
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- PERSONAL INFORMATION -->
-
-        <div
-            class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg shadow-sm"
-        >
-
-            <div class="flex items-center justify-between pb-stack-md">
-
-                <div>
-
-                    <h2 class="font-headline-md text-headline-md text-on-surface">
-                        Personal Information
-                    </h2>
-
-                    <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
-                        Employee contact and organizational records.
-                    </p>
-
-                </div>
-
-
-                <button
-                    class="inline-flex items-center gap-1 text-secondary hover:text-on-surface font-label-md text-label-md transition-colors"
-                    type="button"
-                >
-
-                    <span class="material-symbols-outlined text-[16px]">
-                        edit
-                    </span>
-
-                    <span>
-                        Edit Details
-                    </span>
-
-                </button>
-
-            </div>
-
-
-
-            <!-- KEY VALUE GRID -->
-
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 pt-stack-sm"
-            >
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Full Name
-                    </span>
-
-                    <span class="font-body-md text-body-md text-on-surface font-headline-md">
-                        <%=user.fullname%>
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Email
-                    </span>
-
-                    <span class="font-body-md text-body-md text-on-surface">
-                        <%=user.email%>
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Phone
-                    </span>
-
-                    <span class="font-body-md text-body-md text-on-surface">
-                        <%=user.phone%>
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Address
-                    </span>
-
-                    <span class="font-body-md text-body-md text-on-surface">
-                        <%=user.address%>
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Role
-                    </span>
-
-                    <span
-                        class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm"
-                    >
-                        <%=user.role%>
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40"
-                >
-
-                    <span class="font-label-md text-label-md text-on-surface-variant">
-                        Joined
-                    </span>
-
-                    <span class="font-body-md text-body-md text-on-surface">
-                        <%=user.createdAt.toDateString()%>
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- LEAVE HISTORY -->
-
-        <div
-            class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col overflow-hidden mb-8"
-        >
-
-
-            <!-- SECTION HEADER -->
-
-            <div
-                class="p-stack-lg flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm"
-            >
-
-                <div>
-
-                    <h2 class="font-headline-md text-headline-md text-on-surface">
-                        Leave History
-                    </h2>
-
-                    <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
-                        All recorded time off requests for this user.
-                    </p>
-
-                </div>
-
-
-                <div class="flex items-center gap-stack-sm">
-
-                    <div
-                        class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant"
-                    >
-
-                        <span class="material-symbols-outlined text-[16px]">
-                            filter_list
-                        </span>
-
-                        <span class="font-label-sm text-label-sm">
-                            Filter: All Time
-                        </span>
-
-                    </div>
-
-
+                <!-- ACTION BUTTONS -->
+                <div class="flex items-center gap-stack-sm w-full lg:w-auto justify-end pt-stack-sm lg:pt-0">
                     <button
-                        class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors"
-                        type="button"
+                        onclick="openChangeRoleModal()"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors border border-outline-variant cursor-pointer"
                     >
-                        Export CSV
+                        <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+                        <span>Change Role</span>
                     </button>
 
+                    <button
+                        onclick="openDeleteUserModal()"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-label-md transition-colors cursor-pointer shadow-sm"
+                    >
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                        <span>Delete User</span>
+                    </button>
                 </div>
-
             </div>
 
-
-
-            <!-- TABLE -->
-
-            <div class="overflow-x-auto w-full">
-
-                <table class="w-full text-left">
-
-                    <thead>
-
-                        <tr class="bg-surface-container-low border-y border-outline-variant">
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                Leave Type
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                Start Date
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                End Date
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                Duration
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider min-w-[200px]">
-                                Reason
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                Status
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                                Submitted Date
-                            </th>
-
-                            <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-right">
-                                Actions
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody class="divide-y divide-outline-variant/50">
-
-
-                        <!-- ROW 1 -->
-                         <%totalLeaves.forEach(leave=>{%>
-                         <tr class="hover:bg-surface-container-low transition-colors group">
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
-
-                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
-
-                                <span class="font-headline-md text-body-md">
-                                    <%=leave.leaveType%>
-                                </span>
-
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                <%=leave.startDate.toLocaleDateString()%>
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                <%=leave.endDate.toLocaleDateString()%>
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                                <%=Math.ceil((leave.endDate-leave.startDate)/(1000*60*60*24)+1)%> Days
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                                <%=leave.reason%>
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md">
-
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
-
-                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-
-                                    <%=leave.status%>
-
-                                </span>
-
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                <%=leave.createdAt.toLocaleDateString()%>
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md text-right">
-
-                                <button
-                                    class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                                    data-dates="<%= leave.startDate.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric'
-    }) %> -  <%= leave.endDate.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    }) %>"
-                                    data-reason="<%=leave.reason%>"
-                                    data-status="<%=leave.status%>"
-                                    data-title="<%=leave.leaveType%>"
-                                    type="button"
-                                >
-
-                                    <span>
-                                        View Details
-                                    </span>
-
-                                    <span class="material-symbols-outlined text-[14px]">
-                                        arrow_forward
-                                    </span>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-                         <%})%>
-                        
-
-
-
-                        <!-- ROW 2 -->
-
-                        <!-- <tr class="hover:bg-surface-container-low transition-colors group">
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface flex items-center gap-2">
-
-                                <span class="w-2 h-2 rounded-full bg-secondary"></span>
-
-                                <span class="font-headline-md text-body-md">
-                                    Sick Leave
-                                </span>
-
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                Aug 14, 2026
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                Aug 15, 2026
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface">
-                                1 Day
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant truncate max-w-xs">
-                                Viral fever and recovery
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md">
-
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm">
-
-                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-
-                                    Approved
-
-                                </span>
-
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md font-body-md text-body-md text-on-surface-variant">
-                                Aug 14, 2026
-                            </td>
-
-
-                            <td class="py-3.5 px-stack-md text-right">
-
-                                <button
-                                    class="leave-detail-btn inline-flex items-center gap-1 text-secondary group-hover:text-primary font-label-md text-label-md transition-colors"
-                                    data-dates="Aug 14 - Aug 15, 2026"
-                                    data-reason="Viral fever and recovery"
-                                    data-status="Approved"
-                                    data-title="Sick Leave"
-                                    type="button"
-                                >
-
-                                    <span>
-                                        View Details
-                                    </span>
-
-                                    <span class="material-symbols-outlined text-[14px]">
-                                        arrow_forward
-                                    </span>
-
-                                </button>
-
-                            </td>
-
-                        </tr> -->
-
-                    </tbody>
-
-                </table>
-
+            <!-- LEAVE STATISTICS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <!-- TOTAL LEAVES -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Total Applications</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+                            <span class="material-symbols-outlined text-[18px]">date_range</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userLeaves.length %>
+                        </span>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Total Submitted</span>
+                    </div>
+                </div>
+
+                <!-- APPROVED -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Approved</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-[#059669]">
+                            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userApproved.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-[#ecfdf5] text-[#065f46] font-label-sm text-label-sm">Granted</span>
+                    </div>
+                </div>
+
+                <!-- PENDING -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Pending</span>
+                        <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-[#d97706]">
+                            <span class="material-symbols-outlined text-[18px]">pending_actions</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userPending.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-[#fffbeb] text-[#92400e] font-label-sm text-label-sm">In Review</span>
+                    </div>
+                </div>
+
+                <!-- REJECTED -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Rejected</span>
+                        <div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+                            <span class="material-symbols-outlined text-[18px]">cancel</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-baseline justify-between">
+                        <span class="font-headline-xl text-headline-xl text-on-surface font-headline-lg">
+                            <%= userRejected.length %>
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">Declined</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg shadow-sm">
+                <div class="flex items-center justify-between pb-stack-md border-b border-outline-variant/50 mb-4">
+                    <div>
+                        <h2 class="font-headline-md text-headline-md text-on-surface">
+                            Personal & Contact Details
+                        </h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                            Employee record details.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Full Name</span>
+                        <span class="font-body-md text-body-md text-on-surface font-semibold"><%= targetUser.fullname %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Email Address</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.email %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Phone</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.phone || 'N/A' %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Address</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.address || 'N/A' %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Role</span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm capitalize"><%= targetUser.role %></span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-2 bg-surface-container-lowest hover:bg-surface-container-low px-3 rounded-lg transition-colors border border-outline-variant/40">
+                        <span class="font-label-md text-label-md text-on-surface-variant">Joined Date</span>
+                        <span class="font-body-md text-body-md text-on-surface"><%= targetUser.createdAt ? (new Date(targetUser.createdAt)).toDateString() : 'N/A' %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEAVE HISTORY TABLE -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm flex flex-col overflow-hidden mb-8">
+                <div class="p-stack-lg border-b border-outline-variant flex justify-between items-center">
+                    <div>
+                        <h2 class="font-headline-md text-headline-md text-on-surface">
+                            User Leave Records
+                        </h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                            Historical list of time-off applications filed by <%= targetUser.fullname %>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-low border-b border-outline-variant">
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Leave Type</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Start Date</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">End Date</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Reason</th>
+                                <th class="py-3 px-stack-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/50">
+                            <% if (userLeaves && userLeaves.length > 0) { %>
+                                <% userLeaves.forEach(function(leave) { %>
+                                    <tr class="hover:bg-surface-container-low transition-colors">
+                                        <td class="py-3.5 px-stack-md font-medium text-primary text-body-md">
+                                            <%= leave.leaveType || 'Annual Leave' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md">
+                                            <%= leave.startDate ? (new Date(leave.startDate)).toDateString() : 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md">
+                                            <%= leave.endDate ? (new Date(leave.endDate)).toDateString() : 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md text-on-surface-variant text-body-md max-w-[250px] truncate" title="<%= leave.reason %>">
+                                            <%= leave.reason || 'N/A' %>
+                                        </td>
+                                        <td class="py-3.5 px-stack-md">
+                                            <% if (leave.status === 'approved') { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#ecfdf5] text-[#065f46] text-[11px] font-semibold border border-[#d1fae5]">Approved</span>
+                                            <% } else if (leave.status === 'rejected') { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#fef2f2] text-[#991b1b] text-[11px] font-semibold border border-[#fee2e2]">Rejected</span>
+                                            <% } else { %>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#fffbeb] text-[#92400e] text-[11px] font-semibold border border-[#fef3c7]">Pending</span>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="5" class="py-8 text-center text-on-surface-variant">
+                                        No leave records found for this user.
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
-
-    </div>
-
-</main>
-
+    </main>
 </div>
 
 <!-- CHANGE ROLE MODAL -->
+<div id="changeRoleModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+    <div id="changeRoleBox" class="bg-surface-bright border border-outline-variant rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 relative mx-4">
+        <button onclick="closeChangeRoleModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1.5 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
 
-<form action="/admin/changeRole/<%=user._id%>" method="post">
-    <div
-    class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
-    id="changeRoleModal"
->
+        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/60">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">admin_panel_settings</span>
+            </div>
+            <div>
+                <h3 class="text-headline-md font-bold text-primary">Change User Role</h3>
+                <p class="text-label-sm text-on-surface-variant">Select a new system access level for <%= targetUser.fullname %></p>
+            </div>
+        </div>
 
-    <div
-        class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
-    >
+        <form action="/admin/changeRole/<%= targetUser._id %>" method="POST" class="space-y-4">
+            <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+                    <input type="radio" name="userRole" value="employee" <%= targetUser.role === 'employee' ? 'checked' : '' %> class="text-primary focus:ring-primary h-4 w-4" />
+                    <div>
+                        <p class="font-label-md text-label-md font-semibold text-primary">Employee</p>
+                        <p class="text-label-sm text-on-surface-variant">Standard employee portal & leave request access</p>
+                    </div>
+                </label>
 
-        <div class="flex items-center justify-between">
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+                    <input type="radio" name="userRole" value="hr" <%= targetUser.role === 'hr' ? 'checked' : '' %> class="text-primary focus:ring-primary h-4 w-4" />
+                    <div>
+                        <p class="font-label-md text-label-md font-semibold text-primary">HR Manager</p>
+                        <p class="text-label-sm text-on-surface-variant">Staff directory & leave approval access</p>
+                    </div>
+                </label>
 
-            <div class="flex items-center gap-2">
-
-                <div
-                    class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface"
-                >
-
-                    <span class="material-symbols-outlined text-[18px]">
-                        admin_panel_settings
-                    </span>
-
-                </div>
-
-                <h3 class="font-headline-md text-headline-md text-on-surface">
-                    Change User Role
-                </h3>
-
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+                    <input type="radio" name="userRole" value="admin" <%= targetUser.role === 'admin' ? 'checked' : '' %> class="text-primary focus:ring-primary h-4 w-4" />
+                    <div>
+                        <p class="font-label-md text-label-md font-semibold text-primary">Admin</p>
+                        <p class="text-label-sm text-on-surface-variant">Full system management & role change privileges</p>
+                    </div>
+                </label>
             </div>
 
-
-            <button
-                class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
-                id="closeChangeRoleBtn"
-                type="button"
-            >
-
-                <span class="material-symbols-outlined text-[18px]">
-                    close
-                </span>
-
-            </button>
-
-        </div>
-
-
-        <p class="font-body-md text-body-md text-on-surface-variant">
-
-            Select the administrative permissions or access level for
-
-            <strong class="text-on-surface">
-                <%=user.fullname%>
-            </strong>.
-
-        </p>
-
-
-        <div class="flex flex-col gap-2">
-
-
-            <label
-                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors"
-            >
-
-                <div class="flex flex-col">
-
-                    <span class="font-label-md text-label-md text-on-surface">
-                        Employee
-                    </span>
-
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">
-                        Standard view and personal leave requests
-                    </span>
-
-                </div>
-
-                <input
-                    <%= user.role === 'employee' ? 'checked' : '' %>
-                    class="accent-primary w-4 h-4"
-                    name="userRole"
-                    type="radio"
-                    value="employee"
-                />
-
-            </label>
-
-
-            <label
-                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
-            >
-
-                <div class="flex flex-col">
-
-                    <span class="font-label-md text-label-md text-on-surface">
-                        HR Manager
-                    </span>
-
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">
-                        Approve squad requests and view team schedule
-                    </span>
-
-                </div>
-
-                <input
-                    <%= user.role === 'hr' ? 'checked' : '' %>
-                    class="accent-primary w-4 h-4"
-                    name="userRole"
-                    type="radio"
-                    value="hr"
-                />
-
-            </label>
-
-
-            <label
-                class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container transition-colors"
-            >
-
-                <div class="flex flex-col">
-
-                    <span class="font-label-md text-label-md text-on-surface">
-                        Admin
-                    </span>
-
-                    <span class="font-label-sm text-label-sm text-on-surface-variant">
-                        Full system permissions and employee management
-                    </span>
-
-                </div>
-
-                <input
-                    <%= user.role === 'admin' ? 'checked' : '' %>
-                    class="accent-primary w-4 h-4"
-                    name="userRole"
-                    type="radio"
-                    value="admin"
-                />
-
-            </label>
-
-        </div>
-
-
-        <div class="flex items-center justify-end gap-stack-sm pt-2">
-
-            <button
-                class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
-                id="cancelChangeRoleBtn"
-                type="button"
-            >
-                Cancel
-            </button>
-
-
-            <button
-                class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
-                id="saveRoleBtn"
-                type="submit"
-            >
-                Save Changes
-            </button>
-
-        </div>
-
+            <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-outline-variant/60">
+                <button type="button" onclick="closeChangeRoleModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-on-primary font-label-md transition-colors shadow-sm flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Role
+                </button>
+            </div>
+        </form>
     </div>
-
 </div>
-</form>
-
-
 
 <!-- DELETE USER MODAL -->
+<div id="deleteUserModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+    <div id="deleteUserBox" class="bg-surface-bright border border-outline-variant rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 relative mx-4">
+        <button onclick="closeDeleteUserModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1.5 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
 
-<div
-    class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
-    id="deleteUserModal"
->
-
-    <div
-        class="bg-surface-container-lowest rounded-xl max-w-md w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
-    >
-
-        <div class="flex items-center gap-3">
-
-            <div
-                class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0"
-            >
-
-                <span class="material-symbols-outlined text-[20px]">
-                    warning
-                </span>
-
+        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/60">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">warning</span>
             </div>
-
-
-            <div class="flex flex-col">
-
-                <h3 class="font-headline-md text-headline-md text-on-surface">
-                    Delete User Profile
-                </h3>
-
-                <span class="font-label-sm text-label-sm text-error">
-                    Irreversible Action
-                </span>
-
+            <div>
+                <h3 class="text-headline-md font-bold text-primary">Delete User</h3>
+                <p class="text-label-sm text-on-surface-variant">Are you sure you want to remove this user?</p>
             </div>
-
         </div>
 
-
-        <p class="font-body-md text-body-md text-on-surface-variant">
-
-            Are you sure you want to permanently remove
-
-            <strong class="text-on-surface">
-                <%=user.fullname%> (<%=user.email%>)
-            </strong>?
-
-            This will delete all historic leave records, audit trails, and platform credentials.
-
+        <p class="text-body-md text-on-surface-variant mb-6">
+            This action will permanently delete <strong class="text-primary"><%= targetUser.fullname %></strong> from the system database along with their associated records.
         </p>
 
-
-        <div class="flex items-center justify-end gap-stack-sm pt-2">
-
-            <button
-                class="px-4 py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
-                id="cancelDeleteBtn"
-                type="button"
-            >
-                Keep User
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-outline-variant/60">
+            <button type="button" onclick="closeDeleteUserModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md transition-colors">
+                Cancel
             </button>
-
-
-            <a  
-                class="px-4 py-2 rounded-lg bg-error text-on-error font-label-md text-label-md hover:bg-error-container hover:text-on-error-container transition-colors"
-                id="confirmDeleteBtn"
-                href="/admin/users/delete/<%=user._id%>"
-            >
-                Yes, Delete Account
+            <a href="/admin/users/delete/<%= targetUser._id %>" class="px-4 py-2 rounded-lg bg-error hover:bg-error-container text-on-error hover:text-on-error-container font-label-md transition-colors shadow-sm flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px]">delete</span>
+                Confirm Delete
             </a>
-
         </div>
-
     </div>
-
 </div>
 
-
-
-<!-- LEAVE DETAIL MODAL -->
-
-<div
-    class="fixed inset-0 z-50 hidden bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center p-stack-md"
-    id="leaveDetailModal"
->
-
-    <div
-        class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-stack-lg shadow-xl flex flex-col gap-stack-md"
-    >
-
-        <div class="flex items-center justify-between">
-
-            <div class="flex items-center gap-2">
-
-                <span class="material-symbols-outlined text-secondary">
-                    event_note
-                </span>
-
-                <h3
-                    class="font-headline-md text-headline-md text-on-surface"
-                    id="modalLeaveTitle"
-                >
-                    Leave Request Details
-                </h3>
-
-            </div>
-
-
-            <button
-                class="w-7 h-7 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container"
-                id="closeDetailModalBtn"
-                type="button"
-            >
-
-                <span class="material-symbols-outlined text-[18px]">
-                    close
-                </span>
-
-            </button>
-
-        </div>
-
-
-        <div class="flex flex-col gap-3 py-2">
-
-
-            <div
-                class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
-            >
-
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-                    Dates
-                </span>
-
-                <span
-                    class="font-label-md text-label-md text-on-surface"
-                    id="modalLeaveDates"
-                >
-                    Sep 10 - Sep 12, 2026
-                </span>
-
-            </div>
-
-
-            <div
-                class="flex items-center justify-between bg-surface-container-low p-3 rounded-lg"
-            >
-
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-                    Current Status
-                </span>
-
-                <span
-                    class="font-label-md text-label-md text-secondary"
-                    id="modalLeaveStatus"
-                >
-                    Approved
-                </span>
-
-            </div>
-
-
-            <div
-                class="flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg"
-            >
-
-                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">
-                    Reason Stated
-                </span>
-
-                <p
-                    class="font-body-md text-body-md text-on-surface"
-                    id="modalLeaveReason"
-                >
-                    Family trip to northern areas
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="flex items-center justify-end pt-2">
-
-            <button
-                class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors"
-                id="closeDetailActionBtn"
-                type="button"
-            >
-                Close Record
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- JAVASCRIPT -->
-
+<!-- JAVASCRIPT FOR MODALS -->
 <script>
+    function openChangeRoleModal() {
+        const modal = document.getElementById('changeRoleModal');
+        const box = document.getElementById('changeRoleBox');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }, 10);
+    }
 
-    // Interactive Handlers for Modals
+    function closeChangeRoleModal() {
+        const modal = document.getElementById('changeRoleModal');
+        const box = document.getElementById('changeRoleBox');
+        modal.classList.add('opacity-0');
+        box.classList.remove('scale-100');
+        box.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
 
-    const roleModal = document.getElementById('changeRoleModal');
+    function openDeleteUserModal() {
+        const modal = document.getElementById('deleteUserModal');
+        const box = document.getElementById('deleteUserBox');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }, 10);
+    }
 
-    const deleteModal = document.getElementById('deleteUserModal');
-
-    const detailModal = document.getElementById('leaveDetailModal');
-
-
-    // Change Role Modal Handlers
-
-    document.getElementById('openChangeRoleBtn')?.addEventListener('click', () => {
-      roleModal?.classList.remove('hidden');
-    });
-
-
-    const closeRole = () => roleModal?.classList.add('hidden');
-
-
-    document.getElementById('closeChangeRoleBtn')?.addEventListener('click', closeRole);
-
-    document.getElementById('cancelChangeRoleBtn')?.addEventListener('click', closeRole);
-
-
-    document.getElementById('saveRoleBtn')?.addEventListener('click', () => {
-
-      const selected = document.querySelector('input[name="userRole"]:checked');
-
-      if (selected) {
-        alert('Role updated to ' + selected.value + ' for <%=user.fullname%>.');
-      }
-
-      closeRole();
-
-    });
-
-
-    // Delete Modal Handlers
-
-    document.getElementById('openDeleteUserBtn')?.addEventListener('click', () => {
-      deleteModal?.classList.remove('hidden');
-    });
-
-
-    const closeDelete = () => deleteModal?.classList.add('hidden');
-
-
-    document.getElementById('cancelDeleteBtn')?.addEventListener('click', closeDelete);
-
-
-    document.getElementById('confirmDeleteBtn')?.addEventListener('click', () => {
-
-      alert('User <%=user.fullname%> has been queued for deletion.');
-
-      closeDelete();
-
-    });
-
-
-    // Leave Detail Handlers
-
-    document.querySelectorAll('.leave-detail-btn').forEach(btn => {
-
-      btn.addEventListener('click', (e) => {
-
-        const target = e.currentTarget;
-
-        const title = target.getAttribute('data-title');
-
-        const reason = target.getAttribute('data-reason');
-
-        const dates = target.getAttribute('data-dates');
-
-        const status = target.getAttribute('data-status');
-
-
-        document.getElementById('modalLeaveTitle').textContent =
-          title + ' Details';
-
-        document.getElementById('modalLeaveDates').textContent =
-          dates;
-
-        document.getElementById('modalLeaveStatus').textContent =
-          status;
-
-        document.getElementById('modalLeaveReason').textContent =
-          reason;
-
-
-        detailModal?.classList.remove('hidden');
-
-      });
-
-    });
-
-
-    const closeDetails = () => detailModal?.classList.add('hidden');
-
-
-    document.getElementById('closeDetailModalBtn')?.addEventListener(
-      'click',
-      closeDetails
-    );
-
-
-    document.getElementById('closeDetailActionBtn')?.addEventListener(
-      'click',
-      closeDetails
-    );
-
+    function closeDeleteUserModal() {
+        const modal = document.getElementById('deleteUserModal');
+        const box = document.getElementById('deleteUserBox');
+        modal.classList.add('opacity-0');
+        box.classList.remove('scale-100');
+        box.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
 </script>
 
 </body>

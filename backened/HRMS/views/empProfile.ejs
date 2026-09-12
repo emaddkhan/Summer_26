@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>My Profile - Employee Portal - MINI HRMS</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e3e1ec",
+                        "tertiary-fixed": "#ebe0df",
+                        "secondary": "#0058be",
+                        "on-secondary-container": "#fefcff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-variant": "#e3e1ec",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeedf7",
+                        "primary-fixed-dim": "#c8c6c8",
+                        "on-tertiary-fixed-variant": "#4c4545",
+                        "primary-container": "#1c1b1d",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-primary": "#c8c6c8",
+                        "surface-dim": "#dad9e3",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1f1a1a",
+                        "background": "#fbf8ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#1f1a1a",
+                        "tertiary": "#000000",
+                        "outline": "#78767b",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "on-secondary-fixed": "#001a42",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#1c1b1d",
+                        "on-surface-variant": "#47464a",
+                        "on-tertiary-container": "#8a8282",
+                        "on-surface": "#1a1b22",
+                        "on-primary-fixed-variant": "#474649",
+                        "tertiary-fixed-dim": "#cec4c4",
+                        "inverse-surface": "#2f3038",
+                        "inverse-on-surface": "#f1effa",
+                        "surface": "#fbf8ff",
+                        "outline-variant": "#c8c5ca",
+                        "surface-tint": "#5f5e60",
+                        "surface-container-low": "#f4f2fd",
+                        "primary-fixed": "#e5e1e4",
+                        "on-primary-container": "#858386"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "stack-md": "1rem",
+                        "margin-page": "2rem",
+                        "container-max": "1440px",
+                        "stack-sm": "0.5rem",
+                        "gutter": "1.5rem",
+                        "stack-lg": "2rem"
+                    },
+                    fontFamily: {
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    fontSize: {
+                        "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+                        "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "headline-md": ["18px", { lineHeight: "28px", fontWeight: "600" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "headline-xl": ["36px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Geist', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex">
+
+<!-- SUCCESS & ERROR FLASH TOAST POPUPS -->
+<% if (typeof successMessage !== 'undefined' && successMessage && successMessage.length > 0) { %>
+  <div id="flash-toast-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-emerald-950/90 text-emerald-100 border border-emerald-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Success</h4>
+          <p class="text-sm font-medium text-emerald-100 mt-0.5"><%= Array.isArray(successMessage) ? successMessage[0] : successMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-container').remove()" class="text-emerald-400/70 hover:text-emerald-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-container')?.remove(); }, 4500);</script>
+<% } %>
+
+<% if (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) { %>
+  <div id="flash-toast-err-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 pointer-events-none transition-all duration-300">
+    <div class="pointer-events-auto flex items-center justify-between gap-3 p-3.5 bg-rose-950/90 text-rose-100 border border-rose-500/30 rounded-xl shadow-2xl backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[20px]">error</span>
+        </div>
+        <div>
+          <h4 class="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Error</h4>
+          <p class="text-sm font-medium text-rose-100 mt-0.5"><%= Array.isArray(errorMessage) ? errorMessage[0] : errorMessage %></p>
+        </div>
+      </div>
+      <button onclick="this.closest('#flash-toast-err-container').remove()" class="text-rose-400/70 hover:text-rose-100 p-1.5 rounded-lg transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+  </div>
+  <script>setTimeout(() => { document.getElementById('flash-toast-err-container')?.remove(); }, 4500);</script>
+<% } %>
+
+<!-- INCLUDE EMPLOYEE SIDEBAR -->
+<%- include('partials/empSidebar', { activePage: 'profile' }) %>
+
+<!-- Safe Target Employee Data setup -->
+<%
+    let targetEmp = (typeof user !== 'undefined' && user) ? user : ((typeof employee !== 'undefined' && employee) ? employee : {
+        _id: 'emp_id',
+        fullname: 'Staff Employee',
+        email: 'employee@minihrms.com',
+        phone: '+1 (555) 300-4000',
+        address: 'Main Office, Section B',
+        role: 'employee',
+        department: 'Operations',
+        createdAt: new Date(),
+        leaves: { totalLeaves: [], approvedLeaves: [], pendingLeaves: [], rejectedLeaves: [] }
+    });
+
+    let userTotalLeaves = (targetEmp.leaves && targetEmp.leaves.totalLeaves) ? targetEmp.leaves.totalLeaves.length : (typeof leaves !== 'undefined' && leaves ? leaves.length : 0);
+    let userApprovedLeaves = (targetEmp.leaves && targetEmp.leaves.approvedLeaves) ? targetEmp.leaves.approvedLeaves.length : (typeof approvedLeaves !== 'undefined' && approvedLeaves ? approvedLeaves.length : 0);
+    let userPendingLeaves = (targetEmp.leaves && targetEmp.leaves.pendingLeaves) ? targetEmp.leaves.pendingLeaves.length : (typeof pendingLeaves !== 'undefined' && pendingLeaves ? pendingLeaves.length : 0);
+%>
+
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-60 flex flex-col h-screen overflow-hidden">
+
+    <!-- Top AppBar -->
+    <header class="flex justify-between items-center h-16 px-gutter bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-10">
+        <div class="flex items-center gap-4">
+            <div class="relative focus-within:ring-2 focus-within:ring-outline-variant rounded-full transition-all duration-200 ease-in-out">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
+                    search
+                </span>
+                <input
+                    class="pl-9 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md font-body-md text-on-surface placeholder-outline focus:outline-none w-64"
+                    placeholder="Search requests..."
+                    type="text"
+                />
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors relative" title="Notifications">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+
+            <div class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high flex items-center justify-center font-bold text-primary cursor-pointer">
+                <% if (targetEmp.profileImage && targetEmp.profileImage.length > 0) { %>
+                    <img class="w-full h-full object-cover" src="data:<%=targetEmp.imageType%>;base64,<%=targetEmp.profileImage.toString('base64')%>" alt="<%=targetEmp.fullname%>" />
+                <% } else { %>
+                    <span class="material-symbols-outlined text-[20px]">person</span>
+                <% } %>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Scrollable Content -->
+    <main class="flex-1 overflow-y-auto p-margin-page">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
+
+            <!-- BREADCRUMB HEADER -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-headline-xl font-headline-xl text-primary tracking-tight">
+                        My Employee Profile
+                    </h2>
+                    <p class="text-body-md text-on-surface-variant mt-1">
+                        View personal records, contact information, and security settings.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button
+                        onclick="openEditProfileModal()"
+                        class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors flex items-center gap-2 shadow-sm cursor-pointer"
+                    >
+                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                        Edit Details
+                    </button>
+                    <button
+                        onclick="openPasswordModal()"
+                        class="bg-surface-container-low hover:bg-surface-container text-primary border border-outline-variant px-4 py-2 rounded-lg font-label-md text-label-md transition-colors flex items-center gap-2 cursor-pointer"
+                    >
+                        <span class="material-symbols-outlined text-[18px]">lock_reset</span>
+                        Change Password
+                    </button>
+                </div>
+            </div>
+
+            <!-- HERO PROFILE CARD -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
+                <!-- Cover Gradient Banner -->
+                <div class="h-32 bg-gradient-to-r from-secondary-container via-secondary to-primary-container p-6 relative">
+                    <div class="absolute inset-0 bg-black/10"></div>
+                </div>
+
+                <!-- Profile Info Row -->
+                <div class="px-8 pb-6 pt-0 relative flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-12">
+                    <div class="flex items-end gap-5">
+                        <div class="relative shrink-0">
+                            <div class="w-24 h-24 rounded-full bg-surface-bright border-4 border-surface-container-lowest shadow-md overflow-hidden flex items-center justify-center font-bold text-primary text-headline-xl">
+                                <% if (targetEmp.profileImage && targetEmp.profileImage.length > 0) { %>
+                                    <img class="w-full h-full object-cover" src="data:<%=targetEmp.imageType%>;base64,<%=targetEmp.profileImage.toString('base64')%>" alt="<%=targetEmp.fullname%>" />
+                                <% } else { %>
+                                    <span><%= targetEmp.fullname ? targetEmp.fullname.charAt(0).toUpperCase() : 'E' %></span>
+                                <% } %>
+                            </div>
+                            <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-[#10b981] ring-2 ring-surface-container-lowest" title="Active Employee"></span>
+                        </div>
+
+                        <div class="mb-1">
+                            <div class="flex items-center gap-3">
+                                <h1 class="text-headline-lg font-bold text-primary"><%= targetEmp.fullname %></h1>
+                                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-label-sm font-semibold bg-secondary text-on-secondary uppercase">Employee</span>
+                            </div>
+                            <p class="text-body-md text-on-surface-variant mt-0.5"><%= targetEmp.email %> · <%= targetEmp.department || 'Operations' %></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#ecfdf5] text-[#065f46] text-label-md font-semibold border border-[#d1fae5]">
+                            <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                            Staff Member Active
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-outline transition-colors shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Total Applications</span>
+                        <span class="material-symbols-outlined text-outline">date_range</span>
+                    </div>
+                    <div class="text-headline-xl font-bold text-primary"><%= userTotalLeaves %></div>
+                    <p class="text-label-sm text-on-surface-variant mt-1">Submitted leave requests</p>
+                </div>
+
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-outline transition-colors shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Approved Time-Off</span>
+                        <span class="material-symbols-outlined text-[#059669]">check_circle</span>
+                    </div>
+                    <div class="text-headline-xl font-bold text-[#059669]"><%= userApprovedLeaves %></div>
+                    <p class="text-label-sm text-on-surface-variant mt-1">Granted leaves</p>
+                </div>
+
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-outline transition-colors shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Pending Review</span>
+                        <span class="material-symbols-outlined text-[#d97706]">pending_actions</span>
+                    </div>
+                    <div class="text-headline-xl font-bold text-[#d97706]"><%= userPendingLeaves %></div>
+                    <p class="text-label-sm text-on-surface-variant mt-1">Awaiting approval</p>
+                </div>
+
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 hover:border-outline transition-colors shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Joined Date</span>
+                        <span class="material-symbols-outlined text-secondary">calendar_today</span>
+                    </div>
+                    <div class="text-headline-md font-bold text-primary"><%= targetEmp.createdAt ? (new Date(targetEmp.createdAt)).toDateString() : 'N/A' %></div>
+                    <p class="text-label-sm text-on-surface-variant mt-1">Company onboarding date</p>
+                </div>
+            </div>
+
+            <!-- DETAILED INFORMATION CARDS -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-8">
+
+                <!-- Left Column: Personal Information (2 Cols) -->
+                <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-4 border-b border-outline-variant/60 mb-6">
+                            <div>
+                                <h3 class="text-headline-md font-headline-md text-primary">Personal & Contact Details</h3>
+                                <p class="text-body-md text-on-surface-variant text-[13px] mt-0.5">Your staff record information</p>
+                            </div>
+                            <button onclick="openEditProfileModal()" class="text-label-md font-label-md text-secondary hover:text-primary transition-colors flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">edit</span>
+                                <span>Edit</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Full Name</span>
+                                <span class="font-semibold text-primary text-body-md"><%= targetEmp.fullname %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Email Address</span>
+                                <span class="font-medium text-primary text-body-md"><%= targetEmp.email %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Phone Number</span>
+                                <span class="font-medium text-primary text-body-md"><%= targetEmp.phone || 'N/A' %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Department</span>
+                                <span class="font-medium text-primary text-body-md"><%= targetEmp.department || 'Operations' %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl md:col-span-2">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Residential / Contact Address</span>
+                                <span class="font-medium text-primary text-body-md"><%= targetEmp.address || 'N/A' %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Role</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-secondary text-on-secondary uppercase"><%= targetEmp.role %></span>
+                            </div>
+
+                            <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
+                                <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Joined Date</span>
+                                <span class="font-medium text-primary text-body-md"><%= targetEmp.createdAt ? (new Date(targetEmp.createdAt)).toDateString() : 'N/A' %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Security & Actions -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="pb-4 border-b border-outline-variant/60 mb-6">
+                            <h3 class="text-headline-md font-headline-md text-primary">Account Security</h3>
+                            <p class="text-body-md text-on-surface-variant text-[13px] mt-0.5">Password & session credentials</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/40 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[20px]">lock</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary text-body-md">Password</h4>
+                                        <p class="text-label-sm text-on-surface-variant">Update employee password</p>
+                                    </div>
+                                </div>
+                                <button onclick="openPasswordModal()" class="px-3 py-1.5 bg-surface-bright border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
+                                    Change
+                                </button>
+                            </div>
+
+                            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/40 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[20px]">shield</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary text-body-md">Session Status</h4>
+                                        <p class="text-label-sm text-on-surface-variant">Active JWT login session</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-[#ecfdf5] text-[#065f46] text-label-sm font-semibold">Active</span>
+                            </div>
+
+                            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/40 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-lg bg-error-container text-on-error-container flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-[20px]">logout</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-primary text-body-md">Logout</h4>
+                                        <p class="text-label-sm text-on-surface-variant">Sign out of employee portal</p>
+                                    </div>
+                                </div>
+                                <a href="/logout" class="px-3 py-1.5 bg-error text-on-error rounded-lg font-label-md text-label-md hover:bg-error-container hover:text-on-error-container transition-colors">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- EDIT PROFILE MODAL POPUP -->
+<div id="editProfileModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+    <div id="editProfModalBox" class="bg-surface-bright border border-outline-variant rounded-2xl max-w-lg w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 relative mx-4">
+        <!-- Close Button -->
+        <button onclick="closeEditProfileModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1.5 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/60">
+            <div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">edit_note</span>
+            </div>
+            <div>
+                <h3 class="text-headline-md font-bold text-primary">Edit Employee Profile</h3>
+                <p class="text-label-sm text-on-surface-variant">Update your contact information</p>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form action="/employee/profile/edit" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Full Name</label>
+                <input type="text" name="fullname" value="<%= targetEmp.fullname %>" required class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Phone Number</label>
+                <input type="text" name="phone" value="<%= targetEmp.phone || '' %>" placeholder="+1 234 567 890" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Address</label>
+                <input type="text" name="address" value="<%= targetEmp.address || '' %>" placeholder="Home Address" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Profile Picture</label>
+                <input type="file" name="profileImage" accept="image/*" class="w-full px-2 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-sm text-on-surface focus:outline-none" />
+            </div>
+
+            <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-outline-variant/60">
+                <button type="button" onclick="closeEditProfileModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-on-primary font-label-md transition-colors shadow-sm flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL POPUP -->
+<div id="passwordModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+    <div id="passModalBox" class="bg-surface-bright border border-outline-variant rounded-2xl max-w-md w-full p-6 shadow-2xl transform scale-95 transition-all duration-300 relative mx-4">
+        <!-- Close Button -->
+        <button onclick="closePasswordModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary p-1.5 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-outline-variant/60">
+            <div class="w-10 h-10 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[22px]">lock_reset</span>
+            </div>
+            <div>
+                <h3 class="text-headline-md font-bold text-primary">Change Password</h3>
+                <p class="text-label-sm text-on-surface-variant">Update employee password</p>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form action="/employee/profile/change-password" method="POST" class="space-y-4">
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Current Password</label>
+                <input type="password" name="currentPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">New Password</label>
+                <input type="password" name="newPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div>
+                <label class="block text-label-md font-medium text-on-surface mb-1">Confirm New Password</label>
+                <input type="password" name="confirmPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+            </div>
+
+            <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-outline-variant/60">
+                <button type="button" onclick="closePasswordModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/90 text-on-secondary font-label-md transition-colors shadow-sm flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px]">security</span>
+                    Update Password
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JAVASCRIPT FOR MODALS -->
+<script>
+    function openEditProfileModal() {
+        const modal = document.getElementById('editProfileModal');
+        const box = document.getElementById('editProfModalBox');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeEditProfileModal() {
+        const modal = document.getElementById('editProfileModal');
+        const box = document.getElementById('editProfModalBox');
+        modal.classList.add('opacity-0');
+        box.classList.remove('scale-100');
+        box.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+
+    function openPasswordModal() {
+        const modal = document.getElementById('passwordModal');
+        const box = document.getElementById('passModalBox');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            box.classList.remove('scale-95');
+            box.classList.add('scale-100');
+        }, 10);
+    }
+
+    function closePasswordModal() {
+        const modal = document.getElementById('passwordModal');
+        const box = document.getElementById('passModalBox');
+        modal.classList.add('opacity-0');
+        box.classList.remove('scale-100');
+        box.classList.add('scale-95');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+</script>
+
+</body>
+</html>

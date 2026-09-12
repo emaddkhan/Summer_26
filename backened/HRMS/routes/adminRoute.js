@@ -120,7 +120,7 @@ router.get("/user/:id", isLoggedIn, async (req, res) => {
     approvedLeaves,
     rejectedLeaves,
     pendingLeaves,
-    successMessage
+    successMessage,
   });
 });
 
@@ -133,7 +133,7 @@ router.get("/users/delete/:id", isLoggedIn, async (req, res) => {
       return res.redirect("/admin");
     }
     await userModel.findByIdAndDelete(req.params.id);
-    req.flash("success", `User ${user.fullname || ''} deleted successfully`);
+    req.flash("success", `User ${user.fullname || ""} deleted successfully`);
     res.redirect("/admin");
   } catch (err) {
     console.log(err.message);
@@ -239,4 +239,86 @@ router.post("/changeRole/:id", async (req, res) => {
   }
 });
 
+router.get("/profile", isLoggedIn, async (req, res) => {
+  let user = await adminModel.findById(req.user.id);
+  let successMessage = req.flash("success");
+  let errorMessage = req.flash("error");
+  res.render("adminProfile", { user, successMessage, errorMessage });
+});
+router.get("/users", async (req, res) => {
+  let allAdmins = await adminModel.find();
+  let allStaff = await userModel.find();
+  let users = [...allAdmins, ...allStaff];
+  res.render("allUsers", { users });
+});
+router.post("/profile/change-password", isLoggedIn, async (req, res) => {
+  try {
+    let { currentPassword, newPassword, confirmPassword } = req.body;
+    let user = await adminModel.findById(req.user.id);
+    if (!user) {
+      req.flash("error","user not found")
+      return res.redirect("/admin/profile");
+    }
+    if (newPassword !== confirmPassword) {
+      // console.log("erron in password");
+      req.flash("passords doenst matched")
+      return res.redirect("/admin/profile");
+    }
+    bcrypt.compare(currentPassword, user.password, async (err, result) => {
+      if (err) {
+        req.flash("error", "internal server error");
+        return res.redirect("/admin/profile");
+      }
+      if (result) {
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) {
+            // console.log(err.message);
+            req.flash("error", "internal server error");
+            return res.redirect("/admin/profile");
+          }
+          bcrypt.hash(newPassword, salt, async (err, hash) => {
+            if (err) {
+              console.log(err.message);
+              return res.redirect("/admin/profile");
+            }
+            user.password = hash;
+            await user.save();
+            req.flash("success", "password is changed successfully");
+            res.redirect("/admin/profile");
+          });
+        });
+      }
+      if (!result) {
+        req.flash("error", "please enter corresct [asword");
+        return res.redirect("/admin/profile");
+      }
+    });
+  } catch (err) {
+    req.flash("error", `${err.message}`);
+    // console.log(err.message);
+    return res.redirect("/admin/profile");
+  }
+});
+// router.get("/fix-password", async (req, res) => {
+//     try {
+
+//         let admin = await adminModel.findOne({ email: "joseph@gmail.com" });
+
+//         if(!admin){
+//             return res.send("Admin not found");
+//         }
+
+//         let hash = await bcrypt.hash("12345", 10);
+
+//         admin.password = hash;
+
+//         await admin.save();
+
+//         res.send("Password hashed successfully");
+
+//     } catch(err) {
+//         console.log(err.message);
+//         res.send("Error");
+//     }
+// });
 module.exports = router;

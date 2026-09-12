@@ -161,7 +161,7 @@
     </script>
 </head>
 
-<body class="bg-background text-on-surface antialiased min-h-screen font-body-md">
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex">
 
 <%- include('partials/flashToast') %>
 
@@ -170,12 +170,12 @@
 
 <!-- ================= MAIN CONTENT ================= -->
 
-<div class="ml-60 flex flex-col min-h-screen">
+<div class="flex-1 ml-60 flex flex-col h-screen overflow-hidden">
 
 
     <!-- TOP BAR -->
 
-    <header class="bg-surface-bright border-b border-outline-variant flex justify-between items-center h-16 px-gutter sticky top-0 z-10">
+    <header class="bg-surface-bright border-b border-outline-variant flex justify-between items-center h-16 px-gutter shrink-0 z-10">
 
         <!-- Search -->
 
@@ -232,7 +232,8 @@
 
     <!-- PAGE -->
 
-    <main class="flex-1 p-gutter max-w-container-max mx-auto w-full flex flex-col gap-stack-lg">
+    <main class="flex-1 overflow-y-auto p-margin-page">
+        <div class="max-w-[1440px] mx-auto flex flex-col gap-stack-lg">
 
 
         <!-- PAGE HEADER -->

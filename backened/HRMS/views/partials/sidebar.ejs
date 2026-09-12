@@ -1,5 +1,5 @@
 <!-- Admin SideNavBar Partial -->
-<aside class="fixed left-0 top-0 h-screen w-60 bg-surface dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline flex flex-col p-stack-md z-20">
+<aside class="fixed left-0 top-0 h-screen w-60 bg-surface dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline flex flex-col p-4 shrink-0 z-20">
 
 <div class="mb-8">
     <h1 class="text-headline-md font-headline-md font-black text-primary dark:text-on-surface">
@@ -23,7 +23,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'employees' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'employees' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/admin/employees">
         <span class="material-symbols-outlined text-[20px]">
             group
         </span>
@@ -32,7 +32,7 @@
         </span>
     </a>
 
-    <a href="/admin/Leaves" class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'leaves' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out">
+    <a href="/admin/leaves" class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'leaves' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out">
         <span class="material-symbols-outlined text-[20px]">
             fact_check
         </span>
@@ -41,7 +41,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'users' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'users' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/admin/users">
         <span class="material-symbols-outlined text-[20px]">
             admin_panel_settings
         </span>
@@ -50,7 +50,7 @@
         </span>
     </a>
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'profile' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'profile' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/admin/profile">
         <span class="material-symbols-outlined text-[20px]">
             person
         </span>
@@ -63,7 +63,7 @@
 
 <div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant">
 
-    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'settings' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="#">
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentActive === 'settings' ? 'bg-surface-container-low dark:bg-surface-container-high text-primary font-semibold' : 'text-on-surface-variant hover:bg-surface-container-lowest dark:hover:bg-surface-container' %> transition-colors transition-all duration-200 ease-in-out" href="/admin/settings">
         <span class="material-symbols-outlined text-[20px]">
             settings
         </span>
