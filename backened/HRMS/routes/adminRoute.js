@@ -256,12 +256,12 @@ router.post("/profile/change-password", isLoggedIn, async (req, res) => {
     let { currentPassword, newPassword, confirmPassword } = req.body;
     let user = await adminModel.findById(req.user.id);
     if (!user) {
-      req.flash("error","user not found")
+      req.flash("error", "user not found");
       return res.redirect("/admin/profile");
     }
     if (newPassword !== confirmPassword) {
       // console.log("erron in password");
-      req.flash("passords doenst matched")
+      req.flash("passords doenst matched");
       return res.redirect("/admin/profile");
     }
     bcrypt.compare(currentPassword, user.password, async (err, result) => {
@@ -299,6 +299,34 @@ router.post("/profile/change-password", isLoggedIn, async (req, res) => {
     return res.redirect("/admin/profile");
   }
 });
+router.post(
+  "/profile/edit",
+  upload.single("profileImage"),
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      let { fullname, phone, address } = req.body;
+      // let {profileImage}=req.file;
+      let user = await adminModel.findById(req.user.id);
+      if (!user) {
+        req.flash("error", "user not found");
+      }
+      user.fullname = fullname;
+      user.phone = phone;
+      user.address = address;
+      if (req.file) {
+        user.profilePic = req.file.buffer;
+        user.picType = req.file.mimetype;
+      }
+      await user.save();
+      req.flash("success", "profile updated successfully");
+      res.redirect("/admin/profile");
+    } catch (err) {
+      console.log(err.message);
+      res.redirect("/admin/profile");
+    }
+  },
+);
 // router.get("/fix-password", async (req, res) => {
 //     try {
 

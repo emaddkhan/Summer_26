@@ -245,8 +245,8 @@
                     <div class="flex items-end gap-5">
                         <div class="relative shrink-0">
                             <div class="w-24 h-24 rounded-full bg-surface-bright border-4 border-surface-container-lowest shadow-md overflow-hidden flex items-center justify-center font-bold text-primary text-headline-xl">
-                                <% if (targetAdmin.profileImage && targetAdmin.profileImage.length > 0) { %>
-                                    <img class="w-full h-full object-cover" src="data:<%=targetAdmin.imageType%>;base64,<%=targetAdmin.profileImage.toString('base64')%>" alt="<%=targetAdmin.fullname%>" />
+                                <% if (targetAdmin.profilePic && targetAdmin.profilePic.length > 0) { %>
+                                    <img class="w-full h-full object-cover" src="data:<%=targetAdmin.imageType%>;base64,<%=targetAdmin.profilePic.toString('base64')%>" alt="<%=targetAdmin.fullname%>" />
                                 <% } else { %>
                                     <span><%= targetAdmin.fullname ? targetAdmin.fullname.charAt(0).toUpperCase() : 'A' %></span>
                                 <% } %>

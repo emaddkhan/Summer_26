@@ -256,10 +256,10 @@
 
                         <div class="mb-1">
                             <div class="flex items-center gap-3">
-                                <h1 class="text-headline-lg font-bold text-primary"><%= targetHr.fullname %></h1>
+                                <h1 class="text-headline-lg font-bold text-primary"><%= profile.fullname %></h1>
                                 <span class="inline-flex items-center px-3 py-0.5 rounded-full text-label-sm font-semibold bg-tertiary text-on-tertiary uppercase">HR Manager</span>
                             </div>
-                            <p class="text-body-md text-on-surface-variant mt-0.5"><%= targetHr.email %> · <%= targetHr.department || 'Human Resources' %></p>
+                            <p class="text-body-md text-on-surface-variant mt-0.5"><%= profile.email %> · <%= profile.department || 'Human Resources' %></p>
                         </div>
                     </div>
 
@@ -279,7 +279,7 @@
                         <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Access Level</span>
                         <span class="material-symbols-outlined text-secondary">admin_panel_settings</span>
                     </div>
-                    <div class="text-headline-md font-bold text-primary capitalize"><%= targetHr.role %> Manager</div>
+                    <div class="text-headline-md font-bold text-primary capitalize"><%= profile.role %> Manager</div>
                     <p class="text-label-sm text-on-surface-variant mt-1">Full HR directory & leave permissions</p>
                 </div>
 
@@ -288,7 +288,7 @@
                         <span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Joined System</span>
                         <span class="material-symbols-outlined text-outline">calendar_today</span>
                     </div>
-                    <div class="text-headline-md font-bold text-primary"><%= profile.createdAt ? (new Date(targetHr.createdAt)).toDateString() : 'N/A' %></div>
+                    <div class="text-headline-md font-bold text-primary"><%= profile.createdAt ? (new Date(profile.createdAt)).toDateString() : 'N/A' %></div>
                     <p class="text-label-sm text-on-surface-variant mt-1">Registration timestamp</p>
                 </div>
 
@@ -356,7 +356,7 @@
 
                             <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
                                 <span class="text-label-sm text-on-surface-variant uppercase tracking-wider block mb-1">Assigned System Role</span>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-tertiary text-on-tertiary uppercase"><%= profilea.role %></span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm bg-tertiary text-on-tertiary uppercase"><%= profile.role %></span>
                             </div>
 
                             <div class="p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl">
@@ -451,17 +451,17 @@
         <form action="/hr/profile/edit" method="POST" enctype="multipart/form-data" class="space-y-4">
             <div>
                 <label class="block text-label-md font-medium text-on-surface mb-1">Full Name</label>
-                <input type="text" name="fullname" value="<%= targetHr.fullname %>" required class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+                <input type="text" name="fullname" value="<%= profile.fullname %>" required class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
             </div>
 
             <div>
                 <label class="block text-label-md font-medium text-on-surface mb-1">Phone Number</label>
-                <input type="text" name="phone" value="<%= targetHr.phone || '' %>" placeholder="+1 234 567 890" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+                <input type="text" name="phone" value="<%= profile.phone || '' %>" placeholder="+1 234 567 890" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
             </div>
 
             <div>
                 <label class="block text-label-md font-medium text-on-surface mb-1">Office Address</label>
-                <input type="text" name="address" value="<%= targetHr.address || '' %>" placeholder="Suite / Office Address" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
+                <input type="text" name="address" value="<%= profile.address || '' %>" placeholder="Suite / Office Address" class="w-full px-3.5 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:outline-none focus:border-primary" />
             </div>
 
             <div>
