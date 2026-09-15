@@ -1,0 +1,7 @@
+ResT api 
+used to send json or xml data client is not dependent on server
+it allways respect all http methods
+GET PUT PATCH POST DELETE
+GET/USER: user read kro kro user retun kro
+post/user:handle new user creation
+patch/user:update user
