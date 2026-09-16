@@ -5,3 +5,6 @@ GET PUT PATCH POST DELETE
 GET/USER: user read kro kro user retun kro
 post/user:handle new user creation
 patch/user:update user
+
+HTTP Headers
+http headers are an impotant part of the API request and response as they represent meta data associated with thw API requrest and response
