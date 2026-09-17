@@ -20,12 +20,16 @@ app.get("/api/users",(req,res)=>{
     //allways add X to your custom headers
     console.log(req.headers)
     res.json(users);
+
 })
 app.post("/api/users",(req,res)=>{
     const body=req.body
+    if(!body||!body.first_name){
+        return res.status(400).send("bad req")
+    }
     users.push({...body,id:users.length+1})
     fs.writeFile("./MOCK_DATA.json",JSON.stringify(users),(err,data)=>{
-        return res.json({status:"pending"});
+        return res.status(201).json({status:"pending"});
     })
 })
 

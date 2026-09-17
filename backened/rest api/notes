@@ -8,3 +8,27 @@ patch/user:update user
 
 HTTP Headers
 http headers are an impotant part of the API request and response as they represent meta data associated with thw API requrest and response
+
+http response code indicate whethe a specific http request has been nsuccesfully completed or not
+
+
+STATUS CODE:
+
+100-199: informational response
+
+
+200-299:successfull response
+200:OK
+201:created
+202:accepted
+
+301-399:redirection messages
+
+
+400-499:client erroresponse
+400: bad request
+401:unauthorized
+403:forbidden
+404: not found
+
+500-599:server error response
