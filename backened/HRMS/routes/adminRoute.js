@@ -82,10 +82,10 @@ router.get("/leaves", isLoggedIn, async (req, res) => {
     });
   let leaves = admin.leaves.totalLeaves;
   let approvedLeaves = admin.leaves.approvedLeaves;
+  console.log(leaves[0].user.fullname)
   // console.log(approvedLeaves);
   let rejectedLeaves = admin.leaves.rejectedLeaves;
   let pendingLeaves = admin.leaves.pendingLeaves;
-  console.log(leaves[0])
   res.render("adminLeaves", {
     leaves,
     approvedLeaves,
