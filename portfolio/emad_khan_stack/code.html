@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-error": "#690005",
+          "surface-bright": "#39393a",
+          "primary-fixed": "#6ffbbe",
+          "tertiary-container": "#00b982",
+          "primary-container": "#10b981",
+          "secondary": "#bec7d2",
+          "on-tertiary": "#003825",
+          "on-surface": "#e3e2e3",
+          "on-primary-fixed": "#002113",
+          "inverse-on-surface": "#303031",
+          "on-error-container": "#ffdad6",
+          "on-tertiary-fixed-variant": "#005137",
+          "on-background": "#e3e2e3",
+          "surface": "#121314",
+          "on-primary": "#003824",
+          "outline-variant": "#3c4a42",
+          "on-primary-fixed-variant": "#005236",
+          "error": "#ffb4ab",
+          "surface-container-highest": "#343536",
+          "surface-tint": "#4edea3",
+          "on-secondary-container": "#b0b9c4",
+          "primary": "#4edea3",
+          "on-surface-variant": "#bbcabf",
+          "on-secondary-fixed-variant": "#3f4850",
+          "outline": "#86948a",
+          "secondary-container": "#414a53",
+          "surface-container-high": "#292a2b",
+          "on-primary-container": "#00422b",
+          "surface-container": "#1f2021",
+          "surface-container-low": "#1b1c1d",
+          "surface-container-lowest": "#0d0e0f",
+          "on-tertiary-container": "#00422c",
+          "secondary-fixed": "#dae3ee",
+          "inverse-surface": "#e3e2e3",
+          "surface-variant": "#343536",
+          "primary-fixed-dim": "#4edea3",
+          "on-tertiary-fixed": "#002114",
+          "background": "#121314",
+          "tertiary-fixed": "#68fcbf",
+          "on-secondary": "#29313a",
+          "secondary-fixed-dim": "#bec7d2",
+          "error-container": "#93000a",
+          "on-secondary-fixed": "#141c24",
+          "tertiary-fixed-dim": "#45dfa4",
+          "inverse-primary": "#006c49",
+          "surface-dim": "#121314",
+          "tertiary": "#45dfa4"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "1.5rem",
+          "gutter-mobile": "0.5rem",
+          "gutter": "0.75rem",
+          "space-md": "0.75rem",
+          "space-lg": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "margin-mobile": "0.75rem"
+        },
+        "fontFamily": {
+          "body-sm": ["Inter"],
+          "headline-xl-mobile": ["Inter"],
+          "code-sm": ["JetBrains Mono"],
+          "headline-md": ["Inter"],
+          "headline-lg": ["Inter"],
+          "metadata-label": ["JetBrains Mono"],
+          "code-md": ["JetBrains Mono"],
+          "headline-xl": ["Inter"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "body-sm": ["0.8125rem", {"lineHeight": "1.25rem", "fontWeight": "400"}],
+          "headline-xl-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "code-sm": ["0.75rem", {"lineHeight": "1.125rem", "fontWeight": "400"}],
+          "headline-md": ["1rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "headline-lg": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "metadata-label": ["0.6875rem", {"lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "code-md": ["0.8125rem", {"lineHeight": "1.25rem", "fontWeight": "400"}],
+          "headline-xl": ["1.75rem", {"lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "body-md": ["0.875rem", {"lineHeight": "1.375rem", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased select-none overflow-hidden h-screen w-screen flex flex-col"><header class="h-12 w-full bg-surface-container-low border-b border-outline-variant/30 px-space-lg flex items-center justify-between z-50 flex-shrink-0"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><span class="font-code-md text-code-md text-primary font-medium">EK / emad_khan</span><span class="font-metadata-label text-metadata-label text-on-surface-variant/60">v2.4.0</span></div><div class="h-3.5 w-px bg-outline-variant/30 hidden sm:block"></div><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-container border border-outline-variant/20"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-metadata-label text-metadata-label text-primary tracking-wide">AVAILABLE FOR WORK</span></div></div><div class="hidden md:flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="text-on-surface-variant/50">workspace</span><span class="text-on-surface-variant/30">/</span><span class="text-on-surface-variant/50">portfolio</span><span class="text-on-surface-variant/30">/</span><span class="text-primary font-medium">active-buffer</span></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-sm text-on-surface-variant"><a class="font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" href="https://github.com/emadkhan" rel="noreferrer" target="_blank">github.com/emadkhan</a><span class="text-outline-variant/40">•</span><a class="font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">cv.pdf</a></div><div class="flex items-center gap-space-xs"><span class="hidden xl:inline-flex font-metadata-label text-metadata-label text-on-surface-variant/50 px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/20">⌘K</span><a class="px-space-md py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-code-sm text-code-sm rounded border border-outline-variant/40 transition-colors" data-path="contact" href="#">Contact</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="flex-1 flex overflow-hidden w-full relative"><aside class="w-64 bg-surface-container-low border-r border-outline-variant/30 flex flex-col justify-between flex-shrink-0 z-30"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-8 px-space-md flex items-center justify-between border-b border-outline-variant/20"><span class="font-metadata-label text-metadata-label text-on-surface-variant uppercase tracking-wider font-semibold">Explorer</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant/60">expand_more</span></div><nav class="py-space-xs flex flex-col" data-active-classes="bg-surface-container-high text-primary border-l-2 border-primary font-medium"><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="about" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">description</span><span>about.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[1]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="work" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">folder_open</span><span>work.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[2]</span></a><a aria-current="page" class="h-7 px-space-md flex items-center gap-space-sm transition-colors bg-surface-container-high text-primary border-l-2 border-primary font-medium" data-path="stack" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">layers</span><span>stack.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[3]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="experience" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">history</span><span>experience.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[4]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="contact" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">terminal</span><span>contact.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[5]</span></a></nav></div><div class="border-t border-outline-variant/30 bg-surface-container-lowest/80 p-space-sm flex flex-col gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><div class="flex items-center justify-between"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">alt_route</span><span class="text-on-surface">main*</span></span><span class="font-metadata-label text-metadata-label text-on-surface-variant/50">c8f4a12</span></div><div class="flex items-center justify-between text-on-surface-variant/70"><span class="font-metadata-label text-metadata-label">MEM</span><span class="font-metadata-label text-metadata-label text-on-surface">42.8 MB / 0.1%</span></div></div></aside><div class="flex-1 flex flex-col overflow-hidden bg-surface-container-lowest relative"><div class="h-9 border-b border-outline-variant/30 bg-surface-container-low flex items-center px-space-xs gap-1 flex-shrink-0"><div class="h-full px-space-md flex items-center gap-space-sm bg-surface-container-lowest border-r border-outline-variant/30 border-t-2 border-t-primary font-code-sm text-code-sm text-on-surface"><span class="material-symbols-outlined text-[14px] text-primary">code</span><span class="tracking-tight">buffer.active</span><button class="hover:bg-surface-container rounded p-0.5 text-on-surface-variant hover:text-on-surface transition-colors ml-space-xs"><span class="material-symbols-outlined text-[12px]">close</span></button></div></div><main class="flex-1 relative overflow-hidden bg-surface-container-lowest"><div class="flex flex-col w-full h-full overflow-hidden select-none bg-surface-container-lowest">
+<!-- Top Tab / Buffer State Indicator Bar -->
+<div class="h-9 px-space-md flex items-center justify-between bg-surface-container-low flex-shrink-0">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-space-sm py-1 bg-surface-container-lowest rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">layers</span>
+<span class="font-code-md text-code-md text-on-surface tracking-tight">stack.emad</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary ml-1"></span>
+</div>
+<div class="h-3 w-px bg-surface-container-highest hidden sm:block"></div>
+<div class="hidden sm:flex items-center gap-space-xs font-metadata-label text-metadata-label text-on-surface-variant">
+<span>ARCH_MATRIX</span>
+<span class="text-surface-container-highest">::</span>
+<span class="text-primary font-medium">REVISED_2026</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-code-sm text-code-sm text-on-surface-variant">
+<span class="hidden md:inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">memory</span>
+<span class="font-metadata-label text-metadata-label">CORE_NODES: 23</span>
+</span>
+<div class="flex items-center gap-1.5 px-space-sm py-0.5 bg-surface-container rounded">
+<span class="material-symbols-outlined text-[12px] text-primary">check_circle</span>
+<span class="font-metadata-label text-metadata-label text-on-surface">STATUS: SYNCHRONIZED</span>
+</div>
+</div>
+</div>
+<!-- Primary Viewport Content: 4 Quadrants Matrix Layout -->
+<div class="flex-1 p-space-md grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-space-sm overflow-hidden">
+<!-- Quadrant 01: FRONTEND ECOSYSTEM -->
+<section class="bg-surface-container-low rounded p-space-lg flex flex-col justify-between overflow-hidden relative group hover:bg-surface-container transition-colors duration-150">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold tracking-tight">01 // FRONTEND_ECOSYSTEM</span>
+<span class="font-metadata-label text-metadata-label px-1.5 py-0.5 bg-surface-container-high text-primary rounded">PRIMARY</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">web</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed max-w-xl">
+          Deep focus on accessible DOM hierarchies, deterministic state machines, and micro-interaction design.
+        </p>
+<!-- Tech Matrix Tags -->
+<div class="flex flex-wrap gap-1.5 pt-space-xs">
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>React
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>TypeScript
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">JavaScript (ES6+)</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Tailwind CSS</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">HTML5</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">CSS3</span>
+</div>
+</div>
+<!-- Featured Capabilities & Architectural Telemetry -->
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-xs bg-surface-container-lowest/60 p-space-sm rounded">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant uppercase">
+<span>CAPABILITY MATRIX</span>
+<span class="text-primary font-mono">STABILITY // 99.8%</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">DOM Engine</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Virtual DOM Opt.</div>
+</div>
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">UI Architecture</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Design Systems</div>
+</div>
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">Viewport Engine</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Responsive Layouts</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quadrant 02: ANIMATION & MOTION -->
+<section class="bg-surface-container-low rounded p-space-lg flex flex-col justify-between overflow-hidden relative group hover:bg-surface-container transition-colors duration-150">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-tertiary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold tracking-tight">02 // ANIMATION &amp; MOTION</span>
+<span class="font-metadata-label text-metadata-label px-1.5 py-0.5 bg-surface-container-high text-tertiary rounded">INTERACTION</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">motion_mode</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed max-w-xl">
+          Choreographed physics-based transitions, scroll-linked interactions, and buttery 60fps renders.
+        </p>
+<!-- Tech Matrix Tags -->
+<div class="flex flex-wrap gap-1.5 pt-space-xs">
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>GSAP (GreenSock)
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>Framer Motion
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Locomotive Scroll</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">CSS Keyframes</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">FLIP Animations</span>
+</div>
+</div>
+<!-- Physics & Render Diagnostics Micro-Visualizer -->
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-xs bg-surface-container-lowest/60 p-space-sm rounded">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant uppercase">
+<span>FRAME_BUDGET: 16.6MS</span>
+<span class="text-tertiary font-mono">TARGET // 60 FPS</span>
+</div>
+<div class="h-8 w-full flex items-end gap-1 px-1 bg-surface-container rounded overflow-hidden">
+<div class="h-4 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-6 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-5 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-7 flex-1 bg-tertiary-container/60 rounded-t"></div>
+<div class="h-6 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-8 flex-1 bg-primary rounded-t"></div>
+<div class="h-6 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-5 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-7 flex-1 bg-tertiary-container/60 rounded-t"></div>
+<div class="h-6 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-7 flex-1 bg-tertiary-container/60 rounded-t"></div>
+<div class="h-8 flex-1 bg-primary rounded-t"></div>
+<div class="h-6 flex-1 bg-tertiary-container/40 rounded-t"></div>
+<div class="h-5 flex-1 bg-tertiary-container/40 rounded-t"></div>
+</div>
+</div>
+</section>
+<!-- Quadrant 03: BACKEND & DATABASE -->
+<section class="bg-surface-container-low rounded p-space-lg flex flex-col justify-between overflow-hidden relative group hover:bg-surface-container transition-colors duration-150">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-secondary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold tracking-tight">03 // BACKEND &amp; DATABASE</span>
+<span class="font-metadata-label text-metadata-label px-1.5 py-0.5 bg-surface-container-high text-secondary rounded">RUNTIME</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">dns</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed max-w-xl">
+          Clean route modeling, schema validation, and secure server-rendered architecture.
+        </p>
+<!-- Tech Matrix Tags -->
+<div class="flex flex-wrap gap-1.5 pt-space-xs">
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Node.js
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Express.js</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>MongoDB
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">EJS</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">RESTful APIs</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">JWT Auth</span>
+</div>
+</div>
+<!-- Endpoint & Protocol Blueprint Row -->
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-xs bg-surface-container-lowest/60 p-space-sm rounded">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant uppercase">
+<span>PIPELINE INTEGRITY</span>
+<span class="text-secondary font-mono">TLS 1.3 // RFC 8446</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs pt-1">
+<div class="bg-surface-container px-2 py-1.5 rounded flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface-variant">Auth Protocol</span>
+<span class="font-metadata-label text-metadata-label text-primary font-medium">Bearer JWT</span>
+</div>
+<div class="bg-surface-container px-2 py-1.5 rounded flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-on-surface-variant">ORM / Schema</span>
+<span class="font-metadata-label text-metadata-label text-secondary font-medium">Mongoose Strict</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quadrant 04: MOBILE & TOOLING -->
+<section class="bg-surface-container-low rounded p-space-lg flex flex-col justify-between overflow-hidden relative group hover:bg-surface-container transition-colors duration-150">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-md text-code-md text-primary font-semibold tracking-tight">04 // MOBILE &amp; TOOLING</span>
+<span class="font-metadata-label text-metadata-label px-1.5 py-0.5 bg-surface-container-high text-primary rounded">TOOLCHAIN</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">terminal</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed max-w-xl">
+          Cross-platform mobile interfaces, native Android view hierarchies, and modern build tooling.
+        </p>
+<!-- Tech Matrix Tags -->
+<div class="flex flex-wrap gap-1.5 pt-space-xs">
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>React Native
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Java</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">XML</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Git / GitHub</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Vite</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Webpack</span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-code-sm text-code-sm rounded">Postman</span>
+</div>
+</div>
+<!-- Environment & Native Runtime Telemetry -->
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-xs bg-surface-container-lowest/60 p-space-sm rounded">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant uppercase">
+<span>COMPILER MATRIX</span>
+<span class="text-primary font-mono">HERMES // V8</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-1">
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">Bundler</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Vite 5 / Metro</div>
+</div>
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">VCS Rig</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Git Tree Hooks</div>
+</div>
+<div class="bg-surface-container p-1.5 rounded">
+<div class="font-metadata-label text-metadata-label text-on-surface-variant truncate">API Suite</div>
+<div class="font-code-sm text-code-sm text-on-surface font-medium truncate">Postman Collab</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sleek Bottom Summary Micro-Bar -->
+<aside class="h-9 px-space-md flex items-center justify-between bg-surface-container-low flex-shrink-0">
+<div class="flex items-center gap-space-sm">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">
+        CURRENT WORKFLOW: <span class="text-primary">VS Code</span> + <span class="text-primary">Warp Terminal</span> + <span class="text-primary">Figma to Code</span>.
+      </span>
+</div>
+<div class="hidden md:flex items-center gap-space-md font-metadata-label text-metadata-label text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">keyboard</span>
+<span>MODAL: BUFFER_INSPECT</span>
+</span>
+<span>ENV: PRODUCTION_READY</span>
+<span class="text-primary font-mono">LATENCY: &lt;12ms</span>
+</div>
+</aside>
+</div></main></div></div><footer class="h-7 w-full border-t border-outline-variant/30 bg-surface-container-lowest px-space-lg flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant flex-shrink-0 z-50"><div>EMAD KHAN · FRONTEND DEVELOPER · PAKISTAN</div><div class="hidden md:block">UTF-8 · JAVASCRIPT / REACT · LF</div><div class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span>2026 · LATENCY: 18ms · READY</span></div></footer></body></html>

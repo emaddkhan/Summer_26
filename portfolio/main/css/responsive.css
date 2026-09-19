@@ -1,0 +1,217 @@
+/* ==========================================================================
+   OBSIDIAN WORKSPACE - COMPREHENSIVE RESPONSIVE STYLESHEET
+   Supports Desktop (>=1024px), Tablet (768px - 1023px), and Mobile (<768px)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   TABLET & SMALL DESKTOP BREAKPOINT (max-width: 1023px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+  }
+
+  .app-viewport {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+  }
+
+  .app-body {
+    flex-direction: column !important;
+    overflow: visible !important;
+  }
+
+  /* Aside Navigation converts to a top scrollable horizontal bar on Tablet/Mobile */
+  .app-aside {
+    width: 100% !important;
+    height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-default) !important;
+  }
+
+  .app-aside.collapsed {
+    width: 100% !important;
+  }
+
+  .app-aside nav {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    padding: 0.35rem 0.5rem !important;
+    gap: 0.25rem !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-item {
+    white-space: nowrap !important;
+    border-left: none !important;
+    border-bottom: 2px solid transparent !important;
+    padding: 0.35rem 0.75rem !important;
+    height: 32px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .nav-item.active {
+    border-left-color: transparent !important;
+    border-bottom-color: var(--primary) !important;
+  }
+
+  .app-aside.collapsed .sidebar-text,
+  .app-aside.collapsed .sidebar-header-title,
+  .app-aside.collapsed .nav-item-badge {
+    display: inline-block !important;
+  }
+
+  .app-aside.collapsed .nav-item {
+    justify-content: flex-start !important;
+    padding: 0.35rem 0.75rem !important;
+  }
+
+  .sidebar-header {
+    display: none !important;
+  }
+
+  .sidebar-footer-text {
+    display: none !important;
+  }
+
+  .app-main {
+    overflow: visible !important;
+    flex: 1 !important;
+  }
+
+  /* 12-Column Main Canvas Overrides */
+  div[style*="grid-template-columns: repeat(12"],
+  div[style*="grid-template-columns:repeat(12"],
+  div[style*="grid-template-columns: repeat(2"],
+  div[style*="grid-template-columns:repeat(2"],
+  .grid-workspace {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  div[style*="grid-column: span 7"],
+  div[style*="grid-column: span 5"],
+  div[style*="grid-column:span 7"],
+  div[style*="grid-column:span 5"] {
+    width: 100% !important;
+  }
+
+  /* 3 & 4 Column Inner Grids convert to 2 columns on Tablet */
+  div[style*="grid-template-columns: repeat(3"],
+  div[style*="grid-template-columns: repeat(4"],
+  div[style*="grid-template-columns:repeat(3"],
+  div[style*="grid-template-columns:repeat(4"],
+  .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Dual-Pane Project Directory Split */
+  .project-directory-split {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .project-directory-split > section {
+    width: 100% !important;
+    height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-default) !important;
+  }
+
+  #project-list-container {
+    max-height: 400px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE SCREEN BREAKPOINT (max-width: 767px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .app-header {
+    padding: 0 0.5rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .header-breadcrumbs {
+    display: none !important;
+  }
+
+  .font-headline-xl {
+    font-size: 1.35rem !important;
+    line-height: 1.8rem !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .font-headline-lg {
+    font-size: 1.1rem !important;
+    line-height: 1.5rem !important;
+  }
+
+  /* Drop all inner multi-column grids to 1 column on Mobile */
+  div[style*="grid-template-columns: repeat(2"],
+  div[style*="grid-template-columns: repeat(3"],
+  div[style*="grid-template-columns: repeat(4"],
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="grid-template-columns:1fr 1fr"],
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Action Buttons & Cards Full-Width on Mobile */
+  .btn-primary, .btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  div[style*="display: flex; gap: 0.5rem; flex-wrap: wrap"],
+  div[style*="display:flex; gap:0.5rem; flex-wrap:wrap"] {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .buffer-tab-bar {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .engagement-selector, #engagement-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .app-footer {
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 0.5rem !important;
+    gap: 0.25rem !important;
+    text-align: center !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MICRO MOBILE BREAKPOINT (max-width: 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .nav-item .sidebar-text {
+    font-size: 0.725rem !important;
+  }
+
+  .nav-item-badge {
+    display: none !important;
+  }
+
+  .app-header .badge-emerald {
+    display: none !important;
+  }
+}

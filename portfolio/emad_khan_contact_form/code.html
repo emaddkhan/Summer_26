@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-error": "#690005",
+          "surface-bright": "#39393a",
+          "primary-fixed": "#6ffbbe",
+          "tertiary-container": "#00b982",
+          "primary-container": "#10b981",
+          "secondary": "#bec7d2",
+          "on-tertiary": "#003825",
+          "on-surface": "#e3e2e3",
+          "on-primary-fixed": "#002113",
+          "inverse-on-surface": "#303031",
+          "on-error-container": "#ffdad6",
+          "on-tertiary-fixed-variant": "#005137",
+          "on-background": "#e3e2e3",
+          "surface": "#121314",
+          "on-primary": "#003824",
+          "outline-variant": "#3c4a42",
+          "on-primary-fixed-variant": "#005236",
+          "error": "#ffb4ab",
+          "surface-container-highest": "#343536",
+          "surface-tint": "#4edea3",
+          "on-secondary-container": "#b0b9c4",
+          "primary": "#4edea3",
+          "on-surface-variant": "#bbcabf",
+          "on-secondary-fixed-variant": "#3f4850",
+          "outline": "#86948a",
+          "secondary-container": "#414a53",
+          "surface-container-high": "#292a2b",
+          "on-primary-container": "#00422b",
+          "surface-container": "#1f2021",
+          "surface-container-low": "#1b1c1d",
+          "surface-container-lowest": "#0d0e0f",
+          "on-tertiary-container": "#00422c",
+          "secondary-fixed": "#dae3ee",
+          "inverse-surface": "#e3e2e3",
+          "surface-variant": "#343536",
+          "primary-fixed-dim": "#4edea3",
+          "on-tertiary-fixed": "#002114",
+          "background": "#121314",
+          "tertiary-fixed": "#68fcbf",
+          "on-secondary": "#29313a",
+          "secondary-fixed-dim": "#bec7d2",
+          "error-container": "#93000a",
+          "on-secondary-fixed": "#141c24",
+          "tertiary-fixed-dim": "#45dfa4",
+          "inverse-primary": "#006c49",
+          "surface-dim": "#121314",
+          "tertiary": "#45dfa4"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "1.5rem",
+          "gutter-mobile": "0.5rem",
+          "gutter": "0.75rem",
+          "space-md": "0.75rem",
+          "space-lg": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "margin-mobile": "0.75rem"
+        },
+        "fontFamily": {
+          "body-sm": ["Inter"],
+          "headline-xl-mobile": ["Inter"],
+          "code-sm": ["JetBrains Mono"],
+          "headline-md": ["Inter"],
+          "headline-lg": ["Inter"],
+          "metadata-label": ["JetBrains Mono"],
+          "code-md": ["JetBrains Mono"],
+          "headline-xl": ["Inter"],
+          "body-md": ["Inter"]
+        },
+        "fontSize": {
+          "body-sm": ["0.8125rem", {"lineHeight": "1.25rem", "fontWeight": "400"}],
+          "headline-xl-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "code-sm": ["0.75rem", {"lineHeight": "1.125rem", "fontWeight": "400"}],
+          "headline-md": ["1rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "headline-lg": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "metadata-label": ["0.6875rem", {"lineHeight": "1rem", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "code-md": ["0.8125rem", {"lineHeight": "1.25rem", "fontWeight": "400"}],
+          "headline-xl": ["1.75rem", {"lineHeight": "2.25rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "body-md": ["0.875rem", {"lineHeight": "1.375rem", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased select-none overflow-hidden h-screen w-screen flex flex-col"><header class="h-12 w-full bg-surface-container-low border-b border-outline-variant/30 px-space-lg flex items-center justify-between z-50 flex-shrink-0"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><span class="font-code-md text-code-md text-primary font-medium">EK / emad_khan</span><span class="font-metadata-label text-metadata-label text-on-surface-variant/60">v2.4.0</span></div><div class="h-3.5 w-px bg-outline-variant/30 hidden sm:block"></div><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-container border border-outline-variant/20"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-metadata-label text-metadata-label text-primary tracking-wide">AVAILABLE FOR WORK</span></div></div><div class="hidden md:flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="text-on-surface-variant/50">workspace</span><span class="text-on-surface-variant/30">/</span><span class="text-on-surface-variant/50">portfolio</span><span class="text-on-surface-variant/30">/</span><span class="text-primary font-medium">active-buffer</span></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-sm text-on-surface-variant"><a class="font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" href="https://github.com/emadkhan" rel="noreferrer" target="_blank">github.com/emadkhan</a><span class="text-outline-variant/40">•</span><a class="font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">cv.pdf</a></div><div class="flex items-center gap-space-xs"><span class="hidden xl:inline-flex font-metadata-label text-metadata-label text-on-surface-variant/50 px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/20">⌘K</span><a class="px-space-md py-1 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-code-sm text-code-sm rounded border border-outline-variant/40 transition-colors" data-path="contact" href="#">Contact</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="flex-1 flex overflow-hidden w-full relative"><aside class="w-64 bg-surface-container-low border-r border-outline-variant/30 flex flex-col justify-between flex-shrink-0 z-30"><div class="flex flex-col flex-1 overflow-y-auto"><div class="h-8 px-space-md flex items-center justify-between border-b border-outline-variant/20"><span class="font-metadata-label text-metadata-label text-on-surface-variant uppercase tracking-wider font-semibold">Explorer</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant/60">expand_more</span></div><nav class="py-space-xs flex flex-col" data-active-classes="bg-surface-container-high text-primary border-l-2 border-primary font-medium"><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="about" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">description</span><span>about.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[1]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="work" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">folder_open</span><span>work.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[2]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="stack" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">layers</span><span>stack.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[3]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="experience" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">history</span><span>experience.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[4]</span></a><a class="h-7 px-space-md flex items-center gap-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-code-sm text-code-sm transition-colors" data-path="contact" href="#"><span class="material-symbols-outlined text-[15px] text-on-surface-variant/70">terminal</span><span>contact.emad</span><span class="ml-auto font-metadata-label text-metadata-label text-on-surface-variant/30">[5]</span></a></nav></div><div class="border-t border-outline-variant/30 bg-surface-container-lowest/80 p-space-sm flex flex-col gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><div class="flex items-center justify-between"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">alt_route</span><span class="text-on-surface">main*</span></span><span class="font-metadata-label text-metadata-label text-on-surface-variant/50">c8f4a12</span></div><div class="flex items-center justify-between text-on-surface-variant/70"><span class="font-metadata-label text-metadata-label">MEM</span><span class="font-metadata-label text-metadata-label text-on-surface">42.8 MB / 0.1%</span></div></div></aside><div class="flex-1 flex flex-col overflow-hidden bg-surface-container-lowest relative"><div class="h-9 border-b border-outline-variant/30 bg-surface-container-low flex items-center px-space-xs gap-1 flex-shrink-0"><div class="h-full px-space-md flex items-center gap-space-sm bg-surface-container-lowest border-r border-outline-variant/30 border-t-2 border-t-primary font-code-sm text-code-sm text-on-surface"><span class="material-symbols-outlined text-[14px] text-primary">code</span><span class="tracking-tight">buffer.active</span><button class="hover:bg-surface-container rounded p-0.5 text-on-surface-variant hover:text-on-surface transition-colors ml-space-xs"><span class="material-symbols-outlined text-[12px]">close</span></button></div></div><main class="flex-1 relative overflow-hidden bg-surface-container-lowest"><div class="flex flex-col w-full h-full select-none overflow-hidden font-body-md text-on-surface">
+<!-- Active Tab Override Bar sync with App Shell active context -->
+<div class="h-9 w-full bg-surface-container-low flex items-center justify-between px-space-md border-b border-outline-variant/30 flex-shrink-0">
+<div class="flex items-center gap-space-sm font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">terminal</span>
+<span class="text-on-surface font-medium">contact.emad</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/40 px-1 py-0.2 rounded bg-surface-container-lowest">IO_STREAM_RW</span>
+</div>
+<div class="flex items-center gap-space-md font-metadata-label text-metadata-label text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>SOCKET: ESTABLISHED</span>
+<span class="text-outline-variant/50">|</span>
+<span>TLS 1.3 / ED25519</span>
+</div>
+</div>
+<!-- Main Multi-Pane Workspace Area -->
+<div class="flex-1 grid grid-cols-12 overflow-hidden bg-surface-container-lowest divide-x divide-outline-variant/20">
+<!-- Left Workspace Pane: Form & Protocol Input (Cols 1-7) -->
+<section class="col-span-12 lg:col-span-7 flex flex-col justify-between p-space-xl overflow-y-auto relative">
+<div class="flex flex-col gap-space-md">
+<!-- Telemetry Protocol Header -->
+<div class="flex flex-col gap-1 border-b border-outline-variant/20 pb-space-md">
+<div class="flex items-center justify-between">
+<span class="font-metadata-label text-metadata-label text-primary tracking-wider uppercase">DIRECT_TRANSMISSION // FORM_INPUT_BUFFER :: 0x4E9</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/60 font-code-sm">LINE: 01-44 · COL: 0</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mt-1">Initiate Direct Contact.</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+            Open for staff engineering roles, technical advisory, high-performance web applications, and bespoke frontend contracts.
+          </p>
+</div>
+<!-- Form Buffer -->
+<form class="flex flex-col gap-space-md mt-space-xs" id="transmission-form" onsubmit="event.preventDefault(); window.dispatchTransmission();">
+<!-- Field 01: SENDER_IDENTITY -->
+<div class="flex flex-col gap-1.5 group">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label">
+<label class="text-on-surface-variant group-focus-within:text-primary transition-colors flex items-center gap-1.5" for="sender-name">
+<span class="text-primary font-code-sm">01 //</span> SENDER_IDENTITY
+              </label>
+<span class="text-on-surface-variant/50 font-code-sm">REQUIRED [STR]</span>
+</div>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-code-sm text-on-surface-variant/40">›</span>
+<input class="w-full h-9 bg-surface-container-lowest border border-outline-variant/40 rounded px-space-md pl-7 text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none focus:border-primary focus:bg-surface-container-low transition-all" id="sender-name" name="sender" oninput="window.updateTelemetry()" placeholder="e.g. Alex Vance or Stripe Engineering" required="" type="text"/>
+</div>
+</div>
+<!-- Field 02: RETURN_CHANNEL -->
+<div class="flex flex-col gap-1.5 group">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label">
+<label class="text-on-surface-variant group-focus-within:text-primary transition-colors flex items-center gap-1.5" for="return-channel">
+<span class="text-primary font-code-sm">02 //</span> RETURN_CHANNEL
+              </label>
+<span class="text-on-surface-variant/50 font-code-sm">URI:MAILTO [RFC 5322]</span>
+</div>
+<div class="relative flex items-center">
+<span class="absolute left-3 font-code-sm text-on-surface-variant/40">›</span>
+<input class="w-full h-9 bg-surface-container-lowest border border-outline-variant/40 rounded px-space-md pl-7 text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none focus:border-primary focus:bg-surface-container-low transition-all" id="return-channel" name="email" oninput="window.updateTelemetry()" placeholder="alex@domain.corp" required="" type="email"/>
+</div>
+</div>
+<!-- Field 03: ENGAGEMENT_TYPE (Pill Selector) -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="text-primary font-code-sm">03 //</span> ENGAGEMENT_TYPE
+              </span>
+<span class="text-on-surface-variant/50 font-code-sm">ENUM [MUTEX]</span>
+</div>
+<div class="grid grid-cols-4 gap-2" id="engagement-selector">
+<button class="engagement-pill h-8 px-2 rounded border border-primary bg-surface-container-high text-primary font-code-sm text-code-sm flex items-center justify-center gap-1 transition-all" data-val="Contract" onclick="window.selectEngagement(this)" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Contract
+              </button>
+<button class="engagement-pill h-8 px-2 rounded border border-outline-variant/30 bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:border-outline-variant/60 font-code-sm text-code-sm flex items-center justify-center gap-1 transition-all" data-val="Full-Time" onclick="window.selectEngagement(this)" type="button">
+                Full-Time
+              </button>
+<button class="engagement-pill h-8 px-2 rounded border border-outline-variant/30 bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:border-outline-variant/60 font-code-sm text-code-sm flex items-center justify-center gap-1 transition-all" data-val="Advisory" onclick="window.selectEngagement(this)" type="button">
+                Advisory
+              </button>
+<button class="engagement-pill h-8 px-2 rounded border border-outline-variant/30 bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:border-outline-variant/60 font-code-sm text-code-sm flex items-center justify-center gap-1 transition-all" data-val="Other" onclick="window.selectEngagement(this)" type="button">
+                Other
+              </button>
+</div>
+</div>
+<!-- Field 04: TRANSMISSION_PAYLOAD -->
+<div class="flex flex-col gap-1.5 group">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label">
+<label class="text-on-surface-variant group-focus-within:text-primary transition-colors flex items-center gap-1.5" for="message-payload">
+<span class="text-primary font-code-sm">04 //</span> TRANSMISSION_PAYLOAD
+              </label>
+<span class="text-on-surface-variant/50 font-code-sm" id="char-counter">0 CHARS</span>
+</div>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded p-space-sm text-on-surface placeholder:text-on-surface-variant/40 font-code-sm text-code-sm focus:outline-none focus:border-primary focus:bg-surface-container-low transition-all resize-none leading-relaxed" id="message-payload" name="payload" oninput="window.updateTelemetry()" placeholder="Scope, architectural challenges, timeline expectations, or direct greeting..." required="" rows="4"></textarea>
+</div>
+<!-- Action Bar -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<button class="h-9 px-space-lg bg-surface-container-high hover:bg-surface-container-highest border border-primary text-primary hover:text-on-surface font-code-sm text-code-sm rounded flex items-center justify-center gap-space-xs transition-colors cursor-pointer group" id="btn-submit" type="submit">
+<span class="text-primary group-hover:translate-x-0.5 transition-transform">›</span>
+<span class="font-medium">Transmit Message</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/60 ml-1">⌘↵</span>
+</button>
+<button class="h-9 px-space-md bg-transparent hover:bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm rounded transition-colors" onclick="window.resetBuffer()" type="button">
+                Reset Buffer
+              </button>
+</div>
+<div class="flex items-center gap-space-xs font-metadata-label text-metadata-label text-on-surface-variant/60">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/70"></span>
+<span id="form-status-flag">READY_TO_DISPATCH</span>
+<span>·</span>
+<span>PGP: 4096R/B3A98</span>
+</div>
+</div>
+</form>
+</div>
+<!-- Quick Shortcuts Footnote -->
+<div class="mt-4 pt-3 border-t border-outline-variant/10 flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant/40">
+<span>PRESS [TAB] TO CYCLE FIELDS · [ESC] TO CLEAR SELECTION</span>
+<span>LATENCY TARGET: &lt; 24H ACK</span>
+</div>
+</section>
+<!-- Right Workspace Pane: Transmission Telemetry & Live Inspector (Cols 8-12) -->
+<section class="col-span-12 lg:col-span-5 bg-surface-container-low/50 flex flex-col justify-between p-space-xl overflow-y-auto">
+<div class="flex flex-col gap-space-lg">
+<!-- Inspector Section Header -->
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">sensors</span>
+<span class="font-metadata-label text-metadata-label text-on-surface uppercase tracking-wider font-semibold">DISPATCH_NODE_STATUS</span>
+</div>
+<span class="font-metadata-label text-metadata-label px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/30 text-primary">ONLINE</span>
+</div>
+<!-- Telemetry Metrics Grid -->
+<div class="grid grid-cols-3 gap-2">
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/20 flex flex-col gap-0.5">
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/60">PING_LATENCY</span>
+<span class="font-code-md text-code-md text-primary font-medium">14ms</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/40">edge::khi-pk</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/20 flex flex-col gap-0.5">
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/60">EXPECTED_ACK</span>
+<span class="font-code-md text-code-md text-on-surface font-medium">&lt; 24 Hrs</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/40">SLA guaranteed</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant/20 flex flex-col gap-0.5">
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/60">TIMEZONE</span>
+<span class="font-code-md text-code-md text-on-surface font-medium">PKT (UTC+5)</span>
+<span class="font-metadata-label text-metadata-label text-primary" id="live-time">--:--:--</span>
+</div>
+</div>
+<!-- Live Payload Preview Terminal Block -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[13px] text-on-surface-variant/70">data_object</span>
+              LIVE_STREAM_BUFFER.json
+            </span>
+<span class="text-on-surface-variant/50 font-code-sm" id="packet-weight">0.24 KB</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded p-space-md font-code-sm text-code-sm text-on-surface-variant flex flex-col gap-1 overflow-x-auto shadow-inner">
+<div class="text-on-surface-variant/40">// Real-time serialized payload dispatch struct</div>
+<pre class="text-on-surface leading-tight font-code-sm" id="json-preview">{
+  <span class="text-primary">"protocol"</span>: <span class="text-secondary-fixed">"EMAD_DIRECT_v2.4"</span>,
+  <span class="text-primary">"status"</span>: <span class="text-primary-fixed-dim" id="json-status">"drafting"</span>,
+  <span class="text-primary">"timestamp"</span>: <span class="text-secondary" id="json-time">"2026-03-31T00:00:00Z"</span>,
+  <span class="text-primary">"sender"</span>: <span class="text-secondary" id="json-sender">null</span>,
+  <span class="text-primary">"return_channel"</span>: <span class="text-secondary" id="json-email">null</span>,
+  <span class="text-primary">"engagement"</span>: <span class="text-secondary" id="json-type">"Contract"</span>,
+  <span class="text-primary">"payload_length"</span>: <span class="text-tertiary" id="json-len">0</span>,
+  <span class="text-primary">"verified_tls"</span>: <span class="text-primary">true</span>
+}</pre>
+</div>
+</div>
+<!-- Direct Fallback Channels Section -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/70 uppercase tracking-wider font-semibold">
+            FALLBACK_DIRECT_CHANNELS
+          </span>
+<div class="flex flex-col gap-1 font-code-sm text-code-sm">
+<a class="px-space-md py-2 bg-surface-container/60 hover:bg-surface-container-high rounded border border-outline-variant/20 hover:border-outline-variant/50 flex items-center justify-between text-on-surface transition-colors group" href="mailto:emadkhan.dev@gmail.com">
+<span class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">mail</span>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">emadkhan.dev@gmail.com</span>
+</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/50 group-hover:text-on-surface font-code-sm">PRIMARY ↗</span>
+</a>
+<a class="px-space-md py-2 bg-surface-container/60 hover:bg-surface-container-high rounded border border-outline-variant/20 hover:border-outline-variant/50 flex items-center justify-between text-on-surface transition-colors group" href="https://github.com/emadkhan" rel="noreferrer" target="_blank">
+<span class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant group-hover:text-primary transition-colors">code</span>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">github.com/emadkhan</span>
+</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/50 group-hover:text-on-surface font-code-sm">CODE ↗</span>
+</a>
+<a class="px-space-md py-2 bg-surface-container/60 hover:bg-surface-container-high rounded border border-outline-variant/20 hover:border-outline-variant/50 flex items-center justify-between text-on-surface transition-colors group" href="https://linkedin.com/in/emadkhan" rel="noreferrer" target="_blank">
+<span class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant group-hover:text-primary transition-colors">hub</span>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">linkedin.com/in/emadkhan</span>
+</span>
+<span class="font-metadata-label text-metadata-label text-on-surface-variant/50 group-hover:text-on-surface font-code-sm">SYNC ↗</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Transmission Confirmation Banner (Initially hidden or active during transmit) -->
+<div class="mt-4 p-space-sm rounded bg-surface-container border border-outline-variant/20 flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant" id="status-card">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>DISPATCH_SYSTEM_IDLE: WAITING_USER_EVENT</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant/50">NODE::PKT_01</span>
+</div>
+</section>
+</div>
+</div>
+<script>
+  (function() {
+    let currentEngagement = 'Contract';
+
+    // Live Clock updater in PKT (UTC+5)
+    function tickClock() {
+      const liveTimeEl = document.getElementById('live-time');
+      if (!liveTimeEl) return;
+      const now = new Date();
+      // UTC+5 offset calculation
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const pkt = new Date(utc + (3600000 * 5));
+      const hours = String(pkt.getHours()).padStart(2, '0');
+      const mins = String(pkt.getMinutes()).padStart(2, '0');
+      const secs = String(pkt.getSeconds()).padStart(2, '0');
+      liveTimeEl.textContent = `${hours}:${mins}:${secs} PKT`;
+    }
+    setInterval(tickClock, 1000);
+    tickClock();
+
+    // Engagement selector handler
+    window.selectEngagement = function(btn) {
+      document.querySelectorAll('.engagement-pill').forEach(el => {
+        el.classList.remove('border-primary', 'text-primary', 'bg-surface-container-high');
+        el.classList.add('border-outline-variant/30', 'text-on-surface-variant', 'bg-surface-container-low');
+        const dot = el.querySelector('span.rounded-full');
+        if (dot) dot.remove();
+      });
+
+      btn.classList.add('border-primary', 'text-primary', 'bg-surface-container-high');
+      btn.classList.remove('border-outline-variant/30', 'text-on-surface-variant', 'bg-surface-container-low');
+      
+      const newDot = document.createElement('span');
+      newDot.className = 'w-1.5 h-1.5 rounded-full bg-primary';
+      btn.prepend(newDot);
+
+      currentEngagement = btn.getAttribute('data-val') || 'Contract';
+      window.updateTelemetry();
+    };
+
+    // Live Telemetry Sync
+    window.updateTelemetry = function() {
+      const senderVal = document.getElementById('sender-name')?.value.trim() || '';
+      const emailVal = document.getElementById('return-channel')?.value.trim() || '';
+      const payloadVal = document.getElementById('message-payload')?.value || '';
+
+      // Update counters
+      const charCounter = document.getElementById('char-counter');
+      if (charCounter) charCounter.textContent = `${payloadVal.length} CHARS`;
+
+      const packetWeight = document.getElementById('packet-weight');
+      const byteLen = new Blob([senderVal + emailVal + payloadVal + currentEngagement]).size;
+      const totalKb = (0.24 + (byteLen / 1024)).toFixed(2);
+      if (packetWeight) packetWeight.textContent = `${totalKb} KB`;
+
+      // Update JSON preview fields
+      const jsonSender = document.getElementById('json-sender');
+      const jsonEmail = document.getElementById('json-email');
+      const jsonType = document.getElementById('json-type');
+      const jsonLen = document.getElementById('json-len');
+      const jsonTime = document.getElementById('json-time');
+      const jsonStatus = document.getElementById('json-status');
+
+      if (jsonSender) jsonSender.textContent = senderVal ? `"${senderVal}"` : 'null';
+      if (jsonEmail) jsonEmail.textContent = emailVal ? `"${emailVal}"` : 'null';
+      if (jsonType) jsonType.textContent = `"${currentEngagement}"`;
+      if (jsonLen) jsonLen.textContent = String(payloadVal.length);
+      if (jsonTime) jsonTime.textContent = `"${new Date().toISOString()}"`;
+
+      if (jsonStatus) {
+        if (senderVal && emailVal && payloadVal.length > 5) {
+          jsonStatus.textContent = '"buffered_ready"';
+          jsonStatus.className = 'text-primary';
+        } else {
+          jsonStatus.textContent = '"drafting"';
+          jsonStatus.className = 'text-primary-fixed-dim';
+        }
+      }
+    };
+
+    // Buffer reset
+    window.resetBuffer = function() {
+      const form = document.getElementById('transmission-form');
+      if (form) form.reset();
+      const firstPill = document.querySelector('.engagement-pill');
+      if (firstPill) window.selectEngagement(firstPill);
+      window.updateTelemetry();
+      const statusCard = document.getElementById('status-card');
+      if (statusCard) {
+        statusCard.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary-container"></span>
+            <span>BUFFER_PURGED: RESTORED_CLEAN_SLATE</span>
+          </div>
+          <span class="font-code-sm text-code-sm text-on-surface-variant/50">NODE::PKT_01</span>
+        `;
+      }
+    };
+
+    // Dispatch Transmission Animation
+    window.dispatchTransmission = function() {
+      const submitBtn = document.getElementById('btn-submit');
+      const statusCard = document.getElementById('status-card');
+      const statusFlag = document.getElementById('form-status-flag');
+      const senderVal = document.getElementById('sender-name')?.value || 'Guest';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[16px] animate-spin text-primary">sync</span>
+          <span>Broadcasting Packet...</span>
+        `;
+      }
+
+      if (statusCard) {
+        statusCard.innerHTML = `
+          <div class="flex items-center gap-2 text-primary">
+            <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+            <span>TRANSMITTING_ENCRYPTED_STREAM...</span>
+          </div>
+          <span class="font-code-sm text-code-sm text-primary">PACKET #4928</span>
+        `;
+      }
+
+      setTimeout(() => {
+        if (statusCard) {
+          statusCard.innerHTML = `
+            <div class="flex items-center gap-2 text-primary font-medium">
+              <span class="material-symbols-outlined text-[15px] text-primary">check_circle</span>
+              <span>200 OK: ACKNOWLEDGED BY EMAD KHAN NODE</span>
+            </div>
+            <span class="font-code-sm text-code-sm text-on-surface">RESPONSE &lt; 24H</span>
+          `;
+        }
+
+        if (statusFlag) statusFlag.textContent = 'DISPATCH_CONFIRMED_200';
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[16px] text-primary">done_all</span>
+            <span>Sent Successfully</span>
+          `;
+          submitBtn.classList.add('border-primary', 'bg-surface-container');
+        }
+
+        const jsonStatus = document.getElementById('json-status');
+        if (jsonStatus) {
+          jsonStatus.textContent = '"dispatched_200_ack"';
+          jsonStatus.className = 'text-primary font-bold';
+        }
+      }, 1200);
+    };
+
+    // Keyboard shortcut for Cmd/Ctrl+Enter transmit
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        const form = document.getElementById('transmission-form');
+        if (form && form.checkValidity()) {
+          window.dispatchTransmission();
+        } else if (form) {
+          form.reportValidity();
+        }
+      }
+    });
+
+    // Run initial telemetry tick
+    window.updateTelemetry();
+  })();
+</script></main></div></div><footer class="h-7 w-full border-t border-outline-variant/30 bg-surface-container-lowest px-space-lg flex items-center justify-between font-metadata-label text-metadata-label text-on-surface-variant flex-shrink-0 z-50"><div>EMAD KHAN · FRONTEND DEVELOPER · PAKISTAN</div><div class="hidden md:block">UTF-8 · JAVASCRIPT / REACT · LF</div><div class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span>2026 · LATENCY: 18ms · READY</span></div></footer></body></html>

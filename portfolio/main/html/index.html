@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emad Khan — Obsidian Workspace :: Boot</title>
+  <meta name="description" content="Obsidian Workspace - Emad Khan Frontend Developer Portfolio Workspace Initialization Sequence."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/responsive.css"/>
+</head>
+<body class="app-viewport">
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span class="font-code-md" style="color: var(--primary); font-weight: 500;">EK / emad_khan</span>
+        <span class="font-metadata-label" style="opacity: 0.6;">v2.4.0</span>
+      </div>
+      <div style="height: 14px; width: 1px; background-color: rgba(60, 74, 66, 0.3);"></div>
+      <div class="badge-emerald">
+        <span class="pulse-dot"></span>
+        <span class="font-metadata-label" style="letter-spacing: 0.05em;">AVAILABLE FOR WORK</span>
+      </div>
+    </div>
+    <div class="font-code-sm header-breadcrumbs" style="color: var(--text-secondary); display: flex; align-items: center; gap: 0.25rem;">
+      <span style="opacity: 0.5;">workspace</span><span>/</span><span style="opacity: 0.5;">portfolio</span><span>/</span><span style="color: var(--primary); font-weight: 500;">active-buffer</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a class="font-code-sm" style="color: var(--text-secondary);" href="https://github.com/emadkhan" target="_blank" rel="noreferrer">github.com/emadkhan</a>
+      <span style="opacity: 0.4;">•</span>
+      <button class="btn-secondary" data-path="contact">Contact</button>
+      <div style="width: 32px; height: 32px; border-radius: 9999px; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--on-primary);">
+        <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Body Layout -->
+  <div class="app-body">
+    <!-- Sidebar Explorer -->
+    <aside class="app-aside">
+      <div>
+        <div class="sidebar-header" style="height: 32px; padding: 0 0.75rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(60, 74, 66, 0.2);">
+          <span class="font-metadata-label sidebar-header-title" style="font-weight: 600;">Explorer</span>
+          <button class="sidebar-toggle-btn" title="Toggle Sidebar (⌘B)">
+            <span class="material-symbols-outlined" style="font-size: 16px;">dock_to_left</span>
+          </button>
+        </div>
+        <nav style="padding: 0.25rem 0; display: flex; flex-direction: column;">
+          <a class="nav-item" data-path="about" href="about.html" title="about.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">description</span>
+            <span class="sidebar-text">about.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[1]</span>
+          </a>
+          <a class="nav-item" data-path="work" href="work.html" title="work.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">folder_open</span>
+            <span class="sidebar-text">work.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[2]</span>
+          </a>
+          <a class="nav-item" data-path="stack" href="stack.html" title="stack.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">layers</span>
+            <span class="sidebar-text">stack.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[3]</span>
+          </a>
+          <a class="nav-item" data-path="experience" href="experience.html" title="experience.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">history</span>
+            <span class="sidebar-text">experience.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[4]</span>
+          </a>
+          <a class="nav-item" data-path="contact" href="contact.html" title="contact.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">terminal</span>
+            <span class="sidebar-text">contact.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[5]</span>
+          </a>
+        </nav>
+      </div>
+      <div style="border-top: 1px solid rgba(60, 74, 66, 0.3); padding: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;" class="font-code-sm sidebar-footer-text">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="display: flex; align-items: center; gap: 0.25rem;"><span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">alt_route</span> main*</span>
+          <span class="font-metadata-label" style="opacity: 0.5;">c8f4a12</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; opacity: 0.7;" class="font-metadata-label">
+          <span>MEM</span>
+          <span>42.8 MB / 0.1%</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Active Workspace Content -->
+    <main class="app-main">
+      <div class="buffer-tab-bar">
+        <div class="buffer-tab">
+          <span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">code</span>
+          <span>buffer.active</span>
+        </div>
+      </div>
+
+      <!-- Boot Modal Section -->
+      <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 1.5rem; overflow: hidden; background-color: var(--surface-lowest);">
+        <div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.03; background-image: radial-gradient(#4edea3 1px, transparent 1px); background-size: 24px 24px;"></div>
+        
+        <div style="width: 100%; max-width: 672px; background-color: var(--surface-low); border-radius: 0.75rem; border: 1px solid var(--border-default); display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 10;">
+          <!-- Window Title Bar -->
+          <div style="height: 40px; background-color: var(--surface-container); padding: 0 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div style="display: flex; gap: 0.375rem;">
+                <span style="width: 10px; height: 10px; border-radius: 9999px; background-color: var(--surface-bright);"></span>
+                <span style="width: 10px; height: 10px; border-radius: 9999px; background-color: var(--surface-bright);"></span>
+                <span style="width: 10px; height: 10px; border-radius: 9999px; background-color: var(--surface-bright);"></span>
+              </div>
+              <span style="opacity: 0.4;">|</span>
+              <span class="font-code-sm" style="color: var(--text-secondary); font-weight: 500;">EK_WORKSPACE_KERNEL // v2.4.0</span>
+            </div>
+            <div class="font-metadata-label" style="color: var(--primary); display: flex; align-items: center; gap: 0.25rem;">
+              <span class="material-symbols-outlined" style="font-size: 14px;">sync</span>
+              <span style="letter-spacing: 0.1em;">BOOTSTRAP</span>
+            </div>
+          </div>
+
+          <!-- Body Console -->
+          <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <h1 class="font-headline-md" style="color: var(--text-primary); font-weight: 600;">System Initializing</h1>
+                <p class="font-body-sm" style="color: var(--text-secondary);">Synchronizing local execution context and active workspace buffers.</p>
+              </div>
+              <div class="badge-emerald">
+                <span class="pulse-dot"></span>
+                <span>ACTIVE</span>
+              </div>
+            </div>
+
+            <!-- Initialization Terminal Lines -->
+            <div style="background-color: var(--surface-low); border-radius: 0.375rem; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;" class="font-code-sm">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge-emerald">OK</span>
+                <span style="color: var(--text-secondary);">Mounted virtual filesystem:</span>
+                <span class="font-code-sm" style="color: var(--text-primary);">about, work, stack, exp</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge-emerald">OK</span>
+                <span style="color: var(--text-secondary);">Constructed DOM layout tree & style token registries</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="badge-emerald">OK</span>
+                <span style="color: var(--text-secondary);">Established socket handshake:</span>
+                <span style="color: var(--primary);">PKT_NODE: 14ms latency</span>
+              </div>
+              <div id="step-active" style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="padding: 0.125rem 0.375rem; border-radius: 0.25rem; background-color: var(--secondary-container); color: var(--secondary);" class="font-metadata-label">BUSY</span>
+                <span style="color: var(--text-primary);">Hydrating client-side reactive components...</span>
+                <span style="display: inline-block; width: 6px; height: 14px; background-color: var(--primary); margin-left: auto;"></span>
+              </div>
+            </div>
+
+            <!-- Progress Meter -->
+            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <div class="font-metadata-label" style="display: flex; justify-content: space-between; color: var(--text-muted);">
+                <span style="display: flex; align-items: center; gap: 0.25rem;">
+                  <span class="material-symbols-outlined" style="font-size: 13px; color: var(--primary);">memory</span>
+                  TELEMETRY: MEM 42.8 MB / 0.1% CPU
+                </span>
+                <div style="display: flex; gap: 0.5rem;">
+                  <span>CHUNKS: <span id="chunk-display" style="color: var(--text-primary);">14/18</span></span>
+                  <span id="progress-percent" style="color: var(--primary); font-weight: 600;">78%</span>
+                </div>
+              </div>
+              <div style="width: 100%; height: 8px; border-radius: 4px; background-color: var(--surface-container); overflow: hidden; padding: 2px;">
+                <div id="progress-fill" style="height: 100%; border-radius: 2px; background-color: var(--primary); width: 78%; transition: width 0.3s ease-out;"></div>
+              </div>
+            </div>
+
+            <!-- Bypass Control -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.5rem;">
+              <div class="font-metadata-label" style="color: var(--text-muted); display: flex; align-items: center; gap: 0.25rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary-container);"></span>
+                <span>PRESS <kbd style="padding: 2px 6px; background-color: var(--surface-container); border-radius: 2px; color: var(--text-primary);">SPACE</kbd> OR CLICK TO BYPASS SEQUENCE</span>
+              </div>
+              <button id="skip-btn" class="btn-secondary">
+                <span>Bypass sequence</span>
+                <span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">fast_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div>EMAD KHAN · FRONTEND DEVELOPER · PAKISTAN</div>
+    <div>UTF-8 · JAVASCRIPT / REACT · LF</div>
+    <div style="display: flex; align-items: center; gap: 0.25rem;">
+      <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary);"></span>
+      <span>2026 · LATENCY: 18ms · READY</span>
+    </div>
+  </footer>
+
+  <script src="../javascript/main.js"></script>
+</body>
+</html>

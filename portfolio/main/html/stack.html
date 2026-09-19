@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emad Khan — Obsidian Workspace :: stack.emad</title>
+  <meta name="description" content="Technical stack, frontend ecosystem, animation tools, and backend architecture."/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/responsive.css"/>
+</head>
+<body class="app-viewport">
+  <header class="app-header">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span class="font-code-md" style="color: var(--primary); font-weight: 500;">EK / emad_khan</span>
+        <span class="font-metadata-label" style="opacity: 0.6;">v2.4.0</span>
+      </div>
+      <div style="height: 14px; width: 1px; background-color: rgba(60, 74, 66, 0.3);"></div>
+      <div class="badge-emerald">
+        <span class="pulse-dot"></span>
+        <span class="font-metadata-label" style="letter-spacing: 0.05em;">AVAILABLE FOR WORK</span>
+      </div>
+    </div>
+    <div class="font-code-sm header-breadcrumbs" style="color: var(--text-secondary); display: flex; align-items: center; gap: 0.25rem;">
+      <span style="opacity: 0.5;">workspace</span><span>/</span><span style="opacity: 0.5;">portfolio</span><span>/</span><span style="color: var(--primary); font-weight: 500;">active-buffer</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a class="font-code-sm" style="color: var(--text-secondary);" href="https://github.com/emadkhan" target="_blank" rel="noreferrer">github.com/emadkhan</a>
+      <span style="opacity: 0.4;">•</span>
+      <button class="btn-secondary" data-path="contact">Contact</button>
+      <div style="width: 32px; height: 32px; border-radius: 9999px; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--on-primary);">
+        <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside class="app-aside">
+      <div>
+        <div class="sidebar-header" style="height: 32px; padding: 0 0.75rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(60, 74, 66, 0.2);">
+          <span class="font-metadata-label sidebar-header-title" style="font-weight: 600;">Explorer</span>
+          <button class="sidebar-toggle-btn" title="Toggle Sidebar (⌘B)">
+            <span class="material-symbols-outlined" style="font-size: 16px;">dock_to_left</span>
+          </button>
+        </div>
+        <nav style="padding: 0.25rem 0; display: flex; flex-direction: column;">
+          <a class="nav-item" data-path="about" href="about.html" title="about.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">description</span>
+            <span class="sidebar-text">about.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[1]</span>
+          </a>
+          <a class="nav-item" data-path="work" href="work.html" title="work.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">folder_open</span>
+            <span class="sidebar-text">work.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[2]</span>
+          </a>
+          <a class="nav-item active" data-path="stack" href="stack.html" title="stack.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">layers</span>
+            <span class="sidebar-text">stack.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[3]</span>
+          </a>
+          <a class="nav-item" data-path="experience" href="experience.html" title="experience.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">history</span>
+            <span class="sidebar-text">experience.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[4]</span>
+          </a>
+          <a class="nav-item" data-path="contact" href="contact.html" title="contact.emad">
+            <span class="material-symbols-outlined" style="font-size: 15px;">terminal</span>
+            <span class="sidebar-text">contact.emad</span>
+            <span class="font-metadata-label nav-item-badge" style="margin-left: auto; opacity: 0.3;">[5]</span>
+          </a>
+        </nav>
+      </div>
+      <div style="border-top: 1px solid rgba(60, 74, 66, 0.3); padding: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;" class="font-code-sm sidebar-footer-text">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="display: flex; align-items: center; gap: 0.25rem;"><span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">alt_route</span> main*</span>
+          <span class="font-metadata-label" style="opacity: 0.5;">c8f4a12</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; opacity: 0.7;" class="font-metadata-label">
+          <span>MEM</span>
+          <span>42.8 MB / 0.1%</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="buffer-tab-bar">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="padding: 0.25rem 0.5rem; background-color: var(--surface-lowest); border-radius: 0.25rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span class="material-symbols-outlined" style="font-size: 14px; color: var(--primary);">layers</span>
+            <span class="font-code-md" style="color: var(--text-primary);">stack.emad</span>
+            <span class="pulse-dot" style="margin-left: 4px;"></span>
+          </div>
+          <div class="font-metadata-label" style="color: var(--text-secondary); display: flex; gap: 0.25rem;">
+            <span>ARCH_MATRIX</span>
+            <span>::</span>
+            <span style="color: var(--primary); font-weight: 500;">REVISED_2026</span>
+          </div>
+        </div>
+        <div class="font-code-sm" style="margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+          <div style="padding: 2px 6px; background-color: var(--surface-container); border-radius: 2px; display: flex; align-items: center; gap: 0.25rem;" class="font-metadata-label">
+            <span class="material-symbols-outlined" style="font-size: 12px; color: var(--primary);">check_circle</span>
+            <span>STATUS: SYNCHRONIZED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Quadrants Matrix Canvas -->
+      <div class="grid-workspace grid-cols-2" style="flex: 1; padding: 0.75rem; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 0.5rem; overflow-y: auto; background-color: var(--surface-lowest);">
+        <!-- Quadrant 01: FRONTEND -->
+        <section style="background-color: var(--surface-low); border-radius: 0.375rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default);">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="font-code-md" style="color: var(--primary); font-weight: 600;">01 // FRONTEND_ECOSYSTEM</span>
+                <span class="font-metadata-label" style="padding: 2px 6px; background-color: var(--surface-container-high); color: var(--primary); border-radius: 2px;">PRIMARY</span>
+              </div>
+              <span class="material-symbols-outlined" style="color: var(--text-secondary);">web</span>
+            </div>
+            <p class="font-body-sm" style="color: var(--text-secondary);">
+              Deep focus on accessible DOM hierarchies, deterministic state machines, and micro-interaction design.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; padding-top: 0.25rem;">
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary);"></span>React
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary);"></span>TypeScript
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">JavaScript (ES6+)</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Tailwind CSS</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">HTML5 / CSS3</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; padding: 0.5rem; background-color: rgba(13, 14, 15, 0.6); border-radius: 0.25rem; display: flex; flex-direction: column; gap: 0.25rem;">
+            <div class="font-metadata-label" style="display: flex; justify-content: space-between; color: var(--text-muted);">
+              <span>CAPABILITY MATRIX</span>
+              <span style="color: var(--primary);">STABILITY // 99.8%</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem;" class="grid-cols-3">
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">DOM Engine</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Virtual DOM Opt.</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">UI Architecture</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Design Systems</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">Viewport Engine</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Responsive Layouts</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quadrant 02: ANIMATION -->
+        <section style="background-color: var(--surface-low); border-radius: 0.375rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default);">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="font-code-md" style="color: var(--primary); font-weight: 600;">02 // ANIMATION & MOTION</span>
+                <span class="font-metadata-label" style="padding: 2px 6px; background-color: var(--surface-container-high); color: var(--tertiary); border-radius: 2px;">INTERACTION</span>
+              </div>
+              <span class="material-symbols-outlined" style="color: var(--text-secondary);">motion_mode</span>
+            </div>
+            <p class="font-body-sm" style="color: var(--text-secondary);">
+              Choreographed physics-based transitions, scroll-linked interactions, and buttery 60fps renders.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; padding-top: 0.25rem;">
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--tertiary);"></span>GSAP (GreenSock)
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--tertiary);"></span>Framer Motion
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Locomotive Scroll</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">CSS Keyframes</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; padding: 0.5rem; background-color: rgba(13, 14, 15, 0.6); border-radius: 0.25rem; display: flex; flex-direction: column; gap: 0.25rem;">
+            <div class="font-metadata-label" style="display: flex; justify-content: space-between; color: var(--text-muted);">
+              <span>FRAME_BUDGET: 16.6MS</span>
+              <span style="color: var(--tertiary);">TARGET // 60 FPS</span>
+            </div>
+            <div style="height: 32px; width: 100%; display: flex; align-items: flex-end; gap: 2px; background-color: var(--surface-container); padding: 2px; border-radius: 2px;">
+              <div style="height: 50%; flex: 1; background-color: rgba(0, 185, 130, 0.4); border-radius: 2px 2px 0 0;"></div>
+              <div style="height: 75%; flex: 1; background-color: rgba(0, 185, 130, 0.4); border-radius: 2px 2px 0 0;"></div>
+              <div style="height: 60%; flex: 1; background-color: rgba(0, 185, 130, 0.4); border-radius: 2px 2px 0 0;"></div>
+              <div style="height: 90%; flex: 1; background-color: rgba(0, 185, 130, 0.6); border-radius: 2px 2px 0 0;"></div>
+              <div style="height: 100%; flex: 1; background-color: var(--primary); border-radius: 2px 2px 0 0;"></div>
+              <div style="height: 70%; flex: 1; background-color: rgba(0, 185, 130, 0.4); border-radius: 2px 2px 0 0;"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quadrant 03: BACKEND -->
+        <section style="background-color: var(--surface-low); border-radius: 0.375rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default);">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="font-code-md" style="color: var(--primary); font-weight: 600;">03 // BACKEND & DATABASE</span>
+                <span class="font-metadata-label" style="padding: 2px 6px; background-color: var(--surface-container-high); color: var(--secondary); border-radius: 2px;">RUNTIME</span>
+              </div>
+              <span class="material-symbols-outlined" style="color: var(--text-secondary);">dns</span>
+            </div>
+            <p class="font-body-sm" style="color: var(--text-secondary);">
+              Clean route modeling, schema validation, and secure server-rendered architecture.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; padding-top: 0.25rem;">
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--secondary);"></span>Node.js
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Express.js</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary-container);"></span>MongoDB
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">EJS</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">RESTful APIs</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; padding: 0.5rem; background-color: rgba(13, 14, 15, 0.6); border-radius: 0.25rem; display: flex; flex-direction: column; gap: 0.25rem;">
+            <div class="font-metadata-label" style="display: flex; justify-content: space-between; color: var(--text-muted);">
+              <span>PIPELINE INTEGRITY</span>
+              <span style="color: var(--secondary);">TLS 1.3 // RFC 8446</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.25rem;" class="grid-cols-2 font-code-sm">
+              <div style="background-color: var(--surface-container); padding: 0.35rem 0.5rem; border-radius: 2px; display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Auth Protocol</span>
+                <span style="color: var(--primary);">Bearer JWT</span>
+              </div>
+              <div style="background-color: var(--surface-container); padding: 0.35rem 0.5rem; border-radius: 2px; display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">ORM / Schema</span>
+                <span style="color: var(--secondary);">Mongoose Strict</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quadrant 04: MOBILE & TOOLS -->
+        <section style="background-color: var(--surface-low); border-radius: 0.375rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default);">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span class="font-code-md" style="color: var(--primary); font-weight: 600;">04 // MOBILE & TOOLING</span>
+                <span class="font-metadata-label" style="padding: 2px 6px; background-color: var(--surface-container-high); color: var(--primary); border-radius: 2px;">TOOLCHAIN</span>
+              </div>
+              <span class="material-symbols-outlined" style="color: var(--text-secondary);">terminal</span>
+            </div>
+            <p class="font-body-sm" style="color: var(--text-secondary);">
+              Cross-platform mobile interfaces, native Android view hierarchies, and modern build tooling.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; padding-top: 0.25rem;">
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px; display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary);"></span>React Native
+              </span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Java</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">XML</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Git / GitHub</span>
+              <span class="font-code-sm" style="padding: 4px 8px; background-color: var(--surface-container-high); border-radius: 2px;">Vite</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; padding: 0.5rem; background-color: rgba(13, 14, 15, 0.6); border-radius: 0.25rem; display: flex; flex-direction: column; gap: 0.25rem;">
+            <div class="font-metadata-label" style="display: flex; justify-content: space-between; color: var(--text-muted);">
+              <span>COMPILER MATRIX</span>
+              <span style="color: var(--primary);">HERMES // V8</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem;" class="grid-cols-3">
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">Bundler</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Vite 5 / Metro</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">VCS Rig</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Git Tree Hooks</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: 0.35rem; border-radius: 2px;">
+                <div class="font-metadata-label" style="color: var(--text-muted);">API Suite</div>
+                <div class="font-code-sm" style="color: var(--text-primary); font-weight: 500;">Postman Collab</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Bottom Micro Bar -->
+      <div style="height: 36px; padding: 0 1rem; background-color: var(--surface-low); display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-default);">
+        <div style="display: flex; align-items: center; gap: 0.5rem;" class="font-code-sm">
+          <div class="pulse-dot"></div>
+          <span>CURRENT WORKFLOW: <span style="color: var(--primary);">VS Code</span> + <span style="color: var(--primary);">Warp Terminal</span> + <span style="color: var(--primary);">Figma to Code</span>.</span>
+        </div>
+        <div class="font-metadata-label" style="color: var(--text-muted); display: flex; gap: 0.75rem;">
+          <span>ENV: PRODUCTION_READY</span>
+          <span style="color: var(--primary);">LATENCY: &lt;12ms</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    <div>EMAD KHAN · FRONTEND DEVELOPER · PAKISTAN</div>
+    <div>UTF-8 · JAVASCRIPT / REACT · LF</div>
+    <div style="display: flex; align-items: center; gap: 0.25rem;">
+      <span style="width: 6px; height: 6px; border-radius: 9999px; background-color: var(--primary);"></span>
+      <span>2026 · LATENCY: 18ms · READY</span>
+    </div>
+  </footer>
+
+  <script src="../javascript/main.js"></script>
+</body>
+</html>
