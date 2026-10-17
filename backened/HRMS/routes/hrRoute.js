@@ -37,6 +37,7 @@ router.get("/user/:id", async (req, res) => {
 router.get("/leave/approve/:id", async (req, res) => {
   try {
     let leave = await leaveModal.findById(req.params.id);
+    let user = await userModal.findById(leave.user);
     console.log(leave);
     if(!leave){
         req.flash("error","leave not found")
@@ -50,6 +51,10 @@ router.get("/leave/approve/:id", async (req, res) => {
       return res.redirect("/hr/leaves");
     }
     leave.status = "approved";
+    user.leaves.approvedLeaves.push(leave._id);
+    user.leaves.pendingLeaves.pull(leave._id);
+    user.leaves.totalLeaves.pull(leave._id);
+    await user.save();
     await leave.save();
     res.redirect("/hr/leaves");
   } catch (err) {
@@ -59,6 +64,8 @@ router.get("/leave/approve/:id", async (req, res) => {
 router.get("/leave/reject/:id", async (req, res) => {
   try {
     let leave = await leaveModal.findById(req.params.id);
+    let user = await userModal.findById(leave.user);
+    console.log(user);
     console.log(leave);
     if(!leave){
         req.flash("error","leave not found")
@@ -73,6 +80,10 @@ router.get("/leave/reject/:id", async (req, res) => {
       return res.redirect("/hr/leaves");
     }
     leave.status = "rejected";
+    user.leaves.rejectedLeaves.push(leave._id);
+    user.leaves.pendingLeaves.pull(leave._id);
+    user.leaves.totalLeaves.pull(leave._id);
+    await user.save();
     await leave.save();
     res.redirect("/hr/leaves");
   } catch (err) {

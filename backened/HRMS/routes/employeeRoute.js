@@ -8,12 +8,14 @@ const adminModel = require("../models/adminModel");
 router.get("/",isLoggedIn,async(req,res)=>{
     let users = req.user;
     // console.log(req.user)
+    let errorMessage = req.flash("error");
     let successMessage = req.flash("success");
     let employee=await userModel.findById(users.id).populate("leaves.totalLeaves").populate("leaves.approvedLeaves").populate("leaves.rejectedLeaves").populate("leaves.pendingLeaves");
     res.render("empDashboard", { successMessage,user:employee, leaves:employee.leaves.totalLeaves, approvedLeaves:employee.leaves.approvedLeaves, rejectedLeaves:employee.leaves.rejectedLeaves, pendingLeaves:employee.leaves.pendingLeaves });
 });
 router.post("/leave/create",isLoggedIn,async(req,res)=>{
-    let admin=await adminModel.findOne({role:"admin"});
+    try{
+        let admin=await adminModel.findOne({role:"admin"});
     let users = req.user;
     let employee=await userModel.findById(users.id);
     let leave=await leaveModel.create({
@@ -31,6 +33,12 @@ router.post("/leave/create",isLoggedIn,async(req,res)=>{
     await admin.save();
     req.flash("success","Leave request created successfully");
     res.redirect("/employee");
+    }
+    catch(err){
+        console.log(err);
+        req.flash("error","Something went wrong");
+        res.redirect("/employee");
+    }
 });
 
 module.exports=router;
